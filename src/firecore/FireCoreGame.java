@@ -1,10 +1,9 @@
 package firecore;
 
-import doctrina.Camera;
+import doctrina.*;
 import doctrina.Canvas;
-import doctrina.Game;
-import doctrina.StaticEntity;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,5 +54,7 @@ public class FireCoreGame extends Game {
                 entity.draw(canvas);
             }
         }
+
+        canvas.drawString("FPS " + GameTime.getCurrentFps(), 20, 20, Color.WHITE);
     }
 }
