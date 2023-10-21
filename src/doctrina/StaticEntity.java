@@ -8,6 +8,7 @@ public abstract class StaticEntity {
     protected int y;
     protected int width;
     protected int height;
+    protected boolean render;
 
     public abstract void draw(Canvas canvas);
 
@@ -43,5 +44,17 @@ public abstract class StaticEntity {
 
     public int getHeight() {
         return height;
+    }
+
+    public void setRender(boolean render) {
+        this.render = render;
+    }
+
+    public boolean getRender() {
+        return render;
+    }
+
+    public boolean isInCameraField(Camera camera) {
+        return camera.isItInArea(this);
     }
 }

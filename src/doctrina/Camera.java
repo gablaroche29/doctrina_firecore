@@ -25,20 +25,15 @@ public class Camera extends StaticEntity {
         setDestination(entityX - (width / 2), entityY - (height / 2));
     }
 
+    public boolean isItInArea(StaticEntity entity) {
+//        return entity.getX() >= x && entity.getX() <= x + width
+//                && entity.getY() >= y && entity.getY() <= y + height;
+        return intersectWidth(entity);
+    }
+
     private void setDestination(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-//    private Direction getDirection() {
-//        return entity.getDirection();
-//    }
-//
-//    private void destination(DestinationCalculator calculatorX, DestinationCalculator calculatorY) {
-//        setDestination(calculatorX.calculate(), calculatorY.calculate());
-//    }
-//
-//    private interface DestinationCalculator {
-//        int calculate();
-//    }
 }

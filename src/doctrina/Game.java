@@ -4,7 +4,6 @@ package doctrina;
 public abstract class Game {
 
     private final RenderingEngine renderingEngine;
-    protected Camera camera;
     private boolean playing = true;
 
     protected abstract void initialize();
