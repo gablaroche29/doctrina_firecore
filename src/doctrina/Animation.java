@@ -6,6 +6,14 @@ import java.awt.image.BufferedImage;
 public class Animation {
 
     private final BufferedImage spriteSheet;
+
+    private final int startingX;
+    private final int startingY;
+    private final int endX;
+    private final int endY;
+    private final int numberOfSpritePerRow;
+    private final int numberOfSpritePerColumn;
+
     private Image[] rightFrames;
     private Image[] leftFrames;
     private Image[] upFrames;
@@ -16,12 +24,22 @@ public class Animation {
 
     private static final int ANIMATION_SPEED = 8;
     private int currentAnimationFrame = 1; // idle
-    private int nexFrame = ANIMATION_SPEED;
+    private int nextFrame = ANIMATION_SPEED;
 
-    public Animation(StaticEntity entity, BufferedImage spriteSheet) {
+    public Animation(StaticEntity entity, BufferedImage spriteSheet,
+                     int startingX, int startingY, int endX, int endY) {
         spriteWidth = entity.getWidth();
         spriteHeight = entity.getHeight();
         this.spriteSheet = spriteSheet;
+
+        this.startingX = startingX;
+        this.startingY = startingY;
+        this.endX = endX;
+        this.endY = endY;
+
+        this.numberOfSpritePerRow = (endX - startingX) / spriteWidth;
+        this.numberOfSpritePerColumn = (endY - startingY) / spriteHeight;
+
         loadAnimationFrames();
     }
 
@@ -39,13 +57,13 @@ public class Animation {
     }
 
     public void update() {
-        nexFrame--;
-        if (nexFrame == 0) {
+        nextFrame--;
+        if (nextFrame == 0) {
             currentAnimationFrame++;
             if (currentAnimationFrame >= leftFrames.length) {
                 currentAnimationFrame = 0;
             }
-            nexFrame = ANIMATION_SPEED;
+            nextFrame = ANIMATION_SPEED;
         }
     }
 
@@ -54,18 +72,19 @@ public class Animation {
     }
 
     private void loadAnimationFrames() {
-        downFrames = setSprites(0);
-        leftFrames = setSprites(32);
-        rightFrames = setSprites(64);
-        upFrames = setSprites(96);
+
+        downFrames = setSprites(startingY);
+        leftFrames = setSprites(startingY + spriteHeight);
+        rightFrames = setSprites(startingY + (spriteHeight * 2));
+        upFrames = setSprites(startingY + (spriteHeight * 3));
     }
 
     private Image[] setSprites(int height) {
-        Image[] sprites = new Image[3];
-        int width = 192;
+        int currentX = startingX;
+        Image[] sprites = new Image[numberOfSpritePerRow];
         for (int i = 0; i < sprites.length; i++) {
-            sprites[i] = spriteSheet.getSubimage(width, height, spriteWidth, spriteHeight);
-            width += spriteWidth;
+            sprites[i] = spriteSheet.getSubimage(currentX, height, spriteWidth, spriteHeight);
+            currentX += spriteWidth;
         }
         return sprites;
     }

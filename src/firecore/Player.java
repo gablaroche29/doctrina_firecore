@@ -21,7 +21,7 @@ public class Player extends ControllableEntity {
         setDimension(32, 32);
         setSpeed(3);
         loadSpriteSheet();
-        animation = new Animation(this, spriteSheet);
+        animation = new Animation(this, spriteSheet, 192, 0, 288, 128);
     }
 
     @Override

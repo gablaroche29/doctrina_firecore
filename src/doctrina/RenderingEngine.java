@@ -50,7 +50,6 @@ public class RenderingEngine {
 
     private void initializePanel() {
         panel = new JPanel();
-        //panel.setBackground(Color.BLACK);
         panel.setFocusable(true);
         panel.setDoubleBuffered(true);
         frame.add(panel);
@@ -65,7 +64,6 @@ public class RenderingEngine {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setState(JFrame.NORMAL);
         frame.setUndecorated(true);
-        frame.setBackground(Color.BLACK);
     }
 
     private RenderingHints buildRenderingHints() {
