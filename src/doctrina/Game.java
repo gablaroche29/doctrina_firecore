@@ -5,6 +5,7 @@ public abstract class Game {
 
     private final RenderingEngine renderingEngine;
     private boolean playing = true;
+    protected Camera camera;
 
     protected abstract void initialize();
     protected abstract void update();

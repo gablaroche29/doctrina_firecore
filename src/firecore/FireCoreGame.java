@@ -12,7 +12,6 @@ public class FireCoreGame extends Game {
     private GamePad gamePad;
     private Player player;
     private Tree tree;
-    private Camera camera;
     private List<StaticEntity> renderingEntities;
 
     @Override
@@ -47,7 +46,7 @@ public class FireCoreGame extends Game {
     protected void draw(Canvas canvas) {
         player.draw(canvas);
         player.drawHitBox(canvas);
-        camera.draw(canvas);
+        //camera.draw(canvas);
 
         for (StaticEntity entity : renderingEntities) {
             if (entity.getRender()) {
