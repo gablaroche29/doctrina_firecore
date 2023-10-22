@@ -31,7 +31,7 @@ public abstract class Game {
         while (playing) {
             update();
             draw(renderingEngine.buildCanvas());
-            renderingEngine.drawOnScreen();
+            renderingEngine.drawOnScreen(camera);
             gameTime.synchronize();
         }
         renderingEngine.stop();

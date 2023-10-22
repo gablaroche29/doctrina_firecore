@@ -12,6 +12,7 @@ public class FireCoreGame extends Game {
     private GamePad gamePad;
     private Player player;
     private Tree tree;
+    private World world;
     private List<StaticEntity> renderingEntities;
 
     @Override
@@ -22,6 +23,8 @@ public class FireCoreGame extends Game {
         tree = new Tree();
         tree.teleport(200, 200);
         camera = new Camera(player, 800, 600);
+        world = new World();
+        world.teleport(0, 0);
 
         renderingEntities = new ArrayList<>();
         renderingEntities.add(tree);
@@ -44,15 +47,19 @@ public class FireCoreGame extends Game {
 
     @Override
     protected void draw(Canvas canvas) {
-        player.draw(canvas);
-        player.drawHitBox(canvas);
-        //camera.draw(canvas);
-
+        if (world.isInCameraField(camera)) {
+            world.draw(canvas);
+        }
         for (StaticEntity entity : renderingEntities) {
             if (entity.getRender()) {
                 entity.draw(canvas);
             }
         }
+        player.draw(canvas);
+        player.drawHitBox(canvas);
+        //camera.draw(canvas);
+
+
 
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 20, 20, Color.WHITE);
     }
