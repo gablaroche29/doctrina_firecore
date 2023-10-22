@@ -43,7 +43,7 @@ public class RenderingEngine {
 
     public void drawOnScreen(Camera camera) {
         Graphics2D graphics = (Graphics2D) panel.getGraphics();
-        graphics.clearRect(0, 0, panel.getWidth(), panel.getHeight());
+        //graphics.clearRect(0, 0, panel.getWidth(), panel.getHeight());
         graphics.drawImage(bufferedImage, -camera.getX(), -camera.getY(), panel);
         Toolkit.getDefaultToolkit().sync();
         graphics.dispose();
