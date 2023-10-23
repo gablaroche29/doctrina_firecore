@@ -9,11 +9,13 @@ import java.io.IOException;
 
 public class World extends StaticEntity {
 
+    //private static final String MAP_PATH = "images/backgrounds/island.png";
     private static final String MAP_PATH = "images/bg_forest.png";
     private Image background;
 
     public World() {
-        setDimension(896, 624);
+        //setDimension(3200, 3200);
+        setDimension(896, 6624);
         load();
     }
 
