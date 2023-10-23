@@ -1,27 +1,20 @@
 package firecore;
 
+import doctrina.*;
 import doctrina.Canvas;
-import doctrina.AnimationHandler;
-import doctrina.ControllableEntity;
-import doctrina.MovementController;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Player extends ControllableEntity {
 
-    private static final String SPRITE_PATH = "images/characters/characters.png";
-    private BufferedImage spriteSheet;
-    private final AnimationHandler animationHandler;
+    private static final String SPRITE_PATH = "images/characters/monsters.png";
+    private AnimationHandler animationHandler;
 
     public Player(MovementController controller) {
         super(controller);
         setDimension(32, 32);
         setSpeed(3);
-        loadSpriteSheet();
-        animationHandler = new AnimationHandler(this, spriteSheet, 192, 0, 288, 128);
+        loadAnimationHandler();
     }
 
     @Override
@@ -31,6 +24,7 @@ public class Player extends ControllableEntity {
 
         if (hasMoved()) {
             animationHandler.update();
+
         } else {
             animationHandler.reset();
         }
@@ -38,15 +32,19 @@ public class Player extends ControllableEntity {
 
     @Override
     public void draw(Canvas canvas) {
-        Image sprite = animationHandler.getSprite(getDirection());
+        Image sprite = animationHandler.getDirectionSprite(getDirection());
         canvas.drawImage(sprite, x, y);
     }
 
-    private void loadSpriteSheet() {
-        try {
-            spriteSheet = ImageIO.read(this.getClass().getClassLoader().getResourceAsStream(SPRITE_PATH));
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
+    private void loadAnimationHandler() {
+        animationHandler = new AnimationHandler();
+        animationHandler.setDownAnimation(new Animation(0, 0,
+                32, 32, 3, SPRITE_PATH));
+        animationHandler.setUpAnimation(new Animation(0, 96,
+                32, 32, 3, SPRITE_PATH));
+        animationHandler.setLeftAnimation(new Animation(0, 32,
+                32, 32, 3, SPRITE_PATH));
+        animationHandler.setRightAnimation(new Animation(0, 64,
+                32, 32, 3, SPRITE_PATH));
     }
 }

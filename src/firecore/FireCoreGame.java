@@ -57,10 +57,6 @@ public class FireCoreGame extends Game {
         }
         player.draw(canvas);
         player.drawHitBox(canvas);
-        //camera.draw(canvas);
-
-
-
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 20, 20, Color.WHITE);
     }
 }

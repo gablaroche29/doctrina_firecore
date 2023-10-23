@@ -1,66 +1,36 @@
 package doctrina;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
-public class AnimationHandler {
-
-    private final BufferedImage spriteSheet;
-
-    private final int startingX;
-    private final int startingY;
-    private final int endX;
-    private final int endY;
-    private final int numberOfSpritePerRow;
-    private final int numberOfSpritePerColumn;
-
-    private Image[] rightFrames;
-    private Image[] leftFrames;
-    private Image[] upFrames;
-    private Image[] downFrames;
-
-    private final int spriteWidth;
-    private final int spriteHeight;
+public class  AnimationHandler {
 
     private static final int ANIMATION_SPEED = 8;
     private int currentAnimationFrame = 1; // idle
     private int nextFrame = ANIMATION_SPEED;
 
-    public AnimationHandler(StaticEntity entity, BufferedImage spriteSheet,
-                            int startingX, int startingY, int endX, int endY) {
-        spriteWidth = entity.getWidth();
-        spriteHeight = entity.getHeight();
-        this.spriteSheet = spriteSheet;
+    private Animation upAnimation;
+    private Animation downAnimation;
+    private Animation leftAnimation;
+    private Animation rightAnimation;
 
-        this.startingX = startingX;
-        this.startingY = startingY;
-        this.endX = endX;
-        this.endY = endY;
-
-        this.numberOfSpritePerRow = (endX - startingX) / spriteWidth;
-        this.numberOfSpritePerColumn = (endY - startingY) / spriteHeight;
-
-        loadAnimationFrames();
-    }
-
-    public Image getSprite(Direction direction) {
+    public Image getDirectionSprite(Direction direction) {
         if (direction == Direction.RIGHT) {
-            return rightFrames[currentAnimationFrame];
+            return rightAnimation.getSprite(currentAnimationFrame);
         } else if (direction == Direction.LEFT) {
-            return leftFrames[currentAnimationFrame];
+            return leftAnimation.getSprite(currentAnimationFrame);
         } else if (direction == Direction.UP) {
-            return upFrames[currentAnimationFrame];
+            return upAnimation.getSprite(currentAnimationFrame);
         } else if (direction == Direction.DOWN) {
-            return downFrames[currentAnimationFrame];
+            return downAnimation.getSprite(currentAnimationFrame);
         }
-        return upFrames[1];
+        return upAnimation.getSprite(1);
     }
 
     public void update() {
         nextFrame--;
         if (nextFrame == 0) {
             currentAnimationFrame++;
-            if (currentAnimationFrame >= leftFrames.length) {
+            if (currentAnimationFrame >= upAnimation.getLengthSprites()) {
                 currentAnimationFrame = 0;
             }
             nextFrame = ANIMATION_SPEED;
@@ -71,21 +41,35 @@ public class AnimationHandler {
         currentAnimationFrame = 1;
     }
 
-    private void loadAnimationFrames() {
-        downFrames = SpriteSheetSlicer.getVerticalySprites(0, 0, 32, 32, 3, "images/characters/monsters.png");
-        leftFrames = setSprites(startingY + spriteHeight);
-        rightFrames = setSprites(startingY + (spriteHeight * 2));
-        upFrames = setSprites(startingY + (spriteHeight * 3));
+    public Animation getUpAnimation() {
+        return upAnimation;
     }
 
-    private Image[] setSprites(int height) {
-        int currentX = startingX;
-        Image[] sprites = new Image[numberOfSpritePerRow];
-        for (int i = 0; i < sprites.length; i++) {
-            sprites[i] = SpriteSheetSlicer.getSprite(currentX, height, spriteWidth, spriteHeight, "images/characters/characters.png");
-            sprites[i] = spriteSheet.getSubimage(currentX, height, spriteWidth, spriteHeight);
-            currentX += spriteWidth;
-        }
-        return sprites;
+    public void setUpAnimation(Animation upAnimation) {
+        this.upAnimation = upAnimation;
+    }
+
+    public Animation getDownAnimation() {
+        return downAnimation;
+    }
+
+    public void setDownAnimation(Animation downAnimation) {
+        this.downAnimation = downAnimation;
+    }
+
+    public Animation getLeftAnimation() {
+        return leftAnimation;
+    }
+
+    public void setLeftAnimation(Animation leftAnimation) {
+        this.leftAnimation = leftAnimation;
+    }
+
+    public Animation getRightAnimation() {
+        return rightAnimation;
+    }
+
+    public void setRightAnimation(Animation rightAnimation) {
+        this.rightAnimation = rightAnimation;
     }
 }
