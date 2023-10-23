@@ -1,7 +1,7 @@
 package firecore;
 
 import doctrina.Canvas;
-import doctrina.Animation;
+import doctrina.AnimationHandler;
 import doctrina.ControllableEntity;
 import doctrina.MovementController;
 
@@ -14,14 +14,14 @@ public class Player extends ControllableEntity {
 
     private static final String SPRITE_PATH = "images/characters/characters.png";
     private BufferedImage spriteSheet;
-    private final Animation animation;
+    private final AnimationHandler animationHandler;
 
     public Player(MovementController controller) {
         super(controller);
         setDimension(32, 32);
         setSpeed(3);
         loadSpriteSheet();
-        animation = new Animation(this, spriteSheet, 192, 0, 288, 128);
+        animationHandler = new AnimationHandler(this, spriteSheet, 192, 0, 288, 128);
     }
 
     @Override
@@ -30,15 +30,15 @@ public class Player extends ControllableEntity {
         moveWithController();
 
         if (hasMoved()) {
-            animation.update();
+            animationHandler.update();
         } else {
-            animation.reset();
+            animationHandler.reset();
         }
     }
 
     @Override
     public void draw(Canvas canvas) {
-        Image sprite = animation.getSprite(getDirection());
+        Image sprite = animationHandler.getSprite(getDirection());
         canvas.drawImage(sprite, x, y);
     }
 
