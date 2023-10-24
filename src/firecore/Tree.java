@@ -1,5 +1,6 @@
 package firecore;
 
+import doctrina.Camera;
 import doctrina.Canvas;
 import doctrina.StaticEntity;
 
@@ -18,8 +19,8 @@ public class Tree extends StaticEntity {
     }
 
     @Override
-    public void draw(Canvas canvas) {
-        canvas.drawImage(spriteSheet, x, y);
+    public void draw(Canvas canvas, Camera camera) {
+        canvas.drawImage(spriteSheet, x - camera.getX(), y - camera.getY());
     }
 
     private void loadSpriteSheet() {

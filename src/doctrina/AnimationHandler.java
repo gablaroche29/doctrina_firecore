@@ -23,7 +23,7 @@ public class  AnimationHandler {
         } else if (direction == Direction.DOWN) {
             return downAnimation.getSprite(currentAnimationFrame);
         }
-        return upAnimation.getSprite(1);
+        return downAnimation.getSprite(1);
     }
 
     public void update() {

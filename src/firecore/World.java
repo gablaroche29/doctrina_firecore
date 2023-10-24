@@ -1,5 +1,6 @@
 package firecore;
 
+import doctrina.Camera;
 import doctrina.Canvas;
 import doctrina.StaticEntity;
 
@@ -9,13 +10,14 @@ import java.io.IOException;
 
 public class World extends StaticEntity {
 
-    //private static final String MAP_PATH = "images/backgrounds/island.png";
-    private static final String MAP_PATH = "images/bg_forest.png";
+    private static final String MAP_PATH = "images/backgrounds/island.png";
+    //private static final String MAP_PATH = "images/bg_forest.png";
     private Image background;
 
     public World() {
-        //setDimension(3200, 3200);
-        setDimension(896, 6624);
+        setDimension(3200, 3200);
+        teleport(0, 0);
+        //setDimension(896, 6624);
         load();
     }
 
@@ -29,7 +31,7 @@ public class World extends StaticEntity {
     }
 
     @Override
-    public void draw(Canvas canvas) {
-        canvas.drawImage(background, 0, 0);
+    public void draw(Canvas canvas, Camera camera) {
+        canvas.drawImage(background, x - camera.getX(), y - camera.getY());
     }
 }

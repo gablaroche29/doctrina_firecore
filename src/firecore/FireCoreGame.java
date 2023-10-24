@@ -19,12 +19,11 @@ public class FireCoreGame extends Game {
     protected void initialize() {
         gamePad = new GamePad();
         player = new Player(gamePad);
-        player.teleport(400, 300);
+        player.teleport(400, 350);
         tree = new Tree();
         tree.teleport(200, 200);
         camera = new Camera(player, 800, 600);
         world = new World();
-        world.teleport(0, 0);
 
         renderingEntities = new ArrayList<>();
         renderingEntities.add(tree);
@@ -36,26 +35,24 @@ public class FireCoreGame extends Game {
             stop();
         }
         player.update();
+        for (StaticEntity entity : renderingEntities) {
+            entity.setRender(entity.isInCameraField(camera));
+        }
 
         if (player.hasMoved()) {
             camera.update();
-            for (StaticEntity entity : renderingEntities) {
-                entity.setRender(entity.isInCameraField(camera));
-            }
         }
     }
 
     @Override
     protected void draw(Canvas canvas) {
-        if (world.isInCameraField(camera)) {
-            world.draw(canvas);
-        }
+        world.draw(canvas, camera);
         for (StaticEntity entity : renderingEntities) {
             if (entity.getRender()) {
-                entity.draw(canvas);
+                entity.draw(canvas, camera);
             }
         }
-        player.draw(canvas);
+        player.draw(canvas, camera);
         player.drawHitBox(canvas);
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 20, 20, Color.WHITE);
     }

@@ -41,10 +41,9 @@ public class RenderingEngine {
         return new Canvas(buffer);
     }
 
-    public void drawOnScreen(Camera camera) {
+    public void drawOnScreen() {
         Graphics2D graphics = (Graphics2D) panel.getGraphics();
-        //graphics.clearRect(0, 0, panel.getWidth(), panel.getHeight());
-        graphics.drawImage(bufferedImage, -camera.getX(), -camera.getY(), panel);
+        graphics.drawImage(bufferedImage, 0, 0, panel);
         Toolkit.getDefaultToolkit().sync();
         graphics.dispose();
     }
@@ -61,7 +60,7 @@ public class RenderingEngine {
         frame.setSize(800, 600);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
-        frame.setBackground(Color.BLACK);
+        //frame.setBackground(Color.BLACK);
         frame.setTitle("Doctrina Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setState(JFrame.NORMAL);

@@ -31,9 +31,9 @@ public class Player extends ControllableEntity {
     }
 
     @Override
-    public void draw(Canvas canvas) {
+    public void draw(Canvas canvas, Camera camera) {
         Image sprite = animationHandler.getDirectionSprite(getDirection());
-        canvas.drawImage(sprite, x, y);
+        canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
     }
 
     private void loadAnimationHandler() {
