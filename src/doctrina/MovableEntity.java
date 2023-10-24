@@ -85,10 +85,10 @@ public abstract class MovableEntity extends StaticEntity {
         return getHitBox().intersects(other.getBounds());
     }
 
-    public void drawHitBox(Canvas canvas) {
+    public void drawHitBox(Canvas canvas, Camera camera) {
         Rectangle rectangle = getHitBox();
         Color color = new Color(255, 0, 0, 200);
-        canvas.drawRectangle(rectangle.x, rectangle.y, rectangle.width, rectangle.height, color);
+        canvas.drawRectangle(rectangle.x - camera.getX(), rectangle.y - camera.getY(), rectangle.width, rectangle.height, color);
     }
 
     private Rectangle getUpperHitBox() {

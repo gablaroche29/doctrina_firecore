@@ -20,7 +20,7 @@ public class FireCoreGame extends Game {
         gamePad = new GamePad();
         player = new Player(gamePad);
         player.teleport(400, 350);
-        tree = new Tree();
+        tree = new Tree(200, 200);
         tree.teleport(200, 200);
         camera = new Camera(player, 800, 600);
         world = new World();
@@ -53,7 +53,7 @@ public class FireCoreGame extends Game {
             }
         }
         player.draw(canvas, camera);
-        player.drawHitBox(canvas);
+        player.drawHitBox(canvas, camera);
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 20, 20, Color.WHITE);
     }
 }

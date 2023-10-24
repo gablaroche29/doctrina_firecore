@@ -26,9 +26,7 @@ public class Camera extends StaticEntity {
     }
 
     public boolean isItInArea(StaticEntity entity) {
-//        return entity.getX() >= x && entity.getX() <= x + width
-//                && entity.getY() >= y && entity.getY() <= y + height;
-        return intersectWidth(entity);
+        return intersectWith(entity);
     }
 
     private void setDestination(int x, int y) {

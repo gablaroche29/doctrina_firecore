@@ -1,5 +1,6 @@
 package firecore;
 
+import doctrina.Blockade;
 import doctrina.Camera;
 import doctrina.Canvas;
 import doctrina.StaticEntity;
@@ -12,15 +13,25 @@ public class Tree extends StaticEntity {
 
     private static final String SPRITE_PATH = "images/tree.png";
     private BufferedImage spriteSheet;
+    private Blockade blockade;
 
-    public Tree() {
+    public Tree(int x, int y) {
+        teleport(x, y);
         setDimension(64, 80);
         loadSpriteSheet();
+        blockade = new Blockade();
+        blockade.setDimension(30, 16);
+        blockadeFromTop();
+    }
+
+    public void blockadeFromTop() {
+        blockade.teleport(x + 16, y + 64);
     }
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
         canvas.drawImage(spriteSheet, x - camera.getX(), y - camera.getY());
+        blockade.draw(canvas, camera);
     }
 
     private void loadSpriteSheet() {
