@@ -4,7 +4,9 @@ import java.awt.*;
 
 public class Blockade extends StaticEntity {
 
-    public Blockade() {
+    public Blockade(int x, int y) {
+        teleport(x, y);
+        setDimension(32, 32);
         CollidableRepository.getInstance().registerEntity(this);
     }
 

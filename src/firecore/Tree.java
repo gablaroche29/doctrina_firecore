@@ -19,13 +19,7 @@ public class Tree extends StaticEntity {
         teleport(x, y);
         setDimension(64, 80);
         loadSpriteSheet();
-        blockade = new Blockade();
-        blockade.setDimension(30, 16);
-        blockadeFromTop();
-    }
-
-    public void blockadeFromTop() {
-        blockade.teleport(x + 16, y + 64);
+        blockade = new Blockade(x + 16, y + 64);
     }
 
     @Override
