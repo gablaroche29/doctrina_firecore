@@ -3,6 +3,7 @@ package doctrina;
 import firecore.Player;
 
 import java.awt.*;
+import java.util.Collection;
 
 public class Blockade extends StaticEntity {
 
@@ -12,13 +13,21 @@ public class Blockade extends StaticEntity {
         CollidableRepository.getInstance().registerEntity(this);
     }
 
-    public void update(Player player) {
-        if (!intersectWith(player.getCollisionDetector())) {
-            CollidableRepository.getInstance().unregisterEntity(this);
-            setRender(false);
-        } else {
+    public void update(Collection<MovableEntity> entities) {
+        int me = 0;
+
+        for (MovableEntity entity : entities) {
+            if (intersectWith(entity.getCollisionDetector())) {
+                me++;
+            }
+        }
+
+        if (me > 0) {
             CollidableRepository.getInstance().registerEntity(this);
             setRender(true);
+        } else {
+            CollidableRepository.getInstance().unregisterEntity(this);
+            setRender(false);
         }
     }
 

@@ -1,13 +1,12 @@
 package firecore;
 
-import doctrina.Blockade;
-import doctrina.Camera;
+import doctrina.*;
 import doctrina.Canvas;
-import doctrina.StaticEntity;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
+import java.util.Collection;
 
 public class World extends StaticEntity {
 
@@ -24,9 +23,15 @@ public class World extends StaticEntity {
         collisionRepository = new CollisionRepository(COLLISIONS_PATH, 100, 100, 32, 763);
     }
 
-    public void updateCollisionWorld(Player player) {
+//    public void updateCollisionWorld(MovableEntity movableEntity) {
+//        for (Blockade blockade : collisionRepository.getCollisions()) {
+//            blockade.update(movableEntity);
+//        }
+//    }
+
+    public void updateCollisionWorld(Collection<MovableEntity> entities) {
         for (Blockade blockade : collisionRepository.getCollisions()) {
-            blockade.update(player);
+            blockade.update(entities);
         }
     }
 

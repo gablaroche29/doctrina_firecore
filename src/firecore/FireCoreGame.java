@@ -11,6 +11,8 @@ public class FireCoreGame extends Game {
 
     private GamePad gamePad;
     private Player player;
+    private Monster monster;
+    private List<MovableEntity> collidableEntities;
     private Tree tree;
     private World world;
     private List<StaticEntity> renderingEntities;
@@ -25,8 +27,15 @@ public class FireCoreGame extends Game {
         camera = new Camera(player, 800, 600);
         world = new World();
 
+        monster = new Monster();
+
         renderingEntities = new ArrayList<>();
         renderingEntities.add(tree);
+
+
+        collidableEntities = new ArrayList<>();
+        collidableEntities.add(player);
+        collidableEntities.add(monster);
     }
 
     @Override
@@ -43,7 +52,9 @@ public class FireCoreGame extends Game {
             camera.update();
         }
 
-        world.updateCollisionWorld(player);
+        world.updateCollisionWorld(collidableEntities);
+
+        monster.update();
     }
 
     @Override
@@ -59,6 +70,7 @@ public class FireCoreGame extends Game {
         player.draw(canvas, camera);
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 20, 20, Color.WHITE);
 
+        monster.draw(canvas, camera);
         //camera.draw(canvas, camera);
     }
 }

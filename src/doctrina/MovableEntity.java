@@ -10,6 +10,8 @@ public abstract class MovableEntity extends StaticEntity {
     private int lastX = Integer.MIN_VALUE;
     private int lastY = Integer.MIN_VALUE;
     private boolean moved = false;
+    private final static int collisionDetectorBound = 100;
+    private final static int collisionDetectorPos = 50;
 
     public MovableEntity() {
         collision = new Collision(this);
@@ -92,11 +94,11 @@ public abstract class MovableEntity extends StaticEntity {
     }
 
     public Rectangle getCollisionDetector() {
-        return new Rectangle(x - 50, y - 50, width + 100, height + 100);
+        return new Rectangle(x - collisionDetectorPos, y - collisionDetectorPos, width + collisionDetectorBound, height + collisionDetectorBound);
     }
 
     public void drawCollisionDetector(Canvas canvas, Camera camera) {
-        canvas.drawRectangle(x - camera.getX() - 50, y - camera.getY() - 50, 132, 132, Color.WHITE);
+        canvas.drawRectangle(x - camera.getX() - collisionDetectorPos, y - camera.getY() - collisionDetectorPos, width + collisionDetectorBound, height + collisionDetectorBound, new Color(0, 0, 255, 100));
     }
 
     private Rectangle getUpperHitBox() {
