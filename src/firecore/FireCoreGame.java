@@ -13,7 +13,6 @@ public class FireCoreGame extends Game {
     private Player player;
     private Tree tree;
     private World world;
-    private CollisionRepository collisionRepository;
     private List<StaticEntity> renderingEntities;
 
     @Override
@@ -26,11 +25,8 @@ public class FireCoreGame extends Game {
         camera = new Camera(player, 800, 600);
         world = new World();
 
-        collisionRepository = new CollisionRepository();
-
         renderingEntities = new ArrayList<>();
         renderingEntities.add(tree);
-
     }
 
     @Override
@@ -46,6 +42,8 @@ public class FireCoreGame extends Game {
         if (player.hasMoved()) {
             camera.update();
         }
+
+        world.updateCollisionWorld(player);
     }
 
     @Override
@@ -56,12 +54,11 @@ public class FireCoreGame extends Game {
                 entity.draw(canvas, camera);
             }
         }
-        player.draw(canvas, camera);
         player.drawHitBox(canvas, camera);
+        player.drawCollisionDetector(canvas, camera);
+        player.draw(canvas, camera);
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 20, 20, Color.WHITE);
 
-        for (Blockade blockade : collisionRepository.getCollisions()) {
-            blockade.draw(canvas, camera);
-        }
+        //camera.draw(canvas, camera);
     }
 }

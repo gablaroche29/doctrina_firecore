@@ -91,6 +91,14 @@ public abstract class MovableEntity extends StaticEntity {
         canvas.drawRectangle(rectangle.x - camera.getX(), rectangle.y - camera.getY(), rectangle.width, rectangle.height, color);
     }
 
+    public Rectangle getCollisionDetector() {
+        return new Rectangle(x - 50, y - 50, width + 100, height + 100);
+    }
+
+    public void drawCollisionDetector(Canvas canvas, Camera camera) {
+        canvas.drawRectangle(x - camera.getX() - 50, y - camera.getY() - 50, 132, 132, Color.WHITE);
+    }
+
     private Rectangle getUpperHitBox() {
         return new Rectangle(x, y - speed, width, speed);
     }

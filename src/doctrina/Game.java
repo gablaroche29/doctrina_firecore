@@ -1,6 +1,5 @@
 package doctrina;
 
-// n'existe pas sans ses enfants, c'est seulement un concept
 public abstract class Game {
 
     private final RenderingEngine renderingEngine;

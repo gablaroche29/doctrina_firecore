@@ -10,17 +10,15 @@ import java.util.List;
 
 public class CollisionRepository {
 
-    private static final String COLLISIONS_PATH = "resources/collisions/collisions.txt";
     private List<Blockade> collisions;
 
     public List<Blockade> getCollisions() {
         return collisions;
     }
 
-    public CollisionRepository() {
+    public CollisionRepository(String COLLISIONS_PATH, int width, int height, int spriteWidth, int idCollision) {
         collisions = new ArrayList<>();
-        System.out.println(COLLISIONS_PATH);
-        int[][] tableau2D = new int[100][100];
+        int[][] coordsCollisions = new int[width][height];
 
         try {
             File fichier = new File(COLLISIONS_PATH);
@@ -30,13 +28,13 @@ public class CollisionRepository {
             String ligne;
             int ligneIndex = 0;
 
-            while ((ligne = bufferedReader.readLine()) != null && ligneIndex < 100) {
+            while ((ligne = bufferedReader.readLine()) != null && ligneIndex < height) {
                 String[] donnees = ligne.split(",");
 
-                for (int colonneIndex = 0; colonneIndex < Math.min(100, donnees.length); colonneIndex++) {
-                    tableau2D[ligneIndex][colonneIndex] = Integer.parseInt(donnees[colonneIndex]);
-                    if (tableau2D[ligneIndex][colonneIndex] == 763) {
-                        collisions.add(new Blockade(colonneIndex * 32, ligneIndex * 32));
+                for (int colonneIndex = 0; colonneIndex < Math.min(width, donnees.length); colonneIndex++) {
+                    coordsCollisions[ligneIndex][colonneIndex] = Integer.parseInt(donnees[colonneIndex]);
+                    if (coordsCollisions[ligneIndex][colonneIndex] == idCollision) {
+                        collisions.add(new Blockade(colonneIndex * spriteWidth, ligneIndex * spriteWidth));
                     }
                 }
 

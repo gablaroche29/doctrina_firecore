@@ -22,7 +22,7 @@ public class Canvas {
 
     public void drawCircle(int x, int y, int radius, Paint paint) {
         graphics.setPaint(paint);
-        graphics.fillOval(x, y, radius * 2, radius *2);
+        graphics.fillOval(x, y, radius * 2, radius * 2);
     }
 
     public void drawString(String text, int x, int y, Paint paint) {
