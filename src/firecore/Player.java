@@ -7,12 +7,12 @@ import java.awt.*;
 
 public class Player extends ControllableEntity {
 
-    private static final String SPRITE_PATH = "images/characters/monsters.png";
+    private static final String SPRITE_PATH = "images/characters/boy.png";
     private AnimationHandler animationHandler;
 
     public Player(MovementController controller) {
         super(controller);
-        setDimension(32, 32);
+        setDimension(16, 16);
         setSpeed(3);
         loadAnimationHandler();
     }
@@ -39,12 +39,12 @@ public class Player extends ControllableEntity {
     private void loadAnimationHandler() {
         animationHandler = new AnimationHandler();
         animationHandler.setDownAnimation(new Animation(0, 0,
-                32, 32, 3, SPRITE_PATH));
+                16, 16, 3, SPRITE_PATH));
         animationHandler.setUpAnimation(new Animation(0, 96,
-                32, 32, 3, SPRITE_PATH));
+                16, 16, 3, SPRITE_PATH));
         animationHandler.setLeftAnimation(new Animation(0, 32,
-                32, 32, 3, SPRITE_PATH));
+                16, 16, 3, SPRITE_PATH));
         animationHandler.setRightAnimation(new Animation(0, 64,
-                32, 32, 3, SPRITE_PATH));
+                16, 16, 3, SPRITE_PATH));
     }
 }

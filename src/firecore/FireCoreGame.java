@@ -21,7 +21,7 @@ public class FireCoreGame extends Game {
     protected void initialize() {
         gamePad = new GamePad();
         player = new Player(gamePad);
-        player.teleport(1000, 1000);
+        player.teleport(500, 3000);
         tree = new Tree(200, 200);
         tree.teleport(200, 200);
         camera = new Camera(player, 800, 600);
@@ -52,7 +52,7 @@ public class FireCoreGame extends Game {
             camera.update();
         }
 
-        world.updateCollisionWorld(collidableEntities);
+        //world.updateCollisionWorld(collidableEntities);
 
         monster.update();
     }
@@ -71,6 +71,7 @@ public class FireCoreGame extends Game {
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 20, 20, Color.WHITE);
 
         monster.draw(canvas, camera);
+        world.drawTrees(canvas, camera);
         //camera.draw(canvas, camera);
     }
 }
