@@ -18,7 +18,7 @@ public class FireCoreGame extends Game {
 
     @Override
     protected void initialize() {
-        GameConfig.disableDebug();
+        GameConfig.enableDebug();
         gamePad = new GamePad();
         player = new Player(gamePad);
         player.teleport(864, 2368);
@@ -31,6 +31,9 @@ public class FireCoreGame extends Game {
         collidableEntities = new ArrayList<>();
         collidableEntities.add(player);
         collidableEntities.add(monster);
+
+        RenderingEngine.getInstance().getScreen().fullscreen();
+        RenderingEngine.getInstance().getScreen().hideCursor();
     }
 
     @Override
