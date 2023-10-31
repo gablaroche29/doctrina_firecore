@@ -13,24 +13,19 @@ public class FireCoreGame extends Game {
     private Player player;
     private Monster monster;
     private List<MovableEntity> collidableEntities;
-    private Tree tree;
     private World world;
     private List<StaticEntity> renderingEntities;
 
     @Override
     protected void initialize() {
+        GameConfig.disableDebug();
         gamePad = new GamePad();
         player = new Player(gamePad);
-        player.teleport(500, 3000);
-        tree = new Tree(200, 200);
-        tree.teleport(200, 200);
+        player.teleport(864, 2368);
         camera = new Camera(player, 800, 600);
         world = new World();
 
         monster = new Monster();
-
-        renderingEntities = new ArrayList<>();
-        renderingEntities.add(tree);
 
 
         collidableEntities = new ArrayList<>();
@@ -44,15 +39,15 @@ public class FireCoreGame extends Game {
             stop();
         }
         player.update();
-        for (StaticEntity entity : renderingEntities) {
-            entity.setRender(entity.isInCameraField(camera));
-        }
+//        for (StaticEntity entity : renderingEntities) {
+//            entity.setRender(entity.isInCameraField(camera));
+//        }
 
         if (player.hasMoved()) {
-            camera.update();
+            camera.update(world);
         }
 
-        //world.updateCollisionWorld(collidableEntities);
+        world.updateCollisionWorld(collidableEntities);
 
         monster.update();
     }
@@ -60,18 +55,18 @@ public class FireCoreGame extends Game {
     @Override
     protected void draw(Canvas canvas) {
         world.draw(canvas, camera);
-        for (StaticEntity entity : renderingEntities) {
-            if (entity.getRender()) {
-                entity.draw(canvas, camera);
-            }
-        }
-        player.drawHitBox(canvas, camera);
-        player.drawCollisionDetector(canvas, camera);
+//        for (StaticEntity entity : renderingEntities) {
+//            if (entity.getRender()) {
+//                entity.draw(canvas, camera);
+//            }
+//        }
+        //player.drawHitBox(canvas, camera);
+        //player.drawCollisionDetector(canvas, camera);
         player.draw(canvas, camera);
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 20, 20, Color.WHITE);
 
-        monster.draw(canvas, camera);
-        world.drawTrees(canvas, camera);
+        //monster.draw(canvas, camera);
+        //world.drawTrees(canvas, camera);
         //camera.draw(canvas, camera);
     }
 }

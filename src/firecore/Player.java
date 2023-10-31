@@ -7,12 +7,12 @@ import java.awt.*;
 
 public class Player extends ControllableEntity {
 
-    private static final String SPRITE_PATH = "images/characters/boy.png";
+    private static final String SPRITE_PATH = "images/characters/characters.png";
     private AnimationHandler animationHandler;
 
     public Player(MovementController controller) {
         super(controller);
-        setDimension(16, 16);
+        setDimension(32, 32);
         setSpeed(3);
         loadAnimationHandler();
     }
@@ -34,17 +34,22 @@ public class Player extends ControllableEntity {
     public void draw(Canvas canvas, Camera camera) {
         Image sprite = animationHandler.getDirectionSprite(getDirection());
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
+
+        if (GameConfig.isDebugEnabled()) {
+            drawHitBox(canvas, camera);
+            drawCollisionDetector(canvas, camera);
+        }
     }
 
     private void loadAnimationHandler() {
         animationHandler = new AnimationHandler();
-        animationHandler.setDownAnimation(new Animation(0, 0,
-                16, 16, 3, SPRITE_PATH));
-        animationHandler.setUpAnimation(new Animation(0, 96,
-                16, 16, 3, SPRITE_PATH));
-        animationHandler.setLeftAnimation(new Animation(0, 32,
-                16, 16, 3, SPRITE_PATH));
-        animationHandler.setRightAnimation(new Animation(0, 64,
-                16, 16, 3, SPRITE_PATH));
+        animationHandler.setDownAnimation(new Animation(192, 0,
+                32, 32, 3, SPRITE_PATH));
+        animationHandler.setLeftAnimation(new Animation(192, 32,
+                32, 32, 3, SPRITE_PATH));
+        animationHandler.setRightAnimation(new Animation(192, 64,
+                32, 32, 3, SPRITE_PATH));
+        animationHandler.setUpAnimation(new Animation(192, 96,
+                32, 32, 3, SPRITE_PATH));
     }
 }

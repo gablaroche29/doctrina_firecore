@@ -1,5 +1,7 @@
 package doctrina;
 
+import firecore.World;
+
 import java.awt.*;
 
 public class Camera extends StaticEntity {
@@ -10,7 +12,6 @@ public class Camera extends StaticEntity {
         this.entity = entity;
         this.width = width;
         this.height = height;
-        update();
     }
 
     @Override
@@ -18,11 +19,21 @@ public class Camera extends StaticEntity {
         canvas.drawRectangle(0, 0, width, height, new Color(255, 0, 0, 100));
     }
 
-    public void update() {
+    public void update(World world) {
         int entityX = entity.getX() + (entity.getWidth() / 2);
         int entityY = entity.getY() + (entity.getHeight() / 2);
+        int tempX = entityX - (width / 2);
+        int tempY = entityY - (height / 2);
 
-        setDestination(entityX - (width / 2), entityY - (height / 2));
+        if (tempX < world.getLimitX()) {
+            tempX = world.getLimitX();
+        }
+
+        if (tempY > world.getLimitY()) {
+            tempY = world.getLimitY();
+        }
+
+        setDestination(tempX, tempY);
     }
 
     public boolean isItInArea(StaticEntity entity) {

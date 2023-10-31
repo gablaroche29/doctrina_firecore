@@ -10,12 +10,15 @@ import java.util.Collection;
 
 public class World extends StaticEntity {
 
-    private static final String MAP_PATH = "images/backgrounds/forest.png";
+    private static final String MAP_PATH = "images/backgrounds/heavenly/Map.png";
     private static final String TREES_PATH = "images/backgrounds/trees.png";
 
-    private static final String COLLISIONS_PATH = "resources/collisions/collisions.txt";
+    private static final String COLLISIONS_PATH = "resources/collisions/collision_heavenly.txt";
     private Image background;
     private Image trees;
+
+    private int limitX;
+    private int limitY;
 
     private CollisionRepository collisionRepository;
 
@@ -23,8 +26,9 @@ public class World extends StaticEntity {
         setDimension(3200, 3200);
         teleport(0, 0);
         load();
-
-        //collisionRepository = new CollisionRepository(COLLISIONS_PATH, 100, 100, 32, 763);
+        limitX = 640;
+        limitY = 2752;
+        collisionRepository = new CollisionRepository(COLLISIONS_PATH, 100, 100, 32, 833);
     }
 
 //    public void updateCollisionWorld(MovableEntity movableEntity) {
@@ -32,6 +36,14 @@ public class World extends StaticEntity {
 //            blockade.update(movableEntity);
 //        }
 //    }
+
+    public int getLimitX() {
+        return limitX;
+    }
+
+    public int getLimitY() {
+        return limitY;
+    }
 
     public void updateCollisionWorld(Collection<MovableEntity> entities) {
         for (Blockade blockade : collisionRepository.getCollisions()) {
@@ -54,9 +66,11 @@ public class World extends StaticEntity {
     public void draw(Canvas canvas, Camera camera) {
         canvas.drawImage(background, x - camera.getX(), y - camera.getY());
 
-//        for (Blockade blockade : collisionRepository.getCollisions()) {
-//            blockade.draw(canvas, camera);
-//        }
+        if (GameConfig.isDebugEnabled()) {
+            for (Blockade blockade : collisionRepository.getCollisions()) {
+                blockade.draw(canvas, camera);
+            }
+        }
     }
 
     public void drawTrees(Canvas canvas, Camera camera) {
