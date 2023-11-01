@@ -60,9 +60,10 @@ public class FireCoreGame extends Game {
 //            entity.setRender(entity.isInCameraField(camera));
 //        }
 
-        if (player.hasMoved()) {
-            camera.update();
-        }
+//        if (player.hasMoved()) {
+//            camera.update();
+//        }
+        camera.update();
 
         world.updateCollisionWorld(collidableEntities);
 

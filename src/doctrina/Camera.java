@@ -8,6 +8,8 @@ public class Camera extends StaticEntity implements Runnable {
 
     private final ControllableEntity entity;
     private final World world;
+    private int entityX, entityY;
+    private int destinationX, destinationY;
 
     public Camera(ControllableEntity entity, World world, int width, int height) {
         this.entity = entity;
@@ -22,24 +24,30 @@ public class Camera extends StaticEntity implements Runnable {
     }
 
     public void update() {
-        int entityX = entity.getX() + (entity.getWidth() / 2);
-        int entityY = entity.getY() + (entity.getHeight() / 2);
-        int tempX = entityX - (width / 2);
-        int tempY = entityY - (height / 2);
+        updateNewPositionPlayer();
+        updateNewDestination();
 
-        if (tempX < world.getLimitX()) {
-            tempX = world.getLimitX();
-        }
-
-        if (tempY > world.getLimitY()) {
-            tempY = world.getLimitY();
-        }
-
-        setDestination(tempX, tempY);
+        setDestination(destinationX, destinationY);
     }
 
     public boolean isItInArea(StaticEntity entity) {
         return intersectWith(entity);
+    }
+
+    private void updateNewDestination() {
+        destinationX = entityX - (width / 2);
+        destinationY = entityY - (height / 2);
+        if (destinationX < world.getLimitX()) {
+            destinationX = world.getLimitX();
+        }
+        if (destinationY > world.getLimitY()) {
+            destinationY = world.getLimitY();
+        }
+    }
+
+    private void updateNewPositionPlayer() {
+        entityX = entity.getX() + (entity.getWidth() / 2);
+        entityY = entity.getY() + (entity.getHeight() / 2);
     }
 
     private void setDestination(int x, int y) {
