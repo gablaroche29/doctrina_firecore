@@ -3,6 +3,9 @@ package firecore;
 import doctrina.*;
 import doctrina.Canvas;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +21,7 @@ public class FireCoreGame extends Game {
 
     @Override
     protected void initialize() {
-        GameConfig.enableDebug();
+        GameConfig.disableDebug();
         gamePad = new GamePad();
         player = new Player(gamePad);
         player.teleport(864, 2368);
@@ -34,6 +37,17 @@ public class FireCoreGame extends Game {
 
         RenderingEngine.getInstance().getScreen().fullscreen();
         RenderingEngine.getInstance().getScreen().hideCursor();
+
+
+//        try {
+//            Clip clip = AudioSystem.getClip();
+//            AudioInputStream stream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResourceAsStream("music/bg/TheLoomingBattle-bg.wav"));
+//            clip.open(stream);
+//            clip.loop(Clip.LOOP_CONTINUOUSLY);
+//            clip.start();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
@@ -63,13 +77,10 @@ public class FireCoreGame extends Game {
 //                entity.draw(canvas, camera);
 //            }
 //        }
-        //player.drawHitBox(canvas, camera);
-        //player.drawCollisionDetector(canvas, camera);
         player.draw(canvas, camera);
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 20, 20, Color.WHITE);
 
         //monster.draw(canvas, camera);
         //world.drawTrees(canvas, camera);
-        //camera.draw(canvas, camera);
     }
 }
