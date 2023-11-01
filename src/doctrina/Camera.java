@@ -4,12 +4,14 @@ import firecore.World;
 
 import java.awt.*;
 
-public class Camera extends StaticEntity {
+public class Camera extends StaticEntity implements Runnable {
 
     private final ControllableEntity entity;
+    private final World world;
 
-    public Camera(ControllableEntity entity, int width, int height) {
+    public Camera(ControllableEntity entity, World world, int width, int height) {
         this.entity = entity;
+        this.world = world;
         this.width = width;
         this.height = height;
     }
@@ -19,7 +21,7 @@ public class Camera extends StaticEntity {
         canvas.drawRectangle(0, 0, width, height, new Color(255, 0, 0, 100));
     }
 
-    public void update(World world) {
+    public void update() {
         int entityX = entity.getX() + (entity.getWidth() / 2);
         int entityY = entity.getY() + (entity.getHeight() / 2);
         int tempX = entityX - (width / 2);
@@ -45,4 +47,10 @@ public class Camera extends StaticEntity {
         this.y = y;
     }
 
+    @Override
+    public void run() {
+        while (true) {
+            update();
+        }
+    }
 }

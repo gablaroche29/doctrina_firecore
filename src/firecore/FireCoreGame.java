@@ -25,9 +25,9 @@ public class FireCoreGame extends Game {
         gamePad = new GamePad();
         player = new Player(gamePad);
         player.teleport(864, 2368);
-        camera = new Camera(player, 800, 600);
         world = new World();
 
+        camera = new Camera(player, world, 800, 600);
         monster = new Monster();
 
 
@@ -61,7 +61,7 @@ public class FireCoreGame extends Game {
 //        }
 
         if (player.hasMoved()) {
-            camera.update(world);
+            camera.update();
         }
 
         world.updateCollisionWorld(collidableEntities);
