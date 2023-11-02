@@ -16,6 +16,7 @@ public class Camera extends StaticEntity implements Runnable {
         this.world = world;
         this.width = width;
         this.height = height;
+        new Thread(this).start();
     }
 
     @Override
@@ -27,7 +28,8 @@ public class Camera extends StaticEntity implements Runnable {
         updateNewPositionPlayer();
         updateNewDestination();
 
-        setDestination(destinationX, destinationY);
+
+        setPosition(destinationX, destinationY);
     }
 
     public boolean isItInArea(StaticEntity entity) {
@@ -37,12 +39,12 @@ public class Camera extends StaticEntity implements Runnable {
     private void updateNewDestination() {
         destinationX = entityX - (width / 2);
         destinationY = entityY - (height / 2);
-        if (destinationX < world.getLimitX()) {
-            destinationX = world.getLimitX();
-        }
-        if (destinationY > world.getLimitY()) {
-            destinationY = world.getLimitY();
-        }
+//        if (destinationX < world.getLimitX()) {
+//            destinationX = world.getLimitX();
+//        }
+//        if (destinationY > world.getLimitY()) {
+//            destinationY = world.getLimitY();
+//        }
     }
 
     private void updateNewPositionPlayer() {
@@ -50,14 +52,14 @@ public class Camera extends StaticEntity implements Runnable {
         entityY = entity.getY() + (entity.getHeight() / 2);
     }
 
-    private void setDestination(int x, int y) {
+    private void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
     @Override
     public void run() {
-        while (true) {
+        while (!Thread.currentThread().isInterrupted()) {
             update();
         }
     }

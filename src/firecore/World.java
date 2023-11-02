@@ -17,18 +17,20 @@ public class World extends StaticEntity {
     private Image background;
     private Image trees;
 
-    private int limitX;
-    private int limitY;
+    private int limitLeft, limitDown, limitRight, limitUp;
 
     private CollisionRepository collisionRepository;
+    private Player player;
 
-    public World() {
+    public World(Player player) {
         setDimension(3200, 3200);
         teleport(0, 0);
         load();
-        limitX = 640;
-        limitY = 2752;
+        limitLeft = 640;
+        limitDown = 2752;
         collisionRepository = new CollisionRepository(COLLISIONS_PATH, 100, 100, 32, 833);
+
+        this.player = player;
     }
 
 //    public void updateCollisionWorld(MovableEntity movableEntity) {
@@ -37,18 +39,27 @@ public class World extends StaticEntity {
 //        }
 //    }
 
-    public int getLimitX() {
-        return limitX;
+    public int getLimitLeft() {
+        return limitLeft;
     }
 
-    public int getLimitY() {
-        return limitY;
+    public int getLimitDown() {
+        return limitDown;
     }
 
     public void updateCollisionWorld(Collection<MovableEntity> entities) {
         for (Blockade blockade : collisionRepository.getCollisions()) {
             blockade.update(entities);
         }
+    }
+
+    public void update(Collection<MovableEntity> entities) {
+        updateCollisionWorld(entities);
+        updateWorldLimit();
+    }
+
+    private void updateWorldLimit() {
+        
     }
 
     private void load() {

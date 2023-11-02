@@ -25,7 +25,7 @@ public class FireCoreGame extends Game {
         gamePad = new GamePad();
         player = new Player(gamePad);
         player.teleport(864, 2368);
-        world = new World();
+        world = new World(player);
 
         camera = new Camera(player, world, 800, 600);
         monster = new Monster();
@@ -38,16 +38,15 @@ public class FireCoreGame extends Game {
         RenderingEngine.getInstance().getScreen().fullscreen();
         RenderingEngine.getInstance().getScreen().hideCursor();
 
-
-//        try {
-//            Clip clip = AudioSystem.getClip();
-//            AudioInputStream stream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResourceAsStream("music/bg/TheLoomingBattle-bg.wav"));
-//            clip.open(stream);
-//            clip.loop(Clip.LOOP_CONTINUOUSLY);
-//            clip.start();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            Clip clip = AudioSystem.getClip();
+            AudioInputStream stream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResourceAsStream("music/bg/TheLoomingBattle-bg.wav"));
+            clip.open(stream);
+            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -63,10 +62,9 @@ public class FireCoreGame extends Game {
 //        if (player.hasMoved()) {
 //            camera.update();
 //        }
-        camera.update();
+        //camera.update();
 
-        world.updateCollisionWorld(collidableEntities);
-
+        world.update(collidableEntities);
         monster.update();
     }
 
