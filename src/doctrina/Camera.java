@@ -10,18 +10,24 @@ public class Camera extends StaticEntity implements Runnable {
     private final World world;
     private int entityX, entityY;
     private int destinationX, destinationY;
+    private Thread cameraThread;
 
     public Camera(ControllableEntity entity, World world, int width, int height) {
         this.entity = entity;
         this.world = world;
         this.width = width;
         this.height = height;
-        new Thread(this).start();
+
+        startCameraThread();
     }
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
         canvas.drawRectangle(0, 0, width, height, new Color(255, 0, 0, 100));
+    }
+
+    public void stopCameraThread() {
+        cameraThread.interrupt();
     }
 
     public void update() {
@@ -34,6 +40,11 @@ public class Camera extends StaticEntity implements Runnable {
 
     public boolean isItInArea(StaticEntity entity) {
         return intersectWith(entity);
+    }
+
+    private void startCameraThread() {
+        cameraThread = new Thread(this);
+        cameraThread.start();
     }
 
     private void updateNewDestination() {

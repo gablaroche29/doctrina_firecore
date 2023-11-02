@@ -52,17 +52,13 @@ public class FireCoreGame extends Game {
     @Override
     protected void update() {
         if (gamePad.isQuitPressed()) {
+            camera.stopCameraThread();
             stop();
         }
         player.update();
 //        for (StaticEntity entity : renderingEntities) {
 //            entity.setRender(entity.isInCameraField(camera));
 //        }
-
-//        if (player.hasMoved()) {
-//            camera.update();
-//        }
-        //camera.update();
 
         world.update(collidableEntities);
         monster.update();
