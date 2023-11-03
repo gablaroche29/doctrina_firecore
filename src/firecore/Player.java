@@ -7,8 +7,7 @@ import java.awt.*;
 
 public class Player extends ControllableEntity {
 
-    private static final String SPRITE_PATH = "images/characters/characters.png";
-    private AnimationHandler animationHandler;
+    private PlayerAnimationHandler animationHandler;
 
     public Player(MovementController controller) {
         super(controller);
@@ -42,14 +41,6 @@ public class Player extends ControllableEntity {
     }
 
     private void loadAnimationHandler() {
-        animationHandler = new AnimationHandler();
-        animationHandler.setDownAnimation(new Animation(192, 0,
-                32, 32, 3, SPRITE_PATH));
-        animationHandler.setLeftAnimation(new Animation(192, 32,
-                32, 32, 3, SPRITE_PATH));
-        animationHandler.setRightAnimation(new Animation(192, 64,
-                32, 32, 3, SPRITE_PATH));
-        animationHandler.setUpAnimation(new Animation(192, 96,
-                32, 32, 3, SPRITE_PATH));
+        animationHandler = new PlayerAnimationHandler(this);
     }
 }

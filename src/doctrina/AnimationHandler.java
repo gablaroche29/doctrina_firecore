@@ -4,7 +4,7 @@ import java.awt.*;
 
 public class  AnimationHandler {
 
-    private static final int ANIMATION_SPEED = 8;
+    private static final int ANIMATION_SPEED = 5;
     private int currentAnimationFrame = 1; // idle
     private int nextFrame = ANIMATION_SPEED;
 
