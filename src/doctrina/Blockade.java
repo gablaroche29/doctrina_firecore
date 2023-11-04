@@ -1,7 +1,5 @@
 package doctrina;
 
-import firecore.Player;
-
 import java.awt.*;
 import java.util.Collection;
 
@@ -14,15 +12,15 @@ public class Blockade extends StaticEntity {
     }
 
     public void update(Collection<MovableEntity> entities) {
-        int me = 0;
+        int collide = 0;
 
         for (MovableEntity entity : entities) {
             if (intersectWith(entity.getCollisionDetector())) {
-                me++;
+                collide++;
             }
         }
 
-        if (me > 0) {
+        if (collide > 0) {
             CollidableRepository.getInstance().registerEntity(this);
             setRender(true);
         } else {
@@ -33,9 +31,8 @@ public class Blockade extends StaticEntity {
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
-        if (getRender()) {
+        if (isRender()) {
             canvas.drawRectangle(x - camera.getX(), y - camera.getY(), width, height, new Color(255, 0, 0, 100));
-
         }
     }
 }

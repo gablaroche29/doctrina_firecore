@@ -11,6 +11,7 @@ public class Player extends ControllableEntity {
 
     public Player(MovementController controller) {
         super(controller);
+        controller.useWasdKeys();
         setDimension(32, 32);
         setSpeed(2);
         loadAnimationHandler();

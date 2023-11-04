@@ -54,7 +54,7 @@ public abstract class StaticEntity {
         this.render = render;
     }
 
-    public boolean getRender() {
+    public boolean isRender() {
         return render;
     }
 

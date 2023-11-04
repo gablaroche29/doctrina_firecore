@@ -10,7 +10,7 @@ public class Collision {
         this.entity = entity;
     }
 
-    public int getAllowedSpeed(Direction direction) {
+    public float getAllowedSpeed(Direction direction) {
         return switch (direction) {
             case UP -> getAllowedUpSpeed();
             case DOWN -> getAllowedDownSpeed();
@@ -19,25 +19,25 @@ public class Collision {
         };
     }
 
-    private int getAllowedUpSpeed() {
+    private float getAllowedUpSpeed() {
         return distance(other -> entity.y - (other.y + other.height));
     }
 
-    private int getAllowedDownSpeed() {
+    private float getAllowedDownSpeed() {
         return distance(other -> other.y - (entity.y + entity.height));
     }
 
-    private int getAllowedLeftSpeed() {
+    private float getAllowedLeftSpeed() {
         return distance(other -> entity.x - (other.x + other.width));
     }
 
-    private int getAllowedRightSpeed() {
+    private float getAllowedRightSpeed() {
         return distance(other -> other.x - (entity.x + entity.width));
     }
 
-    private int distance(DistanceCalculator calculator) {
+    private float distance(DistanceCalculator calculator) {
         Rectangle collisionBound = entity.getHitBox();
-        int allowedDistance = entity.getSpeed();
+        float allowedDistance = entity.getSpeed();
         for (StaticEntity other : CollidableRepository.getInstance()) {
             if (collisionBound.intersects(other.getBounds())) {
                 allowedDistance = Math.min(allowedDistance, calculator.calculateWith(other));

@@ -9,6 +9,8 @@ public class MonsterAnimationHandler extends AnimationHandler {
 
     public MonsterAnimationHandler(Monster monster) {
         setAnimationSpeed(10);
+        setResetAnimation(new Animation(96, 0,
+                monster.getWidth(), monster.getHeight(), 3, SPRITE_PATH));
         setDownAnimation(new Animation(96, 0,
                 monster.getWidth(), monster.getHeight(), 3, SPRITE_PATH));
         setLeftAnimation(new Animation(96, 32,

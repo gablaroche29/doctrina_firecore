@@ -4,7 +4,7 @@ import java.awt.*;
 
 public abstract class MovableEntity extends StaticEntity {
 
-    private int speed = 1;
+    private float speed = 1;
     private Direction direction = Direction.UP;
     private Collision collision;
     private int lastX = Integer.MIN_VALUE;
@@ -22,9 +22,9 @@ public abstract class MovableEntity extends StaticEntity {
     }
 
     public void move() {
-        int allowedSpeed = collision.getAllowedSpeed(direction);
-        x += direction.calculateVelocityX(allowedSpeed);
-        y += direction.calculateVelocityY(allowedSpeed);
+        float allowedSpeed = collision.getAllowedSpeed(direction);
+        x += (int) direction.calculateVelocityX(allowedSpeed);
+        y += (int) direction.calculateVelocityY(allowedSpeed);
         moved = (x != lastX || y != lastY);
         lastX = x;
         lastY = y;
@@ -64,11 +64,11 @@ public abstract class MovableEntity extends StaticEntity {
         };
     }
 
-    public int getSpeed() {
+    public float getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(float speed) {
         this.speed = speed;
     }
 
@@ -102,18 +102,18 @@ public abstract class MovableEntity extends StaticEntity {
     }
 
     private Rectangle getUpperHitBox() {
-        return new Rectangle(x, y - speed, width, speed);
+        return new Rectangle(x, (int) (y - speed), width, (int) speed);
     }
 
     private Rectangle getLowerHitBox() {
-        return new Rectangle(x, y + height, width, speed);
+        return new Rectangle(x, y + height, width, (int) speed);
     }
 
     private Rectangle getLeftHitBox() {
-        return new Rectangle(x - speed, y, speed, height);
+        return new Rectangle((int) (x - speed), y, (int) speed, height);
     }
 
     private Rectangle getRightHitBox() {
-        return new Rectangle(x + width, y, speed, height);
+        return new Rectangle(x + width, y, (int) speed, height);
     }
 }

@@ -4,17 +4,17 @@ import doctrina.*;
 import doctrina.Canvas;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Monster extends MovableEntity {
 
     private MonsterAnimationHandler animationHandler;
-    private Player player;
-    private Direction direction;
-    private int coolDown = 5;
+    private final Player player;
 
     public Monster(Player player) {
         setDimension(32, 32);
-        setSpeed(3);
+        setSpeed(1.5f);
         this.player = player;
         loadAnimationHandler();
     }
@@ -22,29 +22,15 @@ public class Monster extends MovableEntity {
     @Override
     public void update() {
         super.update();
-        coolDown--;
-        int distanceX = x - player.getX();
-        int distanceY = y - player.getY();
+
+        int distanceX = (x + getWidth() / 2) - (player.getX() + player.getWidth() / 2);
+        int distanceY = (y + getHeight() / 2) - (player.getY() + player.getHeight() / 2);
         System.out.println("Distance X: " + distanceX + " / Distance Y: " + distanceY);
-
-        if (distanceX != 0 && distanceY != 0) {
-            if (player.getY() < y) {
-                direction = Direction.UP;
-            } else if (player.getY() > y + height) {
-                direction = Direction.DOWN;
-            } else if (player.getX() < x) {
-                direction = Direction.LEFT;
-            } else if (player.getX() > x) {
-                direction = Direction.RIGHT;
-            }
-            move(direction);
+        if (distanceX != 0 || distanceY != 0) {
+            move(calculatePlayerDirection());
         }
 
-        if (hasMoved()) {
-            animationHandler.update();
-        } else {
-            animationHandler.reset();
-        }
+        animationHandler.update();
     }
 
     @Override
@@ -55,6 +41,19 @@ public class Monster extends MovableEntity {
             drawCollisionDetector(canvas, camera);
             drawHitBox(canvas, camera);
         }
+    }
+
+    private Direction calculatePlayerDirection() {
+        if ((player.getY() + player.getHeight() / 2) < (y + getHeight() / 2)) {
+            return Direction.UP;
+        } else if ((player.getY() + player.getHeight() / 2) > (y + getHeight() / 2)) {
+            return Direction.DOWN;
+        } else if ((player.getX() + player.getWidth() / 2) < (x + getWidth() / 2)) {
+            return Direction.LEFT;
+        } else if ((player.getX() + player.getWidth() / 2) > (x + getWidth() / 2)) {
+            return Direction.RIGHT;
+        }
+        return Direction.DOWN;
     }
 
     private void loadAnimationHandler() {

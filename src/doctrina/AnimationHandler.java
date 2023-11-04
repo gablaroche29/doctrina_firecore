@@ -12,6 +12,7 @@ public class  AnimationHandler {
     private Animation downAnimation;
     private Animation leftAnimation;
     private Animation rightAnimation;
+    private Animation resetAnimation;
 
     public Image getDirectionSprite(Direction direction) {
         if (direction == Direction.RIGHT) {
@@ -23,7 +24,7 @@ public class  AnimationHandler {
         } else if (direction == Direction.DOWN) {
             return downAnimation.getSprite(currentAnimationFrame);
         }
-        return downAnimation.getSprite(1);
+        return (resetAnimation != null) ? resetAnimation.getSprite(currentAnimationFrame) : downAnimation.getSprite(1);
     }
 
     public void setAnimationSpeed(int speed) {
@@ -41,6 +42,10 @@ public class  AnimationHandler {
         }
     }
 
+    public void setResetAnimation(Animation animation) {
+        this.resetAnimation = animation;
+    }
+
     public void reset() {
         currentAnimationFrame = 1;
     }
@@ -49,31 +54,31 @@ public class  AnimationHandler {
         return upAnimation;
     }
 
-    public void setUpAnimation(Animation upAnimation) {
-        this.upAnimation = upAnimation;
+    public void setUpAnimation(Animation animation) {
+        this.upAnimation = animation;
     }
 
     public Animation getDownAnimation() {
         return downAnimation;
     }
 
-    public void setDownAnimation(Animation downAnimation) {
-        this.downAnimation = downAnimation;
+    public void setDownAnimation(Animation animation) {
+        this.downAnimation = animation;
     }
 
     public Animation getLeftAnimation() {
         return leftAnimation;
     }
 
-    public void setLeftAnimation(Animation leftAnimation) {
-        this.leftAnimation = leftAnimation;
+    public void setLeftAnimation(Animation animation) {
+        this.leftAnimation = animation;
     }
 
     public Animation getRightAnimation() {
         return rightAnimation;
     }
 
-    public void setRightAnimation(Animation rightAnimation) {
-        this.rightAnimation = rightAnimation;
+    public void setRightAnimation(Animation animation) {
+        this.rightAnimation = animation;
     }
 }
