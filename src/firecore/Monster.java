@@ -22,10 +22,8 @@ public class Monster extends MovableEntity {
     @Override
     public void update() {
         super.update();
-
         int distanceX = (x + getWidth() / 2) - (player.getX() + player.getWidth() / 2);
         int distanceY = (y + getHeight() / 2) - (player.getY() + player.getHeight() / 2);
-        System.out.println("Distance X: " + distanceX + " / Distance Y: " + distanceY);
         if (distanceX != 0 || distanceY != 0) {
             move(calculatePlayerDirection());
         }
@@ -35,7 +33,12 @@ public class Monster extends MovableEntity {
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
-        Image sprite = animationHandler.getDirectionSprite(getDirection());
+        Image sprite;
+        if (hasMoved()) {
+            sprite = animationHandler.getDirectionSprite(getDirection());
+        } else {
+            sprite = animationHandler.getIdleSprite();
+        }
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
         if (GameConfig.isDebugEnabled()) {
             drawCollisionDetector(canvas, camera);

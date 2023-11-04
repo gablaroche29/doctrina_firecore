@@ -27,6 +27,10 @@ public class  AnimationHandler {
         return (resetAnimation != null) ? resetAnimation.getSprite(currentAnimationFrame) : downAnimation.getSprite(1);
     }
 
+    public Image getIdleSprite() {
+        return resetAnimation.getSprite(currentAnimationFrame);
+    }
+
     public void setAnimationSpeed(int speed) {
         ANIMATION_SPEED = speed;
     }
