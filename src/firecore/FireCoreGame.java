@@ -28,7 +28,8 @@ public class FireCoreGame extends Game {
         world = new World(player);
 
         camera = new Camera(player, world, 800, 600);
-        monster = new Monster();
+        monster = new Monster(player);
+        monster.teleport(1152, 2528);
 
 
         collidableEntities = new ArrayList<>();
@@ -75,7 +76,7 @@ public class FireCoreGame extends Game {
         player.draw(canvas, camera);
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 20, 20, Color.WHITE);
 
-        //monster.draw(canvas, camera);
+        monster.draw(canvas, camera);
         //world.drawTrees(canvas, camera);
     }
 }

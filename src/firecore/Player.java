@@ -23,7 +23,6 @@ public class Player extends ControllableEntity {
 
         if (hasMoved()) {
             animationHandler.update();
-
         } else {
             animationHandler.reset();
         }

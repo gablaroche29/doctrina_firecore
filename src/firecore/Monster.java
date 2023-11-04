@@ -1,59 +1,63 @@
 package firecore;
 
-import doctrina.Camera;
+import doctrina.*;
 import doctrina.Canvas;
-import doctrina.MovableEntity;
-import doctrina.SpriteSheetSlicer;
 
 import java.awt.*;
-import java.util.Random;
 
 public class Monster extends MovableEntity {
 
-    private static final String SPRITE_PATH = "images/characters/monsters.png";
-    private Image image;
+    private MonsterAnimationHandler animationHandler;
+    private Player player;
+    private Direction direction;
+    private int coolDown = 5;
 
-    private int lapse = 30;
-
-    public Monster() {
+    public Monster(Player player) {
         setDimension(32, 32);
-        teleport(500, 500);
         setSpeed(3);
-        image = SpriteSheetSlicer.getSprite(128, 0, 32, 32, SPRITE_PATH);
+        this.player = player;
+        loadAnimationHandler();
     }
 
     @Override
     public void update() {
         super.update();
-        Random random = new Random();
+        coolDown--;
+        int distanceX = x - player.getX();
+        int distanceY = y - player.getY();
+        System.out.println("Distance X: " + distanceX + " / Distance Y: " + distanceY);
 
-        if (lapse == 0) {
-            int num = random.nextInt(4) + 1;
-            switch (num) {
-                case 1 -> {
-                    moveDown();
-                    lapse = 30;
-                }
-                case 2 -> {
-                    moveLeft();
-                    lapse = 30;
-                }
-                case 3 -> {
-                    moveRight();
-                    lapse = 30;
-                }
-                case 4 -> {
-                    moveUp();
-                    lapse = 30;
-                }
+        if (distanceX != 0 && distanceY != 0) {
+            if (player.getY() < y) {
+                direction = Direction.UP;
+            } else if (player.getY() > y + height) {
+                direction = Direction.DOWN;
+            } else if (player.getX() < x) {
+                direction = Direction.LEFT;
+            } else if (player.getX() > x) {
+                direction = Direction.RIGHT;
             }
+            move(direction);
         }
-        lapse--;
+
+        if (hasMoved()) {
+            animationHandler.update();
+        } else {
+            animationHandler.reset();
+        }
     }
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
-        canvas.drawImage(image, x - camera.getX(), y - camera.getY());
-        drawCollisionDetector(canvas, camera);
+        Image sprite = animationHandler.getDirectionSprite(getDirection());
+        canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
+        if (GameConfig.isDebugEnabled()) {
+            drawCollisionDetector(canvas, camera);
+            drawHitBox(canvas, camera);
+        }
+    }
+
+    private void loadAnimationHandler() {
+        animationHandler = new MonsterAnimationHandler(this);
     }
 }
