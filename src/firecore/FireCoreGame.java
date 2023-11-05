@@ -37,7 +37,7 @@ public class FireCoreGame extends Game {
         collidableEntities.add(monster);
 
         RenderingEngine.getInstance().getScreen().fullscreen();
-        RenderingEngine.getInstance().getScreen().hideCursor();
+        RenderingEngine.getInstance().getScreen().showCursor();
 
         try {
             Clip clip = AudioSystem.getClip();

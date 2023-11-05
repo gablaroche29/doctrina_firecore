@@ -6,7 +6,7 @@ public abstract class MovableEntity extends StaticEntity {
 
     private float speed = 1;
     private Direction direction = Direction.UP;
-    private Collision collision;
+    private final Collision collision;
     private int lastX = Integer.MIN_VALUE;
     private int lastY = Integer.MIN_VALUE;
     private boolean moved = false;
@@ -102,18 +102,18 @@ public abstract class MovableEntity extends StaticEntity {
     }
 
     private Rectangle getUpperHitBox() {
-        return new Rectangle(x, (int) (y - speed), width, (int) speed);
+        return new Rectangle(x + 3, (int) (y - speed), width - 3, (int) speed);
     }
 
     private Rectangle getLowerHitBox() {
-        return new Rectangle(x, y + height, width, (int) speed);
+        return new Rectangle(x + 3, y + height, width - 3, (int) speed);
     }
 
     private Rectangle getLeftHitBox() {
-        return new Rectangle((int) (x - speed), y, (int) speed, height);
+        return new Rectangle((int) (x - speed), y + 3, (int) speed, height - 3);
     }
 
     private Rectangle getRightHitBox() {
-        return new Rectangle(x + width, y, (int) speed, height);
+        return new Rectangle(x + width, y + 3, (int) speed, height - 3);
     }
 }

@@ -33,8 +33,6 @@ public class Camera extends StaticEntity implements Runnable {
     public void update() {
         updateNewPositionPlayer();
         updateNewDestination();
-
-
         setPosition(destinationX, destinationY);
     }
 

@@ -4,17 +4,16 @@ import doctrina.*;
 import doctrina.Canvas;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Monster extends MovableEntity {
 
     private MonsterAnimationHandler animationHandler;
     private final Player player;
+    private Direction directionToGo;
 
     public Monster(Player player) {
         setDimension(32, 32);
-        setSpeed(1.5f);
+        setSpeed(1f);
         this.player = player;
         loadAnimationHandler();
     }
@@ -24,11 +23,52 @@ public class Monster extends MovableEntity {
         super.update();
         int distanceX = (x + getWidth() / 2) - (player.getX() + player.getWidth() / 2);
         int distanceY = (y + getHeight() / 2) - (player.getY() + player.getHeight() / 2);
-        if (distanceX != 0 || distanceY != 0) {
-            move(calculatePlayerDirection());
-        }
+        Direction playerDirection = calculatePlayerDirection();
 
+        if (distanceX != 0 || distanceY != 0) {
+            if (playerDirectionIsCorrupted(playerDirection)) {
+                directionToGo = simulateNewDirection(distanceX, distanceY);
+            } else {
+                System.out.println(Text.purple("Going to the player direction..."));
+                directionToGo = playerDirection;
+            }
+            move(directionToGo);
+        }
         animationHandler.update();
+    }
+
+    private boolean playerDirectionIsCorrupted(Direction playerDirection) {
+        int lastX = getX();
+        int lastY = getY();
+        Direction currentDirection = getDirection();
+        move(playerDirection);
+        if (!hitBoxIntersectsWithCollisions()) {
+            return false;
+        } else {
+            teleport(lastX, lastY);
+            //move(currentDirection);
+            System.out.println(Text.red("Correcting position to the ancient one"));
+            return true;
+        }
+    }
+
+    private boolean hitBoxIntersectsWithCollisions() {
+        for (StaticEntity entity : CollidableRepository.getInstance()) {
+            if (hitBoxIntersectWidth(entity)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Direction simulateNewDirection(int distanceX, int distanceY) {
+        if ((distanceX > 0 && distanceY > 0) || (distanceX > 0 && distanceY < 0)) {
+            return Direction.LEFT;
+        }
+        if ((distanceX < 0 && distanceY > 0) || (distanceX < 0 && distanceY < 0)) {
+            return Direction.RIGHT;
+        }
+        return Direction.UP;
     }
 
     @Override
