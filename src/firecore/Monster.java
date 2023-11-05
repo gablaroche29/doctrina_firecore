@@ -29,7 +29,6 @@ public class Monster extends MovableEntity {
             if (playerDirectionIsCorrupted(playerDirection)) {
                 directionToGo = simulateNewDirection(distanceX, distanceY);
             } else {
-                System.out.println(Text.purple("Going to the player direction..."));
                 directionToGo = playerDirection;
             }
             move(directionToGo);
@@ -40,14 +39,12 @@ public class Monster extends MovableEntity {
     private boolean playerDirectionIsCorrupted(Direction playerDirection) {
         int lastX = getX();
         int lastY = getY();
-        Direction currentDirection = getDirection();
         move(playerDirection);
         if (!hitBoxIntersectsWithCollisions()) {
+            teleport(lastX, lastY);
             return false;
         } else {
             teleport(lastX, lastY);
-            //move(currentDirection);
-            System.out.println(Text.red("Correcting position to the ancient one"));
             return true;
         }
     }
@@ -74,11 +71,12 @@ public class Monster extends MovableEntity {
     @Override
     public void draw(Canvas canvas, Camera camera) {
         Image sprite;
-        if (hasMoved()) {
-            sprite = animationHandler.getDirectionSprite(getDirection());
-        } else {
-            sprite = animationHandler.getIdleSprite();
-        }
+//        if (hasMoved()) {
+//            sprite = animationHandler.getDirectionSprite(getDirection());
+//        } else {
+//            sprite = animationHandler.getIdleSprite();
+//        }
+        sprite = animationHandler.getDirectionSprite(getDirection());
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
         if (GameConfig.isDebugEnabled()) {
             drawCollisionDetector(canvas, camera);
