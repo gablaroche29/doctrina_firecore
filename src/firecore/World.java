@@ -11,9 +11,10 @@ import java.util.Collection;
 public class World extends StaticEntity {
 
     private static final String MAP_PATH = "images/backgrounds/heavenly/Map.png";
-
+    private static final String PROP_PATH = "images/props/Props.png";
     private static final String COLLISIONS_PATH = "resources/collisions/collision_heavenly.txt";
     private Image background;
+
 
     private int limitLeft, limitDown, limitRight, limitUp;
 
@@ -60,23 +61,26 @@ public class World extends StaticEntity {
         
     }
 
+    @Override
+    public void draw(Canvas canvas, Camera camera) {
+        canvas.drawImage(background, x - camera.getX(), y - camera.getY());
+
+
+
+
+        if (GameConfig.isDebugEnabled()) {
+            for (Blockade blockade : collisionRepository.getCollisions()) {
+                blockade.draw(canvas, camera);
+            }
+        }
+    }
+
     private void load() {
         try {
             background = ImageIO.read(
                     this.getClass().getClassLoader().getResourceAsStream(MAP_PATH));
         } catch (IOException exception) {
             System.out.println(exception.getMessage());
-        }
-    }
-
-    @Override
-    public void draw(Canvas canvas, Camera camera) {
-        canvas.drawImage(background, x - camera.getX(), y - camera.getY());
-
-        if (GameConfig.isDebugEnabled()) {
-            for (Blockade blockade : collisionRepository.getCollisions()) {
-                blockade.draw(canvas, camera);
-            }
         }
     }
 }

@@ -16,6 +16,9 @@ public class FireCoreGame extends Game {
     private Player player;
     private Monster monster;
     private Monster monster2;
+
+    private Pillar pillar;
+
     private List<MovableEntity> collidableEntities;
     private World world;
     private List<StaticEntity> renderingEntities;
@@ -38,6 +41,9 @@ public class FireCoreGame extends Game {
         collidableEntities.add(player);
         collidableEntities.add(monster);
         collidableEntities.add(monster2);
+
+        pillar = new Pillar();
+
 
         RenderingEngine.getInstance().getScreen().fullscreen();
         RenderingEngine.getInstance().getScreen().showCursor();
@@ -82,6 +88,9 @@ public class FireCoreGame extends Game {
 
         monster.draw(canvas, camera);
         monster2.draw(canvas, camera);
+
+
+        pillar.draw(canvas, camera);
         //world.drawTrees(canvas, camera);
     }
 }
