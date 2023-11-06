@@ -15,13 +15,14 @@ public class FireCoreGame extends Game {
     private GamePad gamePad;
     private Player player;
     private Monster monster;
-    private Monster monster2;
 
     private Pillar pillar;
 
     private List<MovableEntity> collidableEntities;
     private World world;
     private List<StaticEntity> renderingEntities;
+
+    private Ia ia;
 
     @Override
     protected void initialize() {
@@ -34,13 +35,16 @@ public class FireCoreGame extends Game {
         camera = new Camera(player, world, 800, 600);
         monster = new Monster(player);
         monster.teleport(1152, 2528);
-        monster2 = new Monster(player);
-        monster2.teleport(1140, 2518);
+
+        ia = new Ia(1150, 2518, 1.5f, SpriteSheetSlicer.getSprite(0, 0, 32, 32, "images/characters/monsters.png"), player);
 
         collidableEntities = new ArrayList<>();
         collidableEntities.add(player);
         collidableEntities.add(monster);
-        collidableEntities.add(monster2);
+        collidableEntities.add(ia);
+
+        renderingEntities = new ArrayList<>();
+        renderingEntities.add(monster);
 
         pillar = new Pillar();
 
@@ -66,31 +70,30 @@ public class FireCoreGame extends Game {
             stop();
         }
         player.update();
-//        for (StaticEntity entity : renderingEntities) {
-//            entity.setRender(entity.isInCameraField(camera));
-//        }
+        for (StaticEntity entity : renderingEntities) {
+            entity.setRender(entity.isInCameraField(camera));
+        }
 
         world.update(collidableEntities);
         monster.update();
-        monster2.update();
     }
 
     @Override
     protected void draw(Canvas canvas) {
         world.draw(canvas, camera);
-//        for (StaticEntity entity : renderingEntities) {
-//            if (entity.getRender()) {
-//                entity.draw(canvas, camera);
-//            }
-//        }
+        for (StaticEntity entity : renderingEntities) {
+            if (entity.isRender()) {
+                entity.draw(canvas, camera);
+            }
+        }
         player.draw(canvas, camera);
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 20, 20, Color.WHITE);
 
         monster.draw(canvas, camera);
-        monster2.draw(canvas, camera);
-
 
         pillar.draw(canvas, camera);
-        //world.drawTrees(canvas, camera);
+
+
+        ia.draw(canvas, camera);
     }
 }

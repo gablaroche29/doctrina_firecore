@@ -19,7 +19,6 @@ public class Pillar extends StaticEntity {
 
     private void load() {
         pillarImg = SpriteSheetSlicer.getSprite(224, 0, 32, 64, PROP_PATH);
-        System.out.println(pillarImg);
     }
 
     @Override
