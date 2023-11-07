@@ -36,7 +36,7 @@ public class FireCoreGame extends Game {
         monster = new Monster(player);
         monster.teleport(1152, 2528);
 
-        ia = new Ia(1150, 2518, 1.5f, SpriteSheetSlicer.getSprite(0, 0, 32, 32, "images/characters/monsters.png"), player);
+        ia = new Ia(1150, 2518, 1.5f, player);
 
         collidableEntities = new ArrayList<>();
         collidableEntities.add(player);
@@ -52,15 +52,15 @@ public class FireCoreGame extends Game {
         RenderingEngine.getInstance().getScreen().fullscreen();
         RenderingEngine.getInstance().getScreen().showCursor();
 
-        try {
-            Clip clip = AudioSystem.getClip();
-            AudioInputStream stream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResourceAsStream("music/bg/TheLoomingBattle-bg.wav"));
-            clip.open(stream);
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
-            clip.start();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Clip clip = AudioSystem.getClip();
+//            AudioInputStream stream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResourceAsStream("music/bg/TheLoomingBattle-bg.wav"));
+//            clip.open(stream);
+//            clip.loop(Clip.LOOP_CONTINUOUSLY);
+//            clip.start();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override
@@ -76,6 +76,8 @@ public class FireCoreGame extends Game {
 
         world.update(collidableEntities);
         monster.update();
+
+        ia.update();
     }
 
     @Override
@@ -92,7 +94,6 @@ public class FireCoreGame extends Game {
         monster.draw(canvas, camera);
 
         pillar.draw(canvas, camera);
-
 
         ia.draw(canvas, camera);
     }

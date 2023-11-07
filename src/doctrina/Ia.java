@@ -1,5 +1,6 @@
 package doctrina;
 
+import firecore.MonsterAnimationHandler;
 import firecore.Player;
 
 import java.awt.*;
@@ -7,32 +8,115 @@ import java.awt.*;
 public class Ia extends MovableEntity {
 
     private Player player;
-    private Image sprite;
     private Rectangle triggerZone;
+    private MonsterAnimationHandler animationHandler;
+    private Direction directionToGo;
+    private boolean moving;
 
-    public Ia(int x, int y, float speed, Image sprite, Player player) {
+    public Ia(int x, int y, float speed, Player player) {
         this.x = x;
         this.y = y;
         setSpeed(speed);
         setDimension(32, 32);
-        this.sprite = sprite;
 
         this.player = player;
 
         setTriggerZone();
+        loadAnimationHandler();
     }
 
     @Override
     public void update() {
         super.update();
+        updateTriggerZone();
+
+        if (player.intersectWith(getTriggerZone())) {
+            moving = true;
+        }
+
+        if (moving) {
+            moving();
+        }
+        animationHandler.update();
+    }
+
+    private void moving() {
+        int distanceX = (x + getWidth() / 2) - (player.getX() + player.getWidth() / 2);
+        int distanceY = (y + getHeight() / 2) - (player.getY() + player.getHeight() / 2);
+        Direction playerDirection = calculatePlayerDirection();
+
+        if (distanceX != 0 || distanceY != 0) {
+            if (playerDirectionIsCorrupted(playerDirection)) {
+                directionToGo = simulateNewDirection(distanceX, distanceY);
+            } else {
+                directionToGo = playerDirection;
+            }
+            move(directionToGo);
+        }
     }
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
-        canvas.drawRectangle(triggerZone.x - camera.getX(),
-                triggerZone.y - camera.getY(),
-                triggerZone.width, triggerZone.height, new Color(0, 0, 255, 200));
+//        canvas.drawRectangle(triggerZone.x - camera.getX(),
+//                triggerZone.y - camera.getY(),
+//                triggerZone.width, triggerZone.height, new Color(0, 0, 255, 200));
+        Image sprite;
+//        if (hasMoved()) {
+//            sprite = animationHandler.getDirectionSprite(getDirection());
+//        } else {
+//            sprite = animationHandler.getIdleSprite();
+//        }
+        sprite = animationHandler.getDirectionSprite(getDirection());
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
+        if (GameConfig.isDebugEnabled()) {
+            drawCollisionDetector(canvas, camera);
+            drawHitBox(canvas, camera);
+        }
+    }
+
+    private boolean playerDirectionIsCorrupted(Direction playerDirection) {
+        int lastX = getX();
+        int lastY = getY();
+        move(playerDirection);
+        if (!hitBoxIntersectsWithCollisions()) {
+            teleport(lastX, lastY);
+            return false;
+        } else {
+            teleport(lastX, lastY);
+            return true;
+        }
+    }
+
+    private boolean hitBoxIntersectsWithCollisions() {
+        for (StaticEntity entity : CollidableRepository.getInstance()) {
+            if (hitBoxIntersectWidth(entity)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Direction simulateNewDirection(int distanceX, int distanceY) {
+        if ((distanceX > 0 && distanceY > 0) || (distanceX > 0 && distanceY < 0)) {
+            return Direction.LEFT;
+        }
+        if ((distanceX < 0 && distanceY > 0) || (distanceX < 0 && distanceY < 0)) {
+            return Direction.RIGHT;
+        }
+        return Direction.UP;
+    }
+
+    private Direction calculatePlayerDirection() {
+        if ((player.getY() + player.getHeight() / 2) < (y + getHeight() / 2)) {
+            return Direction.UP;
+        } else if ((player.getY() + player.getHeight() / 2) > (y + getHeight() / 2)) {
+            return Direction.DOWN;
+        } else if ((player.getX() + player.getWidth() / 2) < (x + getWidth() / 2)) {
+            return Direction.LEFT;
+        } else if ((player.getX() + player.getWidth() / 2) > (x + getWidth() / 2)) {
+            return Direction.RIGHT;
+        }
+        return Direction.DOWN;
     }
 
     private void setTriggerZone() {
@@ -44,4 +128,13 @@ public class Ia extends MovableEntity {
     private Rectangle getTriggerZone() {
         return triggerZone;
     }
+
+    private void updateTriggerZone() {
+        triggerZone.setLocation(x + (width / 2) - (triggerZone.width / 2), y + (height / 2) - (triggerZone.width / 2));
+    }
+
+    private void loadAnimationHandler() {
+        animationHandler = new MonsterAnimationHandler(this);
+    }
+
 }

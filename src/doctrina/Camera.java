@@ -23,7 +23,7 @@ public class Camera extends StaticEntity implements Runnable {
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
-        canvas.drawRectangle(0, 0, width, height, new Color(255, 0, 0, 100));
+        canvas.drawRectangle(x, y, width, height, new Color(255, 0, 0));
     }
 
     public void stopCameraThread() {
