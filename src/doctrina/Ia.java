@@ -8,7 +8,8 @@ import java.awt.*;
 public class Ia extends MovableEntity {
 
     private Player player;
-    private Rectangle triggerZone;
+    //private Rectangle triggerZone;
+    private Bounds triggerZone;
     private MonsterAnimationHandler animationHandler;
     private Direction directionToGo;
     private boolean moving;
@@ -30,7 +31,7 @@ public class Ia extends MovableEntity {
         super.update();
         updateTriggerZone();
 
-        if (player.intersectWith(getTriggerZone())) {
+        if (triggerZone.intersectsWith(player)) {
             moving = true;
         }
 
@@ -121,16 +122,16 @@ public class Ia extends MovableEntity {
 
     private void setTriggerZone() {
         final int diameter = 300;
-        triggerZone = new Rectangle(x + (width / 2) - (diameter / 2), y + (height / 2) - (diameter / 2),
+        triggerZone = new Bounds(x + (width / 2) - (diameter / 2), y + (height / 2) - (diameter / 2),
                 diameter, diameter);
     }
 
-    private Rectangle getTriggerZone() {
+    private Bounds getTriggerZone() {
         return triggerZone;
     }
 
     private void updateTriggerZone() {
-        triggerZone.setLocation(x + (width / 2) - (triggerZone.width / 2), y + (height / 2) - (triggerZone.width / 2));
+        triggerZone.setCoords(x + (width / 2) - (triggerZone.getWidth() / 2), y + (height / 2) - (triggerZone.getWidth() / 2));
     }
 
     private void loadAnimationHandler() {
