@@ -37,6 +37,14 @@ public class Bounds {
         return height;
     }
 
+    public int getX() {
+        return (int) coords.getX();
+    }
+
+    public int getY() {
+        return (int) coords.getY();
+    }
+
     private boolean doRectanglesOverlap(int x1, int y1, int width1, int height1, int x2, int y2, int width2, int height2) {
         int rightX1 = x1 + width1;
         int bottomY1 = y1 + height1;

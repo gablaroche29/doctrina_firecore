@@ -1,48 +1,29 @@
-package firecore;
+package doctrina;
 
-import doctrina.*;
-import doctrina.Canvas;
+import firecore.CollisionRepository;
+import firecore.Player;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Collection;
 
-public class World extends StaticEntity {
+public class Scene {
 
     private static final String MAP_PATH = "images/backgrounds/heavenly/Map.png";
     private static final String PROP_PATH = "images/props/Props.png";
     private static final String COLLISIONS_PATH = "resources/collisions/collision_heavenly.txt";
     private Image background;
+    private final Bounds bounds;
+    private final CollisionRepository collisions;
+    private final Player player;
 
-    private int limitLeft, limitDown, limitRight, limitUp;
-
-    private CollisionRepository collisionRepository;
-    private Player player;
-
-    public World(Player player) {
-        setDimension(3200, 3200);
-        teleport(0, 0);
+    public Scene(int x, int y, int width, int height, Player player) {
+        bounds = new Bounds(x, y, width, height);
         load();
-        limitLeft = 640;
-        limitDown = 2752;
-        collisionRepository = new CollisionRepository(COLLISIONS_PATH, 100, 100, 32, 833);
+        collisions = new CollisionRepository(COLLISIONS_PATH, 100, 100, 32, 833);
 
         this.player = player;
-    }
-
-    public int getLimitLeft() {
-        return limitLeft;
-    }
-
-    public int getLimitDown() {
-        return limitDown;
-    }
-
-    public void updateCollisionWorld(Collection<MovableEntity> entities) {
-        for (Blockade blockade : collisionRepository.getCollisions()) {
-            blockade.update(entities);
-        }
     }
 
     public void update(Collection<MovableEntity> entities) {
@@ -50,19 +31,24 @@ public class World extends StaticEntity {
         updateWorldLimit();
     }
 
-    private void updateWorldLimit() {
-        
-    }
-
-    @Override
     public void draw(Canvas canvas, Camera camera) {
-        canvas.drawImage(background, x - camera.getX(), y - camera.getY());
+        canvas.drawImage(background, bounds.getX() - camera.getX(), bounds.getY() - camera.getY());
 
         if (GameConfig.isDebugEnabled()) {
-            for (Blockade blockade : collisionRepository.getCollisions()) {
+            for (Blockade blockade : collisions.getCollisions()) {
                 blockade.draw(canvas, camera);
             }
         }
+    }
+
+    private void updateCollisionWorld(Collection<MovableEntity> entities) {
+        for (Blockade blockade : collisions.getCollisions()) {
+            blockade.update(entities);
+        }
+    }
+
+    private void updateWorldLimit() {
+
     }
 
     private void load() {

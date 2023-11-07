@@ -8,7 +8,6 @@ import java.awt.*;
 public class Ia extends MovableEntity {
 
     private Player player;
-    //private Rectangle triggerZone;
     private Bounds triggerZone;
     private MonsterAnimationHandler animationHandler;
     private Direction directionToGo;
@@ -41,21 +40,6 @@ public class Ia extends MovableEntity {
         animationHandler.update();
     }
 
-    private void moving() {
-        int distanceX = (x + getWidth() / 2) - (player.getX() + player.getWidth() / 2);
-        int distanceY = (y + getHeight() / 2) - (player.getY() + player.getHeight() / 2);
-        Direction playerDirection = calculatePlayerDirection();
-
-        if (distanceX != 0 || distanceY != 0) {
-            if (playerDirectionIsCorrupted(playerDirection)) {
-                directionToGo = simulateNewDirection(distanceX, distanceY);
-            } else {
-                directionToGo = playerDirection;
-            }
-            move(directionToGo);
-        }
-    }
-
     @Override
     public void draw(Canvas canvas, Camera camera) {
 //        canvas.drawRectangle(triggerZone.x - camera.getX(),
@@ -72,6 +56,21 @@ public class Ia extends MovableEntity {
         if (GameConfig.isDebugEnabled()) {
             drawCollisionDetector(canvas, camera);
             drawHitBox(canvas, camera);
+        }
+    }
+
+    private void moving() {
+        int distanceX = (x + getWidth() / 2) - (player.getX() + player.getWidth() / 2);
+        int distanceY = (y + getHeight() / 2) - (player.getY() + player.getHeight() / 2);
+        Direction playerDirection = calculatePlayerDirection();
+
+        if (distanceX != 0 || distanceY != 0) {
+            if (playerDirectionIsCorrupted(playerDirection)) {
+                directionToGo = simulateNewDirection(distanceX, distanceY);
+            } else {
+                directionToGo = playerDirection;
+            }
+            move(directionToGo);
         }
     }
 

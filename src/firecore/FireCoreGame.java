@@ -14,7 +14,6 @@ public class FireCoreGame extends Game {
 
     private GamePad gamePad;
     private Player player;
-    private Monster monster;
 
     private Pillar pillar;
 
@@ -23,6 +22,7 @@ public class FireCoreGame extends Game {
     private List<StaticEntity> renderingEntities;
 
     private Ia ia;
+    private Ia ia2;
 
     @Override
     protected void initialize() {
@@ -33,18 +33,16 @@ public class FireCoreGame extends Game {
         world = new World(player);
 
         camera = new Camera(player, world, 800, 600);
-        monster = new Monster(player);
-        monster.teleport(1152, 2528);
 
         ia = new Ia(1150, 2518, 1.5f, player);
+        ia2 = new Ia(1130, 2538, 1.5f, player);
 
         collidableEntities = new ArrayList<>();
         collidableEntities.add(player);
-        collidableEntities.add(monster);
         collidableEntities.add(ia);
+        collidableEntities.add(ia2);
 
         renderingEntities = new ArrayList<>();
-        renderingEntities.add(monster);
 
         pillar = new Pillar();
 
@@ -75,9 +73,9 @@ public class FireCoreGame extends Game {
         }
 
         world.update(collidableEntities);
-        monster.update();
 
         ia.update();
+        ia2.update();
     }
 
     @Override
@@ -91,10 +89,9 @@ public class FireCoreGame extends Game {
         player.draw(canvas, camera);
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 20, 20, Color.WHITE);
 
-        monster.draw(canvas, camera);
-
         pillar.draw(canvas, camera);
 
         ia.draw(canvas, camera);
+        ia2.draw(canvas, camera);
     }
 }
