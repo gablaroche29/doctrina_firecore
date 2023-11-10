@@ -102,18 +102,18 @@ public abstract class MovableEntity extends StaticEntity {
     }
 
     private Rectangle getUpperHitBox() {
-        return new Rectangle(x + 3, (int) (y - speed), width - 3, (int) speed);
+        return new Rectangle(x, (int) (y - speed), width, (int) speed);
     }
 
     private Rectangle getLowerHitBox() {
-        return new Rectangle(x + 3, y + height, width - 3, (int) speed);
+        return new Rectangle(x, y + height, width, (int) speed);
     }
 
     private Rectangle getLeftHitBox() {
-        return new Rectangle((int) (x - speed), y + 3, (int) speed, height - 3);
+        return new Rectangle((int) (x - speed), y, (int) speed, height);
     }
 
     private Rectangle getRightHitBox() {
-        return new Rectangle(x + width, y + 3, (int) speed, height - 3);
+        return new Rectangle(x + width, y, (int) speed, height);
     }
 }

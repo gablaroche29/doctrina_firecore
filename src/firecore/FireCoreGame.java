@@ -26,7 +26,7 @@ public class FireCoreGame extends Game {
 
     @Override
     protected void initialize() {
-        GameConfig.disableDebug();
+        GameConfig.enableDebug();
         gamePad = new GamePad();
         player = new Player(gamePad);
         player.teleport(864, 2368);
