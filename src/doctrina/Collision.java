@@ -20,7 +20,7 @@ public class Collision {
     }
 
     private float getAllowedUpSpeed() {
-        return distance(other -> entity.y - (other.y + other.height));
+        return distance(other -> entity.y - (other.y + (other.height / 2)));
     }
 
     private float getAllowedDownSpeed() {
