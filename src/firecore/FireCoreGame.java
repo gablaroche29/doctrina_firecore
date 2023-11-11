@@ -2,10 +2,8 @@ package firecore;
 
 import doctrina.*;
 import doctrina.Canvas;
+import firecore.sounds.Music;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +24,9 @@ public class FireCoreGame extends Game {
 
     @Override
     protected void initialize() {
-        GameConfig.enableDebug();
+        GameConfig.disableDebug();
         gamePad = new GamePad();
-        player = new Player(gamePad);
-        player.teleport(864, 2368);
+        player = new Player(gamePad, 864, 2368);
         world = new World(player);
 
         camera = new Camera(player, world, 800, 600);
@@ -50,15 +47,7 @@ public class FireCoreGame extends Game {
         RenderingEngine.getInstance().getScreen().fullscreen();
         RenderingEngine.getInstance().getScreen().showCursor();
 
-//        try {
-//            Clip clip = AudioSystem.getClip();
-//            AudioInputStream stream = AudioSystem.getAudioInputStream(this.getClass().getClassLoader().getResourceAsStream("music/bg/TheLoomingBattle-bg.wav"));
-//            clip.open(stream);
-//            clip.loop(Clip.LOOP_CONTINUOUSLY);
-//            clip.start();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        startBackgroundMusic();
     }
 
     @Override
@@ -93,5 +82,9 @@ public class FireCoreGame extends Game {
 
         ia.draw(canvas, camera);
         ia2.draw(canvas, camera);
+    }
+
+    private void startBackgroundMusic() {
+        Music.BG_AMBIENT.play();
     }
 }

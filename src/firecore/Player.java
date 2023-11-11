@@ -9,8 +9,9 @@ public class Player extends ControllableEntity {
 
     private PlayerAnimationHandler animationHandler;
 
-    public Player(MovementController controller) {
+    public Player(MovementController controller, int x, int y) {
         super(controller);
+        teleport(x, y);
         controller.useWasdKeys();
         setDimension(32, 32);
         setSpeed(2);
