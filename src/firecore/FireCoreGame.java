@@ -3,6 +3,7 @@ package firecore;
 import doctrina.*;
 import doctrina.Canvas;
 import firecore.sounds.Music;
+import firecore.sounds.SoundEffect;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class FireCoreGame extends Game {
             stop();
         }
         player.update();
+
         for (StaticEntity entity : renderingEntities) {
             entity.setRender(entity.isInCameraField(camera));
         }
@@ -85,6 +87,8 @@ public class FireCoreGame extends Game {
     }
 
     private void startBackgroundMusic() {
-        Music.BG_AMBIENT.play();
+        if (!GameConfig.isDebugEnabled()) {
+            Music.BG_AMBIENT.play();
+        }
     }
 }

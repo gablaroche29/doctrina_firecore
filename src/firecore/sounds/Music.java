@@ -4,7 +4,7 @@ import doctrina.Sound;
 
 public enum Music {
 
-    BG_AMBIENT("music/bg/TheLoomingBattle-bg.wav", true);
+    BG_AMBIENT("audio/music/TheLoomingBattle-bg.wav", true);
 
     private final Sound sound;
 

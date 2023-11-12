@@ -2,6 +2,7 @@ package firecore;
 
 import doctrina.*;
 import doctrina.Canvas;
+import firecore.sounds.SoundEffect;
 
 import java.awt.*;
 
