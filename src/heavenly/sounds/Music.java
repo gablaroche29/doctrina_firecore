@@ -3,20 +3,18 @@ package heavenly.sounds;
 import doctrina.Sound;
 
 public enum Music {
-
-    BG_AMBIENT("audio/music/TheLoomingBattle-bg.wav", true);
+    BG_AMBIENT("audio/music/TheLoomingBattle-bg.wav"),
+    BG_MENU("audio/music/menu/menu_music.wav");
 
     private final Sound sound;
 
-    Music(String path, boolean loop) {
+    Music(String path) {
         sound = new Sound(path);
-        if (loop) {
-            sound.loop();
-        }
     }
 
-    public void play() {
+    public void play(int count) {
         sound.start();
+        sound.loop(count);
     }
 
     public void stop() {

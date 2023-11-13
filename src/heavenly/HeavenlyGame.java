@@ -5,6 +5,7 @@ import doctrina.Canvas;
 import doctrina.state.GameContext;
 import doctrina.state.GameState;
 import heavenly.menu.Menu;
+import heavenly.sounds.Music;
 
 import java.awt.*;
 
@@ -28,12 +29,23 @@ public class HeavenlyGame extends Game {
 
     @Override
     protected void update() {
+        if (gameContext.getCurrentState() == GameState.MENU) {
+            menu.update();
+        }
+
+        if (gameContext.getCurrentState() == GameState.QUIT) {
+            stop();
+        }
+
         if (gameContext.getCurrentState() == GameState.INITIALIZE) {
+            Music.BG_MENU.stop();
+
             gamePad = new GamePad();
             player = new Player(gamePad, 864, 2368);
             world = new World(player);
             camera = new Camera(player, 800, 600);
             gameContext.setCurrentState(GameState.GAME);
+            RenderingEngine.getInstance().getScreen().hideCursor();
         }
 
         if (gameContext.getCurrentState() == GameState.GAME) {

@@ -6,6 +6,7 @@ import heavenly.ennemy.Ennemies;
 import heavenly.sounds.Music;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -79,7 +80,7 @@ public class World extends StaticEntity {
 
     private void playBackgroundMusic() {
         if (!GameConfig.isDebugEnabled()) {
-            Music.BG_AMBIENT.play();
+            Music.BG_AMBIENT.play(Clip.LOOP_CONTINUOUSLY);
         }
     }
 }

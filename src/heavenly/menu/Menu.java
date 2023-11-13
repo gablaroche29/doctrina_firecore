@@ -1,9 +1,13 @@
 package heavenly.menu;
 
 import doctrina.Canvas;
+import doctrina.state.GameContext;
 import doctrina.state.GameState;
+import heavenly.sounds.Music;
+import heavenly.sounds.SoundEffect;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.io.IOException;
 import java.util.Objects;
@@ -12,6 +16,7 @@ public class Menu {
 
     private final String BG_PATH = "image/menu/menu.png";
     private Image background;
+    private final MenuPad menuPad;
     private final Button[] buttons = new Button[3];
 
     public Menu() {
@@ -19,12 +24,21 @@ public class Menu {
         buttons[1] = initializeOptionsButton();
         buttons[2] = initializeQuitButton();
 
-        MenuPad menuPad = new MenuPad(buttons);
+        menuPad = new MenuPad(buttons);
         load();
+        Music.BG_MENU.play(Clip.LOOP_CONTINUOUSLY);
     }
 
     public void update() {
-
+        if (menuPad.isMousePressed()) {
+            for (Button button : buttons) {
+                button.setActive(button.getBounds().contains(menuPad.getMouseEvent().getX(), menuPad.getMouseEvent().getY()));
+                if (button.isActive()) {
+                    GameContext.INSTANCE.setCurrentState(button.getGameState());
+                }
+            }
+            SoundEffect.CLICK.play();
+        }
     }
 
     public void draw(Canvas canvas) {

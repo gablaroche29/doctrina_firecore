@@ -21,8 +21,8 @@ public enum SoundEffect {
         sound.reset();
     }
 
-    public void loop() {
-        sound.loop();
+    public void loop(int count) {
+        sound.loop(count);
     }
 
     public void stop() {

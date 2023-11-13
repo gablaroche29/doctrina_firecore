@@ -10,6 +10,8 @@ import java.awt.event.MouseEvent;
 public class MenuPad extends MouseController {
 
     private final Button[] buttons;
+    private MouseEvent event;
+    private boolean mousePressed;
 
     public MenuPad(Button[] buttons) {
         this.buttons = buttons;
@@ -17,15 +19,20 @@ public class MenuPad extends MouseController {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        for (Button button : buttons) {
-            button.setActive(button.getBounds().contains(e.getX(), e.getY()));
-            if (button.isActive() && button.getGameState() == GameState.INITIALIZE) {
-                GameContext.INSTANCE.setCurrentState(GameState.INITIALIZE);
-            }
-        }
-        SoundEffect.CLICK.play();
-        System.out.println("X: " + e.getX());
-        System.out.println("Y: " + e.getY());
+        this.event = e;
+        mousePressed = true;
     }
 
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        mousePressed = false;
+    }
+
+    public MouseEvent getMouseEvent() {
+        return event;
+    }
+
+    public boolean isMousePressed() {
+        return mousePressed;
+    }
 }

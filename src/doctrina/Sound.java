@@ -5,11 +5,11 @@ import java.util.Objects;
 
 public class Sound {
 
-    private static Clip clip;
-    private static String path;
+    private Clip clip;
+    private String path;
 
     public Sound(String path) {
-        Sound.path = path;
+        this.path = path;
         SoundLineListener lineListener = new SoundLineListener(this);
         try {
             clip = AudioSystem.getClip();
@@ -21,8 +21,8 @@ public class Sound {
         }
     }
 
-    public void loop() {
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    public void loop(int count) {
+        clip.loop(count);
     }
 
     public void start() {
@@ -42,8 +42,9 @@ public class Sound {
         @Override
         public void update(LineEvent event) {
             if (event.getType() == LineEvent.Type.START) {
-                System.out.println("Le son (" + path + ") a commencé.");
+                System.out.println("Le son (" + sound.path + ") a commencé.");
             } else if (event.getType() == LineEvent.Type.STOP) {
+                System.out.println("Le son (" + sound.path + ") a arrêté.");
                 sound.reset();
             }
         }
