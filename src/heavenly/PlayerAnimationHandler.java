@@ -5,10 +5,10 @@ import doctrina.AnimationHandler;
 
 public class PlayerAnimationHandler extends AnimationHandler {
 
-    private static final String SPRITE_PATH_DOWN_MOVEMENT = "images/characters/RedHood/Front_Movement.png";
-    private static final String SPRITE_PATH_LEFT_MOVEMENT = "images/characters/RedHood/Left_Movement.png";
-    private static final String SPRITE_PATH_RIGHT_MOVEMENT = "images/characters/RedHood/Right_Movement.png";
-    private static final String SPRITE_PATH_UP_MOVEMENT = "images/characters/RedHood/Back_Dash.png";
+    private static final String SPRITE_PATH_DOWN_MOVEMENT = "image/characters/RedHood/Front_Movement.png";
+    private static final String SPRITE_PATH_LEFT_MOVEMENT = "image/characters/RedHood/Left_Movement.png";
+    private static final String SPRITE_PATH_RIGHT_MOVEMENT = "image/characters/RedHood/Right_Movement.png";
+    private static final String SPRITE_PATH_UP_MOVEMENT = "image/characters/RedHood/Back_Dash.png";
 
     public PlayerAnimationHandler(Player player) {
         setDownAnimation(new Animation(0, 32,

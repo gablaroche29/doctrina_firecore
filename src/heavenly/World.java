@@ -10,8 +10,8 @@ import java.util.Collection;
 
 public class World extends StaticEntity {
 
-    private static final String MAP_PATH = "images/backgrounds/heavenly/Map.png";
-    private static final String PROP_PATH = "images/props/Props.png";
+    private static final String MAP_PATH = "image/background/heavenly/Map.png";
+    private static final String PROP_PATH = "image/props/Props.png";
     private static final String COLLISIONS_PATH = "resources/collisions/collision_heavenly.txt";
     private Image background;
 
@@ -39,7 +39,7 @@ public class World extends StaticEntity {
         return limitDown;
     }
 
-    public void updateCollisionWorld(Collection<MovableEntity> entities) {
+    private void updateCollisionWorld(Collection<MovableEntity> entities) {
         for (Blockade blockade : collisionRepository.getCollisions()) {
             blockade.update(entities);
         }
@@ -47,11 +47,6 @@ public class World extends StaticEntity {
 
     public void update(Collection<MovableEntity> entities) {
         updateCollisionWorld(entities);
-        updateWorldLimit();
-    }
-
-    private void updateWorldLimit() {
-        
     }
 
     @Override

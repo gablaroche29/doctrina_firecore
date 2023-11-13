@@ -6,7 +6,7 @@ import doctrina.Ia;
 
 public class MonsterAnimationHandler extends AnimationHandler {
 
-    private static final String SPRITE_PATH = "images/characters/monsters.png";
+    private static final String SPRITE_PATH = "image/characters/monsters.png";
 
     public MonsterAnimationHandler(Ia ia) {
         setAnimationSpeed(10);

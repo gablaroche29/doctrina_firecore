@@ -9,7 +9,7 @@ import java.awt.*;
 
 public class Pillar extends StaticEntity {
 
-    private static final String PROP_PATH = "images/props/Props.png";
+    private static final String PROP_PATH = "image/props/Props.png";
     private Image pillarImg;
 
     public Pillar() {

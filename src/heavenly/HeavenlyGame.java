@@ -2,7 +2,7 @@ package heavenly;
 
 import doctrina.*;
 import doctrina.Canvas;
-import heavenly.sounds.Music;
+import heavenly.ennemy.Ennemies;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,9 +18,7 @@ public class HeavenlyGame extends Game {
     private List<MovableEntity> collidableEntities;
     private World world;
     private List<StaticEntity> renderingEntities;
-
-    private Ia ia;
-    private Ia ia2;
+    private Ennemies ennemies;
 
     @Override
     protected void initialize() {
@@ -29,22 +27,22 @@ public class HeavenlyGame extends Game {
         player = new Player(gamePad, 864, 2368);
         world = new World(player);
 
-        camera = new Camera(player, world, 800, 600);
+        camera = new Camera(player, 800, 600);
 
-        ia = new Ia(1150, 2518, 1.5f, player);
-        ia2 = new Ia(1130, 2538, 1.5f, player);
+        ennemies = new Ennemies(world, player);
+
 
         collidableEntities = new ArrayList<>();
         collidableEntities.add(player);
-        collidableEntities.add(ia);
-        collidableEntities.add(ia2);
+        collidableEntities.addAll(ennemies.getEnnemies());
 
-        renderingEntities = new ArrayList<>();
+//        renderingEntities = new ArrayList<>();
 
-        pillar = new Pillar();
+//        pillar = new Pillar();
+
+
 
         RenderingEngine.getInstance().getScreen().fullscreen();
-        startBackgroundMusic();
     }
 
     @Override
@@ -55,37 +53,27 @@ public class HeavenlyGame extends Game {
         }
         player.update();
 
-        for (StaticEntity entity : renderingEntities) {
-            entity.setRender(entity.isInCameraField(camera));
-        }
+//        for (StaticEntity entity : renderingEntities) {
+//            entity.setRender(entity.isInCameraField(camera));
+//        }
 
         world.update(collidableEntities);
-
-        ia.update();
-        ia2.update();
+        ennemies.update();
     }
 
 
     @Override
     protected void draw(Canvas canvas) {
         world.draw(canvas, camera);
-        for (StaticEntity entity : renderingEntities) {
-            if (entity.isRender()) {
-                entity.draw(canvas, camera);
-            }
-        }
+//        for (StaticEntity entity : renderingEntities) {
+//            if (entity.isRender()) {
+//                entity.draw(canvas, camera);
+//            }
+//        }
         player.draw(canvas, camera);
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 20, 20, Color.WHITE);
 
-        pillar.draw(canvas, camera);
-
-        ia.draw(canvas, camera);
-        ia2.draw(canvas, camera);
-    }
-
-    private void startBackgroundMusic() {
-        if (!GameConfig.isDebugEnabled()) {
-            Music.BG_AMBIENT.play();
-        }
+        ennemies.draw(canvas, camera);
+//        pillar.draw(canvas, camera);
     }
 }

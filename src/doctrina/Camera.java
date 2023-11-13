@@ -1,20 +1,16 @@
 package doctrina;
 
-import heavenly.World;
-
 import java.awt.*;
 
 public class Camera extends StaticEntity implements Runnable {
 
     private final ControllableEntity entity;
-    private final World world;
     private int entityX, entityY;
     private int destinationX, destinationY;
     private Thread cameraThread;
 
-    public Camera(ControllableEntity entity, World world, int width, int height) {
+    public Camera(ControllableEntity entity, int width, int height) {
         this.entity = entity;
-        this.world = world;
         this.width = width;
         this.height = height;
 
@@ -48,12 +44,6 @@ public class Camera extends StaticEntity implements Runnable {
     private void updateNewDestination() {
         destinationX = entityX - (width / 2);
         destinationY = entityY - (height / 2);
-//        if (destinationX < world.getLimitX()) {
-//            destinationX = world.getLimitX();
-//        }
-//        if (destinationY > world.getLimitY()) {
-//            destinationY = world.getLimitY();
-//        }
     }
 
     private void updateNewPositionPlayer() {
