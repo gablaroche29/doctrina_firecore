@@ -1,4 +1,4 @@
-package heavenly.state;
+package doctrina.state;
 
 public enum GameContext {
     INSTANCE;

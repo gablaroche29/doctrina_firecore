@@ -1,8 +1,8 @@
 package heavenly.menu;
 
 import doctrina.MouseController;
-import heavenly.state.GameContext;
-import heavenly.state.GameState;
+import doctrina.state.GameContext;
+import doctrina.state.GameState;
 import heavenly.sounds.SoundEffect;
 
 import java.awt.event.MouseEvent;

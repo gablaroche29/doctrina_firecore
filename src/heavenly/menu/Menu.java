@@ -1,7 +1,7 @@
 package heavenly.menu;
 
 import doctrina.Canvas;
-import heavenly.state.GameState;
+import doctrina.state.GameState;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class Menu {
 
-    private final String BG_PATH = "images/backgrounds/menu.png";
+    private final String BG_PATH = "image/menu/menu.png";
     private Image background;
     private final Button[] buttons = new Button[3];
 

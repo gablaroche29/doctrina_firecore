@@ -3,13 +3,13 @@ package heavenly.menu;
 import doctrina.Bounds;
 import doctrina.Canvas;
 import doctrina.SpriteSheetSlicer;
-import heavenly.state.GameState;
+import doctrina.state.GameState;
 
 import java.awt.*;
 
 public class Button {
 
-    private static final String BUTTONS_PATH = "images/menu/buttons.png";
+    private static final String BUTTONS_PATH = "image/menu/buttons.png";
     private Image image;
     private boolean active;
     private final Bounds bounds;

@@ -5,18 +5,16 @@ import java.util.Objects;
 
 public class Sound {
 
-    private Clip clip;
+    private static Clip clip;
     private static String path;
-    private static boolean playing;
 
     public Sound(String path) {
-        this.path = path;
-        SoundLineListener lineListener = new SoundLineListener();
+        Sound.path = path;
+        SoundLineListener lineListener = new SoundLineListener(this);
         try {
             clip = AudioSystem.getClip();
             AudioInputStream stream = AudioSystem.getAudioInputStream(Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(path)));
             clip.open(stream);
-
             clip.addLineListener(lineListener);
         } catch (Exception e) {
             e.printStackTrace();
@@ -28,6 +26,7 @@ public class Sound {
     }
 
     public void start() {
+        reset();
         clip.start();
     }
 
@@ -39,19 +38,13 @@ public class Sound {
         clip.stop();
     }
 
-    public boolean isPlaying() {
-        return playing;
-    }
-
-    private static class SoundLineListener implements LineListener {
+    private record SoundLineListener(Sound sound) implements LineListener {
         @Override
         public void update(LineEvent event) {
             if (event.getType() == LineEvent.Type.START) {
                 System.out.println("Le son (" + path + ") a commencé.");
-                playing = true;
             } else if (event.getType() == LineEvent.Type.STOP) {
-                System.out.println("Le son (" + path + ") a été arrêté.");
-                playing = false;
+                sound.reset();
             }
         }
     }
