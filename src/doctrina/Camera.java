@@ -1,6 +1,6 @@
 package doctrina;
 
-import firecore.World;
+import heavenly.World;
 
 import java.awt.*;
 

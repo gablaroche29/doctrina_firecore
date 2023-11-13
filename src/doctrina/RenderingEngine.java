@@ -3,6 +3,7 @@ package doctrina;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
 public class RenderingEngine {
@@ -33,6 +34,10 @@ public class RenderingEngine {
 
     public void addKeyListener(KeyListener keyListener) {
         panel.addKeyListener(keyListener);
+    }
+
+    public void addMouseListener(MouseListener mouseListener) {
+        panel.addMouseListener(mouseListener);
     }
 
     public Canvas buildCanvas() {

@@ -1,4 +1,4 @@
-package firecore;
+package heavenly;
 
 import doctrina.Blockade;
 import java.io.BufferedReader;

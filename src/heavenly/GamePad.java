@@ -1,4 +1,4 @@
-package firecore;
+package heavenly;
 
 import doctrina.MovementController;
 import java.awt.event.KeyEvent;

@@ -1,15 +1,14 @@
-package firecore;
+package heavenly;
 
 import doctrina.*;
 import doctrina.Canvas;
-import firecore.sounds.Music;
-import firecore.sounds.SoundEffect;
+import heavenly.sounds.Music;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FireCoreGame extends Game {
+public class HeavenlyGame extends Game {
 
     private GamePad gamePad;
     private Player player;
@@ -44,10 +43,7 @@ public class FireCoreGame extends Game {
 
         pillar = new Pillar();
 
-
         RenderingEngine.getInstance().getScreen().fullscreen();
-        RenderingEngine.getInstance().getScreen().showCursor();
-
         startBackgroundMusic();
     }
 
@@ -68,6 +64,7 @@ public class FireCoreGame extends Game {
         ia.update();
         ia2.update();
     }
+
 
     @Override
     protected void draw(Canvas canvas) {

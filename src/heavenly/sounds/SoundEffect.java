@@ -1,11 +1,11 @@
-package firecore.sounds;
+package heavenly.sounds;
 
 import doctrina.Sound;
 
 public enum SoundEffect {
 
-    FIRE("audios/fire.wav"),
-    FOOTSTEPS("audio/sound/footsteps_grass/footsteps_grass.wav");
+    CLICK("audio/sound/menu/click.wav");
+//    FOOTSTEPS("audio/sound/footsteps_grass/footsteps_grass.wav");
 
     private final Sound sound;
 

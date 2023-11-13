@@ -1,4 +1,4 @@
-package firecore.sounds;
+package heavenly.sounds;
 
 import doctrina.Sound;
 

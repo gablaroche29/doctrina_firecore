@@ -1,4 +1,4 @@
-package firecore;
+package heavenly;
 
 import doctrina.Animation;
 import doctrina.AnimationHandler;

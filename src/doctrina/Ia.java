@@ -1,7 +1,7 @@
 package doctrina;
 
-import firecore.MonsterAnimationHandler;
-import firecore.Player;
+import heavenly.MonsterAnimationHandler;
+import heavenly.Player;
 
 import java.awt.*;
 

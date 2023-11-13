@@ -1,7 +1,7 @@
-package firecore;
+package heavenly;
 
 public class App {
     public static void main(String[] args) {
-        new FireCoreGame().start();
+        new HeavenlyGame().start();
     }
 }

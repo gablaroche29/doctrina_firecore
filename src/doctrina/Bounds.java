@@ -25,6 +25,11 @@ public class Bounds {
         return doRectanglesOverlap(coords.x, coords.y, width, height, rectangle.x, rectangle.y, rectangle.width, rectangle.height);
     }
 
+    public boolean contains(int x, int y) {
+        return (x >= coords.x && x <= coords.x + width &&
+                y >= coords.y && y <= coords.y + height);
+    }
+
     public void setCoords(int x, int y) {
         coords.setLocation(x, y);
     }
