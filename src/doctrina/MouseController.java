@@ -8,29 +8,18 @@ import java.awt.event.MouseMotionListener;
 public class MouseController implements MouseListener, MouseMotionListener {
 
     protected Point mouseCoords;
-    private int widthFullscreen;
-    private int heightFullscreen;
-    private final int width = 800;
-    private final int height = 600;
+    private double proportionWidth;
+    private double proportionHeight;
 
     public MouseController() {
         mouseCoords = new Point();
         RenderingEngine.getInstance().addMouseListener(this);
-        System.out.println("Width: " + width);
-        System.out.println("Height: " + height);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        widthFullscreen = RenderingEngine.getInstance().getScreen().getWidth();
-        heightFullscreen = RenderingEngine.getInstance().getScreen().getHeight();
-
-        double proportionWidth = (double) width / widthFullscreen;
-        double proportionHeight = (double) height / heightFullscreen;
-        mouseCoords.setLocation(e.getX() * proportionWidth, e.getY() * proportionHeight);
-
-        System.out.println("X mouse: " + mouseCoords.x);
-        System.out.println("Y mouse: " + mouseCoords.y);
+        updateProportionScreen();
+        setMouseCoords(e);
     }
 
     @Override
@@ -56,14 +45,21 @@ public class MouseController implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        widthFullscreen = RenderingEngine.getInstance().getScreen().getWidth();
-        heightFullscreen = RenderingEngine.getInstance().getScreen().getHeight();
+        updateProportionScreen();
+        setMouseCoords(e);
+    }
 
-        double proportionWidth = (double) width / widthFullscreen;
-        double proportionHeight = (double) height / heightFullscreen;
+    private void setMouseCoords(MouseEvent e) {
         mouseCoords.setLocation(e.getX() * proportionWidth, e.getY() * proportionHeight);
+    }
 
-        System.out.println("X mouse: " + mouseCoords.x);
-        System.out.println("Y mouse: " + mouseCoords.y);
+    private void updateProportionScreen() {
+        // SET the screen basic width and height per default
+        int widthFullscreen = RenderingEngine.getInstance().getScreen().getWidth();
+        int heightFullscreen = RenderingEngine.getInstance().getScreen().getHeight();
+        int width = 800;
+        proportionWidth = (double) width / widthFullscreen;
+        int height = 600;
+        proportionHeight = (double) height / heightFullscreen;
     }
 }
