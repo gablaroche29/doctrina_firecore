@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
 public class RenderingEngine {
@@ -38,6 +39,7 @@ public class RenderingEngine {
 
     public void addMouseListener(MouseListener mouseListener) {
         panel.addMouseListener(mouseListener);
+        panel.addMouseMotionListener((MouseMotionListener) mouseListener);
     }
 
     public Canvas buildCanvas() {

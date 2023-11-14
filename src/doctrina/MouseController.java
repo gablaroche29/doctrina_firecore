@@ -1,9 +1,13 @@
 package doctrina;
 
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public class MouseController implements MouseListener {
+public class MouseController implements MouseListener, MouseMotionListener {
+
+    protected Point mouseCoords;
 
     public MouseController() {
         RenderingEngine.getInstance().addMouseListener(this);
@@ -27,5 +31,15 @@ public class MouseController implements MouseListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        mouseCoords = e.getPoint();
     }
 }

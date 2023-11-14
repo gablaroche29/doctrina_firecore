@@ -10,8 +10,11 @@ import java.awt.*;
 public class Button {
 
     private static final String BUTTONS_PATH = "image/menu/buttons.png";
+    private static final String BUTTONS_HOVER_PATH = "image/menu/buttons_hover.png";
     private Image image;
+    private Image img_hover;
     private boolean active;
+    private boolean hover;
     private final Bounds bounds;
     private final GameState gameState;
 
@@ -26,8 +29,8 @@ public class Button {
     }
 
     public void draw(Canvas canvas) {
-        if (active) {
-            canvas.drawRectangle(bounds.getX(), bounds.getY(), bounds.getWidth(), bounds.getHeight(), Color.red);
+        if (hover) {
+            canvas.drawImage(img_hover, bounds.getX(), bounds.getY());
         } else {
             canvas.drawImage(image, bounds.getX(), bounds.getY());
         }
@@ -40,11 +43,16 @@ public class Button {
         return active;
     }
 
+    public void setHover(boolean hover) {
+        this.hover = hover;
+    }
+
     public GameState getGameState() {
         return gameState;
     }
 
     private void loadImage(int x, int y) {
         image = SpriteSheetSlicer.getSprite(x, y, bounds.getWidth(), bounds.getHeight(), BUTTONS_PATH);
+        img_hover = SpriteSheetSlicer.getSprite(x, y, bounds.getWidth(), bounds.getHeight(), BUTTONS_HOVER_PATH);
     }
 }

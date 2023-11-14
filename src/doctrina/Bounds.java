@@ -30,6 +30,11 @@ public class Bounds {
                 y >= coords.y && y <= coords.y + height);
     }
 
+    public boolean contains(Point point) {
+        return (point.x >= coords.x && point.x <= coords.x + width &&
+                point.y >= coords.y && point.y <= coords.y + height);
+    }
+
     public void setCoords(int x, int y) {
         coords.setLocation(x, y);
     }

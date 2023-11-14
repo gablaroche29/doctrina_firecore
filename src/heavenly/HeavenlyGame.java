@@ -24,7 +24,7 @@ public class HeavenlyGame extends Game {
         gameContext = GameContext.INSTANCE;
         gameContext.setCurrentState(GameState.MENU);
         menu = new Menu();
-        RenderingEngine.getInstance().getScreen().fullscreen();
+        //RenderingEngine.getInstance().getScreen().fullscreen();
     }
 
     @Override

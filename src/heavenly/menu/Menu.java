@@ -39,6 +39,12 @@ public class Menu {
             }
             SoundEffect.CLICK.play();
         }
+
+        if (menuPad.getMouseCoords() != null) {
+            for (Button button : buttons) {
+                button.setHover(button.getBounds().contains(menuPad.getMouseCoords()));
+            }
+        }
     }
 
     public void draw(Canvas canvas) {
