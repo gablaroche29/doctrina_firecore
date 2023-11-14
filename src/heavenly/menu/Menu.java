@@ -32,7 +32,7 @@ public class Menu {
     public void update() {
         if (menuPad.isMousePressed()) {
             for (Button button : buttons) {
-                button.setActive(button.getBounds().contains(menuPad.getMouseEvent().getX(), menuPad.getMouseEvent().getY()));
+                button.setActive(button.getBounds().contains(menuPad.getMouseCoords()));
                 if (button.isActive()) {
                     GameContext.INSTANCE.setCurrentState(button.getGameState());
                 }

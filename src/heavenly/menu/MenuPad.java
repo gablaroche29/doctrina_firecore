@@ -17,8 +17,8 @@ public class MenuPad extends MouseController {
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
-        this.event = e;
+    public void mouseClicked(MouseEvent e) {
+        super.mouseClicked(e);
         mousePressed = true;
     }
 
