@@ -1,11 +1,9 @@
 package heavenly.menu;
 
 import doctrina.MouseController;
-import doctrina.RenderingEngine;
-import doctrina.state.GameContext;
+import doctrina.GameContext;
 import heavenly.sounds.SoundEffect;
 
-import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class MenuPad extends MouseController {

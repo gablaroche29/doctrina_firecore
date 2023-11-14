@@ -2,6 +2,7 @@ package heavenly;
 
 import doctrina.*;
 import doctrina.Canvas;
+import doctrina.ControllableEntity;
 
 import java.awt.*;
 

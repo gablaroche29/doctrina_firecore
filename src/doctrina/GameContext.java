@@ -1,4 +1,4 @@
-package doctrina.state;
+package doctrina;
 
 public enum GameContext {
     INSTANCE;

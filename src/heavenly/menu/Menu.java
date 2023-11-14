@@ -1,10 +1,8 @@
 package heavenly.menu;
 
 import doctrina.Canvas;
-import doctrina.state.GameContext;
-import doctrina.state.GameState;
+import doctrina.GameState;
 import heavenly.sounds.Music;
-import heavenly.sounds.SoundEffect;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;

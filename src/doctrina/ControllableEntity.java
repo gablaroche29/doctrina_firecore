@@ -1,5 +1,8 @@
 package doctrina;
 
+import doctrina.MovableEntity;
+import doctrina.MovementController;
+
 public abstract class ControllableEntity extends MovableEntity {
 
     private final MovementController controller;

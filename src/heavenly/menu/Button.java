@@ -3,7 +3,7 @@ package heavenly.menu;
 import doctrina.Bounds;
 import doctrina.Canvas;
 import doctrina.SpriteSheetSlicer;
-import doctrina.state.GameState;
+import doctrina.GameState;
 
 import java.awt.*;
 

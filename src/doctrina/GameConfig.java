@@ -3,6 +3,7 @@ package doctrina;
 public class GameConfig {
 
     private static boolean debug;
+    private static double musicVolume;
 
     public static boolean isDebugEnabled() {
         return debug;
@@ -16,5 +17,11 @@ public class GameConfig {
         debug = false;
     }
 
+    public static void setMusicVolume(double volume) {
+        musicVolume = volume;
+    }
 
+    public static double getMusicVolume() {
+        return musicVolume;
+    }
 }
