@@ -42,6 +42,11 @@ public class RenderingEngine {
         panel.addMouseMotionListener((MouseMotionListener) mouseListener);
     }
 
+    public void removeMouseListener(MouseListener mouseListener) {
+        panel.removeMouseListener(mouseListener);
+        panel.removeMouseMotionListener((MouseMotionListener) mouseListener);
+    }
+
     public Canvas buildCanvas() {
         Graphics2D buffer = bufferedImage.createGraphics();
         buffer.setRenderingHints(buildRenderingHints());

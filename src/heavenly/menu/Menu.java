@@ -16,8 +16,8 @@ public class Menu {
 
     private final String BG_PATH = "image/menu/menu.png";
     private Image background;
-    private final MenuPad menuPad;
     private final Button[] buttons = new Button[3];
+    private final MenuPad menuPad;
 
     public Menu() {
         buttons[0] = initializePlayButton();
@@ -29,29 +29,16 @@ public class Menu {
         Music.BG_MENU.play(Clip.LOOP_CONTINUOUSLY);
     }
 
-    public void update() {
-        if (menuPad.isMousePressed()) {
-            for (Button button : buttons) {
-                button.setActive(button.getBounds().contains(menuPad.getMouseCoords()));
-                if (button.isActive()) {
-                    GameContext.INSTANCE.setCurrentState(button.getGameState());
-                }
-            }
-            SoundEffect.CLICK.play();
-        }
-
-        if (menuPad.getMouseCoords() != null) {
-            for (Button button : buttons) {
-                button.setHover(button.getBounds().contains(menuPad.getMouseCoords()));
-            }
-        }
-    }
-
     public void draw(Canvas canvas) {
         canvas.drawImage(background, 0, 0);
         for (Button button : buttons) {
             button.draw(canvas);
         }
+    }
+
+    public void quit() {
+        menuPad.dispose();
+        Music.BG_MENU.stop();
     }
 
     private void load() {

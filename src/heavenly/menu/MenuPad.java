@@ -1,8 +1,8 @@
 package heavenly.menu;
 
 import doctrina.MouseController;
+import doctrina.RenderingEngine;
 import doctrina.state.GameContext;
-import doctrina.state.GameState;
 import heavenly.sounds.SoundEffect;
 
 import java.awt.*;
@@ -10,32 +10,29 @@ import java.awt.event.MouseEvent;
 
 public class MenuPad extends MouseController {
 
-    private MouseEvent event;
-    private boolean mousePressed;
+    private final Button[] buttons;
 
     public MenuPad(Button[] buttons) {
+        this.buttons = buttons;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         super.mouseClicked(e);
-        mousePressed = true;
+        for (Button button : buttons) {
+            button.setActive(button.getBounds().contains(mouseCoords));
+            if (button.isActive()) {
+                GameContext.INSTANCE.setCurrentState(button.getGameState());
+            }
+        }
+        SoundEffect.CLICK.play();
     }
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-        mousePressed = false;
-    }
-
-    public MouseEvent getMouseEvent() {
-        return event;
-    }
-
-    public boolean isMousePressed() {
-        return mousePressed;
-    }
-
-    public Point getMouseCoords() {
-        return mouseCoords;
+    public void mouseMoved(MouseEvent e) {
+        super.mouseMoved(e);
+        for (Button button : buttons) {
+            button.setHover(button.getBounds().contains(mouseCoords));
+        }
     }
 }

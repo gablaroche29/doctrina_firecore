@@ -13,13 +13,41 @@ public class MouseController implements MouseListener, MouseMotionListener {
 
     public MouseController() {
         mouseCoords = new Point();
-        RenderingEngine.getInstance().addMouseListener(this);
+        activate();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         updateProportionScreen();
         setMouseCoords(e);
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        updateProportionScreen();
+        setMouseCoords(e);
+    }
+
+    public void dispose() {
+        RenderingEngine.getInstance().removeMouseListener(this);
+    }
+
+    public void activate() {
+        RenderingEngine.getInstance().addMouseListener(this);
+    }
+
+    private void setMouseCoords(MouseEvent e) {
+        mouseCoords.setLocation(e.getX() * proportionWidth, e.getY() * proportionHeight);
+    }
+
+    private void updateProportionScreen() {
+        // SET the screen basic width and height per default
+        int widthFullscreen = RenderingEngine.getInstance().getScreen().getWidth();
+        int heightFullscreen = RenderingEngine.getInstance().getScreen().getHeight();
+        int width = 800;
+        proportionWidth = (double) width / widthFullscreen;
+        int height = 600;
+        proportionHeight = (double) height / heightFullscreen;
     }
 
     @Override
@@ -40,26 +68,5 @@ public class MouseController implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        updateProportionScreen();
-        setMouseCoords(e);
-    }
-
-    private void setMouseCoords(MouseEvent e) {
-        mouseCoords.setLocation(e.getX() * proportionWidth, e.getY() * proportionHeight);
-    }
-
-    private void updateProportionScreen() {
-        // SET the screen basic width and height per default
-        int widthFullscreen = RenderingEngine.getInstance().getScreen().getWidth();
-        int heightFullscreen = RenderingEngine.getInstance().getScreen().getHeight();
-        int width = 800;
-        proportionWidth = (double) width / widthFullscreen;
-        int height = 600;
-        proportionHeight = (double) height / heightFullscreen;
     }
 }

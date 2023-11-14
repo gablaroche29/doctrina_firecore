@@ -1,4 +1,6 @@
-package doctrina;
+package doctrina.animation;
+
+import doctrina.Direction;
 
 import java.awt.*;
 

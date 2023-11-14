@@ -30,16 +30,12 @@ public class HeavenlyGame extends Game {
 
     @Override
     protected void update() {
-        if (gameContext.getCurrentState() == GameState.MENU) {
-            menu.update();
-        }
-
         if (gameContext.getCurrentState() == GameState.QUIT) {
             stop();
         }
 
         if (gameContext.getCurrentState() == GameState.INITIALIZE) {
-            Music.BG_MENU.stop();
+            menu.quit();
 
             gamePad = new GamePad();
             player = new Player(gamePad, 864, 2368);
