@@ -9,8 +9,8 @@ import java.awt.*;
 
 public class Button {
 
-    private static final String BUTTONS_PATH = "image/menu/buttons.png";
-    private static final String BUTTONS_HOVER_PATH = "image/menu/buttons_hover.png";
+    private static final String BUTTONS_PATH = "image/menu/blue_buttons.png";
+    private static final String BUTTONS_HOVER_PATH = "image/menu/blue_buttons_hover.png";
     private Image image;
     private Image img_hover;
     private boolean active;

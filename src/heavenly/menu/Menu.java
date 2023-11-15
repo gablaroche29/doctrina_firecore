@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class Menu {
 
-    private final String BG_PATH = "image/menu/menu.png";
+    private final String BG_PATH = "image/menu/bg.png";
     private Image background;
     private final Button[] buttons = new Button[3];
     private final MenuPad menuPad;
@@ -49,14 +49,14 @@ public class Menu {
     }
 
     private Button initializePlayButton() {
-        return new Button(224, 64, 224, 64, 352, 160, GameState.INITIALIZE);
+        return new Button(298, 172, 298, 172, 203, 83, GameState.INITIALIZE);
     }
 
     private Button initializeOptionsButton() {
-        return new Button(224, 224, 224, 224, 352, 160, GameState.OPTIONS);
+        return new Button(298, 262, 298, 262, 203, 83, GameState.OPTIONS);
     }
 
     private Button initializeQuitButton() {
-        return new Button(224, 384, 224, 384, 352, 160, GameState.QUIT);
+        return new Button(298, 353, 298, 353, 203, 83, GameState.QUIT);
     }
 }

@@ -36,13 +36,13 @@ public class Screen {
     }
 
     public void setSize(int width, int height) {
-        boolean franeIsVisible = frame.isVisible();
-        if (franeIsVisible) {
+        boolean frameIsVisible = frame.isVisible();
+        if (frameIsVisible) {
             frame.setVisible(false);
         }
         frame.setSize(width, height);
         frame.setLocationRelativeTo(null);
-        if (franeIsVisible) {
+        if (frameIsVisible) {
             frame.setVisible(true);
         }
 
@@ -106,11 +106,11 @@ public class Screen {
         frame = new JFrame();
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
-        frame.setTitle("Doctrina Game");
+        frame.setTitle("Heavenly Game");
         frame.setIgnoreRepaint(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setState(JFrame.NORMAL);
-        frame.setUndecorated(false);
+        frame.setUndecorated(true);
         frame.setBackground(Color.BLACK);
     }
 
