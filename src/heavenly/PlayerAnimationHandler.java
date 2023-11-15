@@ -1,7 +1,7 @@
 package heavenly;
 
-import doctrina.animation.Animation;
-import doctrina.animation.AnimationHandler;
+import doctrina.Animation;
+import doctrina.AnimationHandler;
 
 public class PlayerAnimationHandler extends AnimationHandler {
 
