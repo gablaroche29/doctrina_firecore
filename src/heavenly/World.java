@@ -25,6 +25,8 @@ public class World extends StaticEntity {
     private final Player player;
     private final Ennemies ennemies;
 
+    private RainEffect rainEffect;
+
     public World(Player player) {
         setDimension(3200, 3200);
         teleport(0, 0);
@@ -36,11 +38,15 @@ public class World extends StaticEntity {
 
         initializeCollidableEntities();
         playBackgroundMusic();
+
+        //rainEffect = new RainEffect();
     }
 
     public void update() {
         ennemies.update();
         updateCollisionWorld();
+
+        //rainEffect.update();
     }
 
     @Override
@@ -55,6 +61,8 @@ public class World extends StaticEntity {
                 blockade.draw(canvas, camera);
             }
         }
+
+        //rainEffect.draw(canvas, camera);
     }
     
     private void initializeCollidableEntities() {

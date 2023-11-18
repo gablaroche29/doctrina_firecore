@@ -64,6 +64,9 @@ public class HeavenlyGame extends Game {
             world.draw(canvas, camera);
             player.draw(canvas, camera);
             canvas.drawString("FPS " + GameTime.getCurrentFps(), 20, 20, Color.WHITE);
+            //canvas.drawRectangle(0, 0, 800, 600, new Color(0, 0, 0, 0.4f));
         }
+
+
     }
 }

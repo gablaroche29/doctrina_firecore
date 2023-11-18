@@ -17,6 +17,7 @@ public class Player extends ControllableEntity {
         setDimension(32, 32);
         setSpeed(2);
         loadAnimationHandler();
+        setDirection(Direction.DOWN);
     }
 
     @Override

@@ -30,6 +30,11 @@ public class Canvas {
         graphics.drawString(text, x, y);
     }
 
+    public void drawLine(int x1, int y1, int x2, int y2, Paint paint) {
+        graphics.setPaint(paint);
+        graphics.drawLine(x1, y1, x2, y2);
+    }
+
     public void drawImage(Image image, int x, int y) {
         graphics.drawImage(image, x, y, null);
     }
