@@ -4,15 +4,21 @@ import java.awt.*;
 
 public class  AnimationHandler {
 
-    private static int ANIMATION_SPEED = 5;
+    private static int ANIMATION_SPEED = 6;
     private int currentAnimationFrame = 1; // idle
     private int nextFrame = ANIMATION_SPEED;
-
+    private Animation currentAnimation;
     private Animation upAnimation;
     private Animation downAnimation;
     private Animation leftAnimation;
     private Animation rightAnimation;
     private Animation resetAnimation;
+    private Animation frontAttackAnimation;
+    private final MovableEntity entity;
+
+    public AnimationHandler(MovableEntity entity) {
+        this.entity = entity;
+    }
 
     public Image getDirectionSprite(Direction direction) {
         if (direction == Direction.RIGHT) {
@@ -27,6 +33,19 @@ public class  AnimationHandler {
         return (resetAnimation != null) ? resetAnimation.getSprite(currentAnimationFrame) : downAnimation.getSprite(1);
     }
 
+    public Animation getDirectionAnimation() {
+        if (entity.getDirection() == Direction.RIGHT) {
+            return rightAnimation;
+        } else if (entity.getDirection() == Direction.LEFT) {
+            return leftAnimation;
+        } else if (entity.getDirection() == Direction.UP) {
+            return upAnimation;
+        } else if (entity.getDirection() == Direction.DOWN) {
+            return downAnimation;
+        }
+        return (resetAnimation != null) ? resetAnimation : downAnimation;
+    }
+
     public Image getIdleSprite() {
         return resetAnimation.getSprite(currentAnimationFrame);
     }
@@ -36,13 +55,23 @@ public class  AnimationHandler {
     }
 
     public void update() {
+        System.out.println("Current Frame: " + currentAnimationFrame);
+        updateCurrentAnimation();
         nextFrame--;
         if (nextFrame == 0) {
             currentAnimationFrame++;
-            if (currentAnimationFrame >= upAnimation.getLengthSprites()) {
+            if (currentAnimationFrame >= (currentAnimation.getLengthSprites())) {
                 currentAnimationFrame = 0;
             }
             nextFrame = ANIMATION_SPEED;
+        }
+    }
+
+    private void updateCurrentAnimation() {
+        switch (entity.getState()) {
+            case IDLE -> currentAnimation = downAnimation;
+            case MOVE -> currentAnimation = getDirectionAnimation();
+            case ATTACK -> currentAnimation = frontAttackAnimation;
         }
     }
 
@@ -84,5 +113,17 @@ public class  AnimationHandler {
 
     public void setRightAnimation(Animation animation) {
         this.rightAnimation = animation;
+    }
+
+    public Animation getFrontAttackAnimation() {
+        return frontAttackAnimation;
+    }
+
+    public Image getAttackAnimation() {
+        return frontAttackAnimation.getSprite(currentAnimationFrame);
+    }
+
+    public void setFrontAttackAnimation(Animation frontAttackAnimation) {
+        this.frontAttackAnimation = frontAttackAnimation;
     }
 }

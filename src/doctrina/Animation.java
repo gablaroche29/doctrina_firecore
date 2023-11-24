@@ -14,6 +14,9 @@ public class Animation {
     }
 
     public Image getSprite(int i) {
+        if (i >= getLengthSprites()) {
+            return sprites[0];
+        }
         return sprites[i];
     }
 

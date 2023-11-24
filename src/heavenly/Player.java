@@ -9,6 +9,8 @@ import java.awt.*;
 public class Player extends ControllableEntity {
 
     private PlayerAnimationHandler animationHandler;
+    private boolean hasAttacked;
+    private int attackCoolDown = 0;
 
     public Player(MovementController controller, int x, int y) {
         super(controller);
@@ -18,23 +20,48 @@ public class Player extends ControllableEntity {
         setSpeed(2);
         loadAnimationHandler();
         setDirection(Direction.DOWN);
+
+        state = State.IDLE;
     }
 
     @Override
     public void update() {
         super.update();
-        moveWithController();
+        if (!hasAttacked) {
+            moveWithController();
+        }
+
+        attackCoolDown--;
+        if (attackCoolDown <= 0) {
+            attackCoolDown = 0;
+            hasAttacked = false;
+        }
+
+        if (getController().isSpacePressed()) {
+            hasAttacked = true;
+            attackCoolDown = 40;
+        }
 
         if (hasMoved()) {
+            state = State.MOVE;
+            animationHandler.update();
+        } else if (hasAttacked) {
+            state = State.ATTACK;
             animationHandler.update();
         } else {
+            state = State.IDLE;
             animationHandler.reset();
         }
     }
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
-        Image sprite = animationHandler.getDirectionSprite(getDirection());
+        Image sprite;
+        if (hasAttacked) {
+            sprite = animationHandler.getAttackAnimation();
+        } else {
+            sprite = animationHandler.getDirectionSprite(getDirection());
+        }
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
 
         if (GameConfig.isDebugEnabled()) {

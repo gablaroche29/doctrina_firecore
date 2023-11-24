@@ -9,6 +9,7 @@ public abstract class StaticEntity {
     protected int width;
     protected int height;
     protected boolean render;
+    protected State state;
 
     public abstract void draw(Canvas canvas, Camera camera);
 
@@ -60,5 +61,13 @@ public abstract class StaticEntity {
 
     public boolean isInCameraField(Camera camera) {
         return camera.isItInArea(this);
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 }

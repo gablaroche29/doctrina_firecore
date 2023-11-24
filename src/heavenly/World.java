@@ -23,7 +23,7 @@ public class World extends StaticEntity {
     private final CollisionRepository collisionRepository;
     private List<MovableEntity> collidableEntities;
     private final Player player;
-    private final Ennemies ennemies;
+//    private final Ennemies ennemies;
 
     private RainEffect rainEffect;
 
@@ -34,7 +34,7 @@ public class World extends StaticEntity {
         collisionRepository = new CollisionRepository(COLLISIONS_PATH, 100, 100, 32, 833);
         this.player = player;
 
-        ennemies = new Ennemies(this, player);
+        //ennemies = new Ennemies(this, player);
 
         initializeCollidableEntities();
         playBackgroundMusic();
@@ -43,7 +43,7 @@ public class World extends StaticEntity {
     }
 
     public void update() {
-        ennemies.update();
+        //ennemies.update();
         updateCollisionWorld();
 
         //rainEffect.update();
@@ -52,9 +52,9 @@ public class World extends StaticEntity {
     @Override
     public void draw(Canvas canvas, Camera camera) {
         canvas.drawImage(background, x - camera.getX(), y - camera.getY());
-        for (Ia ia : ennemies.getEnnemies()) {
-            ia.draw(canvas, camera);
-        }
+//        for (Ia ia : ennemies.getEnnemies()) {
+//            ia.draw(canvas, camera);
+//        }
 
         if (GameConfig.isDebugEnabled()) {
             for (Blockade blockade : collisionRepository.getCollisions()) {
@@ -68,7 +68,7 @@ public class World extends StaticEntity {
     private void initializeCollidableEntities() {
         collidableEntities = new ArrayList<>();
         collidableEntities.add(player);
-        collidableEntities.addAll(ennemies.getEnnemies());
+//        collidableEntities.addAll(ennemies.getEnnemies());
     }
 
     private void updateCollisionWorld() {

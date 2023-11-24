@@ -9,6 +9,7 @@ public class MonsterAnimationHandler extends AnimationHandler {
     private static final String SPRITE_PATH = "image/characters/monsters.png";
 
     public MonsterAnimationHandler(Ia ia) {
+        super(ia);
         setAnimationSpeed(10);
         setResetAnimation(new Animation(96, 0,
                 ia.getWidth(), ia.getHeight(), 3, SPRITE_PATH));
