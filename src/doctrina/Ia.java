@@ -51,7 +51,7 @@ public class Ia extends MovableEntity {
 //        } else {
 //            sprite = animationHandler.getIdleSprite();
 //        }
-        sprite = animationHandler.getDirectionSprite(getDirection());
+        sprite = animationHandler.getDirectionSprite();
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
         if (GameConfig.isDebugEnabled()) {
             drawCollisionDetector(canvas, camera);

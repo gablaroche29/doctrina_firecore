@@ -58,9 +58,9 @@ public class Player extends ControllableEntity {
     public void draw(Canvas canvas, Camera camera) {
         Image sprite;
         if (hasAttacked) {
-            sprite = animationHandler.getAttackAnimation();
+            sprite = animationHandler.getAttackFrame();
         } else {
-            sprite = animationHandler.getDirectionSprite(getDirection());
+            sprite = animationHandler.getDirectionSprite();
         }
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
 
