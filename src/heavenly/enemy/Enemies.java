@@ -38,4 +38,8 @@ public class Enemies {
             ia.draw(canvas, camera);
         }
     }
+
+    public List<Ia> getEnemies() {
+        return enemies;
+    }
 }

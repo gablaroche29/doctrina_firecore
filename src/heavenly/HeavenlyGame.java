@@ -65,7 +65,7 @@ public class HeavenlyGame extends Game {
         if (gameContext.getCurrentState() == GameState.GAME) {
             world.draw(canvas, camera);
             player.draw(canvas, camera);
-            //canvas.drawRectangle(0, 0, 800, 600, new Color(0, 0, 0, 0.4f));
+            world.drawRain(canvas, camera);
             ui.draw(canvas, camera);
         }
     }

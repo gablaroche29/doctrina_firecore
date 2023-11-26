@@ -9,7 +9,8 @@ import java.util.Random;
 public class Raindrop extends StaticEntity {
 
     private final int length;
-    private int speed;
+    private final int speed;
+    private final Color color = new Color(128, 145, 172);
 
     public Raindrop() {
         Random random = new Random();
@@ -25,8 +26,7 @@ public class Raindrop extends StaticEntity {
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
-        //canvas.drawLine(x - camera.getX(), y, x - camera.getX(), y + length, Color.BLUE);
-        canvas.drawRectangle(x, y, 1, length, Color.BLUE);
+        canvas.drawRectangle(x, y, 1, length, color);
     }
 
 }

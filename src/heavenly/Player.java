@@ -67,13 +67,12 @@ public class Player extends ControllableEntity {
         }
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
 
-        if (hasAttacked) {
-            drawAttackZone(canvas, camera);
-        }
-
         if (GameConfig.isDebugEnabled()) {
             drawHitBox(canvas, camera);
             drawCollisionDetector(canvas, camera);
+            if (hasAttacked) {
+                drawAttackZone(canvas, camera);
+            }
         }
     }
 

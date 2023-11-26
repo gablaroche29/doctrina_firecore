@@ -26,7 +26,7 @@ public class Ui extends StaticEntity {
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 760, 20, Color.WHITE);
 
         if (GameConfig.isDebugEnabled()) {
-            canvas.drawString("FPS " + GameTime.getCurrentFps(), 560, 20, Color.WHITE);
+            canvas.drawString("FPS " + GameTime.getCurrentFps(), 760, 20, Color.WHITE);
         }
     }
 }

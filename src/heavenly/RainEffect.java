@@ -25,14 +25,11 @@ public class RainEffect {
             }
         }
 
-        // Ajouter de nouvelles gouttes de pluie à intervalles réguliers
         if (!stopRaining) {
             for (int i = 0; i < 30; i++) {
                 raindrops.add(new Raindrop());
             }
         }
-
-        //raindrops.removeIf(raindrop -> raindrop.getY() > RenderingEngine.getInstance().getScreen().getHeight());
     }
 
     public void draw(Canvas canvas, Camera camera) {

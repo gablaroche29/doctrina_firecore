@@ -37,17 +37,15 @@ public class World extends StaticEntity {
 
         initializeCollidableEntities();
 
-
-
-        //playBackgroundMusic();
-        //rainEffect = new RainEffect();
+        rainEffect = new RainEffect();
+        playBackgroundMusic();
     }
 
     public void update() {
         enemies.update();
         updateCollisionWorld();
 
-        //rainEffect.update();
+        rainEffect.update();
     }
 
     @Override
@@ -60,14 +58,17 @@ public class World extends StaticEntity {
                 blockade.draw(canvas, camera);
             }
         }
+    }
 
-        //rainEffect.draw(canvas, camera);
+    public void drawRain(Canvas canvas, Camera camera) {
+        rainEffect.draw(canvas, camera);
+        canvas.drawRectangle(0, 0, 800, 600, new Color(0, 0, 0, 0.4f));
     }
     
     private void initializeCollidableEntities() {
         collidableEntities = new ArrayList<>();
         collidableEntities.add(player);
-//        collidableEntities.addAll(ennemies.getEnnemies());
+        collidableEntities.addAll(enemies.getEnemies());
     }
 
     private void updateCollisionWorld() {
@@ -87,7 +88,8 @@ public class World extends StaticEntity {
 
     private void playBackgroundMusic() {
         if (!GameConfig.isDebugEnabled()) {
-            Music.BG_AMBIENT.play(Clip.LOOP_CONTINUOUSLY);
+            Music.BG_GAME.play(Clip.LOOP_CONTINUOUSLY);
+            Music.RAIN_AMBIANCE.play(Clip.LOOP_CONTINUOUSLY);
         }
     }
 }
