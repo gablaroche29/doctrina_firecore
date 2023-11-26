@@ -10,6 +10,7 @@ import java.util.List;
 public class Ennemies {
 
     private List<Ia> ennemies;
+    private List<Ia> deadEnnemies;
     private World world;
 
     private final Ia ia;
@@ -22,13 +23,19 @@ public class Ennemies {
         ia2 = new Ia(1130, 2538, 1.5f, player);
         ennemies.add(ia);
         ennemies.add(ia2);
+
+        deadEnnemies = new ArrayList<>();
     }
 
     public void update() {
         for (Ia ia : ennemies) {
             ia.update();
+            if (!ia.isAlive()) {
+                deadEnnemies.add(ia);
+            }
         }
 
+        ennemies.removeAll(deadEnnemies);
     }
 
     public void draw(Canvas canvas, Camera camera) {

@@ -12,10 +12,11 @@ public class Ia extends MovableEntity {
     private MonsterAnimationHandler animationHandler;
     private Direction directionToGo;
     private boolean moving;
+    private boolean isAlive = true;
 
     public Ia(int x, int y, float speed, Player player) {
-        this.x = x;
-        this.y = y;
+        super(2);
+        teleport(x, y);
         setSpeed(speed);
         setDimension(32, 32);
 
@@ -37,6 +38,13 @@ public class Ia extends MovableEntity {
         if (moving) {
             moving();
         }
+
+        if (player.hasAttacked()) {
+            if (intersectWith(player.getAttackZone())) {
+                isAlive = false;
+            }
+        }
+
         animationHandler.update();
     }
 
@@ -53,10 +61,15 @@ public class Ia extends MovableEntity {
 //        }
         sprite = animationHandler.getDirectionSprite();
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
+
         if (GameConfig.isDebugEnabled()) {
             drawCollisionDetector(canvas, camera);
             drawHitBox(canvas, camera);
         }
+    }
+
+    public boolean isAlive() {
+        return isAlive;
     }
 
     private void moving() {

@@ -16,6 +16,7 @@ public class HeavenlyGame extends Game {
     private GamePad gamePad;
     private Player player;
     private World world;
+    private Ui ui;
 
     @Override
     protected void initialize() {
@@ -40,6 +41,7 @@ public class HeavenlyGame extends Game {
             player = new Player(gamePad, 864, 2368);
             world = new World(player);
             camera = new Camera(player, 800, 600);
+            ui = new Ui(player);
             gameContext.setCurrentState(GameState.GAME);
             RenderingEngine.getInstance().getScreen().hideCursor();
         }
@@ -63,10 +65,8 @@ public class HeavenlyGame extends Game {
         if (gameContext.getCurrentState() == GameState.GAME) {
             world.draw(canvas, camera);
             player.draw(canvas, camera);
-            canvas.drawString("FPS " + GameTime.getCurrentFps(), 20, 20, Color.WHITE);
             //canvas.drawRectangle(0, 0, 800, 600, new Color(0, 0, 0, 0.4f));
+            ui.draw(canvas, camera);
         }
-
-
     }
 }

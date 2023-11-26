@@ -97,6 +97,10 @@ public class  AnimationHandler {
     }
 
     private void updateCurrentAnimation() {
+        if (entity.getState() == null) {
+            currentAnimation = downAnimation;
+            return;
+        }
         switch (entity.getState()) {
             case IDLE -> currentAnimation = downAnimation;
             case MOVE -> currentAnimation = getDirectionAnimation();

@@ -9,6 +9,8 @@ public class MovementController extends Controller {
     private int rightKey = KeyEvent.VK_RIGHT;
     private int leftKey = KeyEvent.VK_LEFT;
     private final int spaceKey = KeyEvent.VK_SPACE;
+    private int pKey = KeyEvent.VK_P;
+
 
     public MovementController() {
         bindKey(upKey);
@@ -16,6 +18,7 @@ public class MovementController extends Controller {
         bindKey(rightKey);
         bindKey(leftKey);
         bindKey(spaceKey);
+        bindKey(pKey);
     }
 
     public void useWasdKeys() {
@@ -43,6 +46,10 @@ public class MovementController extends Controller {
 
     public boolean isSpacePressed() {
         return isKeyPressed(spaceKey);
+    }
+
+    public boolean isPPressed() {
+        return isKeyPressed(pKey);
     }
 
 

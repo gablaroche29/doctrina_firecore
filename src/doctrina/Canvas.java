@@ -38,4 +38,8 @@ public class Canvas {
     public void drawImage(Image image, int x, int y) {
         graphics.drawImage(image, x, y, null);
     }
+
+    public void drawImage(Image image, int x, int y, int width, int height) {
+        graphics.drawImage(image, x, y, width, height, null);
+    }
 }

@@ -7,7 +7,8 @@ public abstract class ControllableEntity extends MovableEntity {
 
     private final MovementController controller;
 
-    public ControllableEntity(MovementController controller) {
+    public ControllableEntity(MovementController controller, int attackZone) {
+        super(attackZone);
         this.controller = controller;
     }
 

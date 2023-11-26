@@ -31,6 +31,10 @@ public abstract class StaticEntity {
         return getBounds().intersects(rectangle);
     }
 
+    public boolean intersectWith(Bounds bounds) {
+        return bounds.intersectsWith(getBounds());
+    }
+
     protected Rectangle getBounds() {
         return new Rectangle(x, y, width, height);
     }

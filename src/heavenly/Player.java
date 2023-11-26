@@ -12,8 +12,10 @@ public class Player extends ControllableEntity {
     private boolean hasAttacked;
     private int attackCoolDown = 0;
 
+    private int pv = 5;
+
     public Player(MovementController controller, int x, int y) {
-        super(controller);
+        super(controller, 5);
         teleport(x, y);
         controller.useWasdKeys();
         setDimension(32, 32);
@@ -38,6 +40,7 @@ public class Player extends ControllableEntity {
         }
 
         if (getController().isSpacePressed()) {
+            //SoundEffect.MELEE_SWORD.play();
             hasAttacked = true;
             attackCoolDown = 40;
         }
@@ -64,6 +67,10 @@ public class Player extends ControllableEntity {
         }
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
 
+        if (hasAttacked) {
+            drawAttackZone(canvas, camera);
+        }
+
         if (GameConfig.isDebugEnabled()) {
             drawHitBox(canvas, camera);
             drawCollisionDetector(canvas, camera);
@@ -72,5 +79,13 @@ public class Player extends ControllableEntity {
 
     private void loadAnimationHandler() {
         animationHandler = new PlayerAnimationHandler(this);
+    }
+
+    public int getPv() {
+        return pv;
+    }
+
+    public boolean hasAttacked() {
+        return hasAttacked;
     }
 }

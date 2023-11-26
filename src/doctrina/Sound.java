@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Sound {
 
     private Clip clip;
-    private String path;
+    private final String path;
 
     public Sound(String path) {
         this.path = path;

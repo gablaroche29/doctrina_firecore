@@ -5,6 +5,7 @@ import java.awt.*;
 public abstract class MovableEntity extends StaticEntity {
 
     private float speed = 1;
+    private AttackZone attackZone;
     private Direction direction = Direction.UP;
     private final Collision collision;
     private int lastX = Integer.MIN_VALUE;
@@ -13,8 +14,9 @@ public abstract class MovableEntity extends StaticEntity {
     private final static int collisionDetectorBound = 100;
     private final static int collisionDetectorPos = 50;
 
-    public MovableEntity() {
+    public MovableEntity(int attackRadius) {
         collision = new Collision(this);
+        attackZone = new AttackZone(this, attackRadius);
     }
 
     public void update() {
@@ -91,6 +93,14 @@ public abstract class MovableEntity extends StaticEntity {
         Rectangle rectangle = getHitBox();
         Color color = new Color(255, 0, 0, 200);
         canvas.drawRectangle(rectangle.x - camera.getX(), rectangle.y - camera.getY(), rectangle.width, rectangle.height, color);
+    }
+
+    public void drawAttackZone(Canvas canvas, Camera camera) {
+        attackZone.draw(canvas, camera);
+    }
+
+    public Bounds getAttackZone() {
+        return attackZone.getAttackZone();
     }
 
     public Rectangle getCollisionDetector() {
