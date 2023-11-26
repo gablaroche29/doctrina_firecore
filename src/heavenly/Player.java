@@ -63,7 +63,7 @@ public class Player extends ControllableEntity {
         if (hasAttacked) {
             sprite = animationHandler.getAttackFrame();
         } else {
-            sprite = animationHandler.getDirectionSprite();
+            sprite = animationHandler.getDirectionFrame();
         }
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
 

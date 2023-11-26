@@ -24,6 +24,8 @@ public class Ia extends MovableEntity {
 
         setTriggerZone();
         loadAnimationHandler();
+
+        state = State.MOVE;
     }
 
     @Override
@@ -59,7 +61,7 @@ public class Ia extends MovableEntity {
 //        } else {
 //            sprite = animationHandler.getIdleSprite();
 //        }
-        sprite = animationHandler.getDirectionSprite();
+        sprite = animationHandler.getDirectionFrame();
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
 
         if (GameConfig.isDebugEnabled()) {

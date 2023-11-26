@@ -24,7 +24,7 @@ public class  AnimationHandler {
         this.entity = entity;
     }
 
-    public Image getDirectionSprite() {
+    public Image getDirectionFrame() {
         if (entity.getDirection() == Direction.RIGHT) {
             return rightAnimation.getSprite(currentAnimationFrame);
         } else if (entity.getDirection() == Direction.LEFT) {
@@ -97,10 +97,6 @@ public class  AnimationHandler {
     }
 
     private void updateCurrentAnimation() {
-        if (entity.getState() == null) {
-            currentAnimation = downAnimation;
-            return;
-        }
         switch (entity.getState()) {
             case IDLE -> currentAnimation = downAnimation;
             case MOVE -> currentAnimation = getDirectionAnimation();
@@ -116,64 +112,32 @@ public class  AnimationHandler {
         currentAnimationFrame = 1;
     }
 
-    public Animation getUpAnimation() {
-        return upAnimation;
-    }
-
     public void setUpAnimation(Animation animation) {
         this.upAnimation = animation;
-    }
-
-    public Animation getDownAnimation() {
-        return downAnimation;
     }
 
     public void setDownAnimation(Animation animation) {
         this.downAnimation = animation;
     }
 
-    public Animation getLeftAnimation() {
-        return leftAnimation;
-    }
-
     public void setLeftAnimation(Animation animation) {
         this.leftAnimation = animation;
-    }
-
-    public Animation getRightAnimation() {
-        return rightAnimation;
     }
 
     public void setRightAnimation(Animation animation) {
         this.rightAnimation = animation;
     }
 
-    public Animation getDownAttackAnimation() {
-        return downAttackAnimation;
-    }
-
     public void setDownAttackAnimation(Animation downAttackAnimation) {
         this.downAttackAnimation = downAttackAnimation;
-    }
-
-    public Animation getUpAttackAnimation() {
-        return upAttackAnimation;
     }
 
     public void setUpAttackAnimation(Animation upAttackAnimation) {
         this.upAttackAnimation = upAttackAnimation;
     }
 
-    public Animation getLeftAttackAnimation() {
-        return leftAttackAnimation;
-    }
-
     public void setLeftAttackAnimation(Animation leftAttackAnimation) {
         this.leftAttackAnimation = leftAttackAnimation;
-    }
-
-    public Animation getRightAttackAnimation() {
-        return rightAttackAnimation;
     }
 
     public void setRightAttackAnimation(Animation rightAttackAnimation) {

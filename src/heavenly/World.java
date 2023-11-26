@@ -2,7 +2,7 @@ package heavenly;
 
 import doctrina.*;
 import doctrina.Canvas;
-import heavenly.ennemy.Ennemies;
+import heavenly.enemy.Enemies;
 import heavenly.sounds.Music;
 
 import javax.imageio.ImageIO;
@@ -10,7 +10,6 @@ import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,7 +22,7 @@ public class World extends StaticEntity {
     private final CollisionRepository collisionRepository;
     private List<MovableEntity> collidableEntities;
     private final Player player;
-    private final Ennemies ennemies;
+    private final Enemies enemies;
 
     private RainEffect rainEffect;
 
@@ -34,7 +33,7 @@ public class World extends StaticEntity {
         collisionRepository = new CollisionRepository(COLLISIONS_PATH, 100, 100, 32, 833);
         this.player = player;
 
-        ennemies = new Ennemies(this, player);
+        enemies = new Enemies(this, player);
 
         initializeCollidableEntities();
 
@@ -45,7 +44,7 @@ public class World extends StaticEntity {
     }
 
     public void update() {
-        ennemies.update();
+        enemies.update();
         updateCollisionWorld();
 
         //rainEffect.update();
@@ -54,7 +53,7 @@ public class World extends StaticEntity {
     @Override
     public void draw(Canvas canvas, Camera camera) {
         canvas.drawImage(background, x - camera.getX(), y - camera.getY());
-        ennemies.draw(canvas, camera);
+        enemies.draw(canvas, camera);
 
         if (GameConfig.isDebugEnabled()) {
             for (Blockade blockade : collisionRepository.getCollisions()) {
