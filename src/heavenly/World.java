@@ -24,7 +24,7 @@ public class World extends StaticEntity {
     private final Player player;
     private final Enemies enemies;
 
-    private RainEffect rainEffect;
+    private final RainEffect rainEffect;
 
     public World(Player player) {
         setDimension(3200, 3200);

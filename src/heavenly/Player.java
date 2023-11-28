@@ -3,6 +3,7 @@ package heavenly;
 import doctrina.*;
 import doctrina.Canvas;
 import doctrina.ControllableEntity;
+import heavenly.sounds.SoundEffect;
 
 import java.awt.*;
 
@@ -40,9 +41,9 @@ public class Player extends ControllableEntity {
         }
 
         if (getController().isSpacePressed()) {
-            //SoundEffect.MELEE_SWORD.play();
             hasAttacked = true;
             attackCoolDown = 40;
+            SoundEffect.MELEE_SWORD.play();
         }
 
         if (hasMoved()) {

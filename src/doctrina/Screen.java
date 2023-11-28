@@ -110,7 +110,7 @@ public class Screen {
         frame.setIgnoreRepaint(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setState(JFrame.NORMAL);
-        frame.setUndecorated(true);
+        frame.setUndecorated(false);
         frame.setBackground(Color.BLACK);
     }
 

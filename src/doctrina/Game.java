@@ -28,10 +28,10 @@ public abstract class Game {
         renderingEngine.start();
         GameTime gameTime = new GameTime();
         while (playing) {
+            gameTime.synchronize();
             update();
             draw(renderingEngine.buildCanvas());
             renderingEngine.drawOnScreen();
-            gameTime.synchronize();
         }
         renderingEngine.stop();
     }

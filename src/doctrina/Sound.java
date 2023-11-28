@@ -26,7 +26,6 @@ public class Sound {
     }
 
     public void start() {
-        reset();
         clip.start();
     }
 

@@ -5,7 +5,7 @@ import doctrina.Sound;
 public enum Music {
     BG_GAME("audio/music/game/bg_ambiance.wav"),
     RAIN_AMBIANCE("audio/music/game/rain_ambiance.wav"),
-    BG_MENU("audio/music/menu/bg.wav");
+    BG_MENU("audio/music/menu/menu.wav");
 
     private final Sound sound;
 

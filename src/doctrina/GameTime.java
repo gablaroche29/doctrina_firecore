@@ -10,7 +10,8 @@ public class GameTime {
     private static int fpsCount;
     private static long fpsTimeDelta;
     private static long gameStartTime;
-    private long syncTime;
+    private long lastFrameTime = 0;
+    private final long startTime = System.nanoTime();
 
     public static long getCurrentTime() {
         return System.currentTimeMillis();
@@ -35,20 +36,14 @@ public class GameTime {
     }
 
     protected GameTime() {
-        updateSyncTime();
         gameStartTime = System.currentTimeMillis();
         fpsTimeDelta = 0;
         currentFps = 0;
     }
 
     protected void synchronize() {
+        sleep();
         update();
-        try {
-            Thread.sleep(getSleepTime());
-        } catch (InterruptedException exception) {
-            exception.printStackTrace();
-        }
-        updateSyncTime();
     }
 
     private void update() {
@@ -61,17 +56,33 @@ public class GameTime {
         fpsTimeDelta = currentSecond;
     }
 
-    private long getSleepTime() {
-        long targetTime = 1000L / FPS_TARGET;
-        long sleep = targetTime - (System.currentTimeMillis() - syncTime);
-        if (sleep < 0) {
-            sleep = 4;
+    private void sleep(long nanoSeconds) throws InterruptedException {
+        // selon le modèle de Samuel
+        long endTime = System.nanoTime() + nanoSeconds;
+        long timeLeft = nanoSeconds;
+        long precision = TimeUnit.MILLISECONDS.toNanos(2);
+        while (timeLeft > 0) {
+            if (timeLeft > precision) {
+                Thread.sleep(1);
+            } else {
+                Thread.sleep(0);
+            }
+            timeLeft = endTime - System.nanoTime();
         }
-        return sleep;
     }
 
-    private void updateSyncTime() {
-        syncTime = System.currentTimeMillis();
+    public void sleep() {
+        // selon le modèle de Samuel
+        double targetFrameTime = 1_000_000_000.0 / 60;
+        long waitTime = (long) (targetFrameTime - ((System.nanoTime() - startTime) - lastFrameTime));
+        if (waitTime > 0 && waitTime <= targetFrameTime) {
+            try {
+                sleep(waitTime); // l'autre methode sleep
+            } catch (InterruptedException e) {
+                throw new RuntimeException("Could not sleep current thread: " + e.getMessage(), e);
+            }
+        }
+        lastFrameTime = System.nanoTime() - startTime;
     }
 
 }

@@ -2,6 +2,7 @@ package doctrina;
 
 import heavenly.MonsterAnimationHandler;
 import heavenly.Player;
+import heavenly.sounds.SoundEffect;
 
 import java.awt.*;
 
