@@ -1,4 +1,4 @@
-package heavenly;
+package heavenly.player;
 
 import doctrina.Animation;
 import doctrina.AnimationHandler;

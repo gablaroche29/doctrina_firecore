@@ -1,12 +1,8 @@
 package heavenly;
 
 import doctrina.*;
-import doctrina.Canvas;
-import doctrina.GameContext;
-import doctrina.GameState;
 import heavenly.menu.Menu;
-
-import java.awt.*;
+import heavenly.player.Player;
 
 
 public class HeavenlyGame extends Game {

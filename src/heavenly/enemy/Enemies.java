@@ -1,7 +1,7 @@
 package heavenly.enemy;
 
 import doctrina.*;
-import heavenly.Player;
+import heavenly.player.Player;
 import heavenly.World;
 
 import java.util.ArrayList;

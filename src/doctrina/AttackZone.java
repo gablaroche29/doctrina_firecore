@@ -23,7 +23,7 @@ public class AttackZone {
 
     public void draw(Canvas canvas, Camera camera) {
         Bounds bounds = getAttackZone();
-        Color color = new Color(255, 0, 0, 200);
+        Color color = new Color(0, 255, 0, 200);
         canvas.drawRectangle(bounds.getX() - camera.getX(), bounds.getY() - camera.getY(), bounds.getWidth(), bounds.getHeight(), color);
     }
 

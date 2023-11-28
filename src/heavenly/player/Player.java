@@ -1,4 +1,4 @@
-package heavenly;
+package heavenly.player;
 
 import doctrina.*;
 import doctrina.Canvas;
@@ -44,6 +44,10 @@ public class Player extends ControllableEntity {
             hasAttacked = true;
             attackCoolDown = 40;
             SoundEffect.MELEE_SWORD.play();
+        }
+
+        if (getController().isPPressed()) {
+            pv = 5;
         }
 
         State currentState = state;
@@ -95,5 +99,12 @@ public class Player extends ControllableEntity {
 
     public boolean hasAttacked() {
         return hasAttacked;
+    }
+
+    public void dropPv() {
+        pv--;
+        if (pv <= 0 ) {
+            pv = 0;
+        }
     }
 }

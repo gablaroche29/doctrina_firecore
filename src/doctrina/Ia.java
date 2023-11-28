@@ -1,19 +1,20 @@
 package doctrina;
 
 import heavenly.MonsterAnimationHandler;
-import heavenly.Player;
+import heavenly.player.Player;
 import heavenly.sounds.SoundEffect;
 
 import java.awt.*;
 
 public class Ia extends MovableEntity {
 
-    private Player player;
+    private final Player player;
     private Bounds triggerZone;
     private MonsterAnimationHandler animationHandler;
     private Direction directionToGo;
     private boolean moving;
     private boolean isAlive = true;
+    private int attackCooldown = 0;
 
     public Ia(int x, int y, float speed, Player player) {
         super(2);
@@ -27,12 +28,18 @@ public class Ia extends MovableEntity {
         loadAnimationHandler();
 
         state = State.MOVE;
+
     }
 
     @Override
     public void update() {
         super.update();
         updateTriggerZone();
+
+        attackCooldown--;
+        if (attackCooldown <= 0) {
+            attackCooldown = 0;
+        }
 
         if (triggerZone.intersectsWith(player)) {
             moving = true;
@@ -46,6 +53,12 @@ public class Ia extends MovableEntity {
             if (intersectWith(player.getAttackZone())) {
                 isAlive = false;
             }
+        }
+
+        if (getAttackZone().intersectsWith(player) && attackCooldown == 0) {
+            attackCooldown = 60;
+            player.dropPv();
+            SoundEffect.MONSTER_ATTACK.play();
         }
 
         animationHandler.update();
@@ -68,6 +81,7 @@ public class Ia extends MovableEntity {
         if (GameConfig.isDebugEnabled()) {
             drawCollisionDetector(canvas, camera);
             drawHitBox(canvas, camera);
+            drawAttackZone(canvas, camera);
         }
     }
 

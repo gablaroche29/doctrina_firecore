@@ -4,6 +4,7 @@ import doctrina.*;
 import doctrina.Canvas;
 import heavenly.enemy.Enemies;
 import heavenly.sounds.Music;
+import heavenly.player.Player;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
