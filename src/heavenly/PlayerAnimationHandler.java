@@ -16,14 +16,24 @@ public class PlayerAnimationHandler extends AnimationHandler {
 
     public PlayerAnimationHandler(Player player) {
         super(player);
-        setDownAnimation(new Animation(0, 32,
+        setDownMovementAnimation(new Animation(0, 32,
                 player.getWidth(), player.getHeight(), 6, SPRITE_PATH_DOWN_MOVEMENT));
-        setLeftAnimation(new Animation(0, 32,
+        setLeftMovementAnimation(new Animation(0, 32,
                 player.getWidth(), player.getHeight(), 6, SPRITE_PATH_LEFT_MOVEMENT));
-        setRightAnimation(new Animation(0, 32,
+        setRightMovementAnimation(new Animation(0, 32,
                 player.getWidth(), player.getHeight(), 6, SPRITE_PATH_RIGHT_MOVEMENT));
-        setUpAnimation(new Animation(0, 32,
+        setUpMovementAnimation(new Animation(0, 32,
                 player.getWidth(), player.getHeight(), 6, SPRITE_PATH_UP_MOVEMENT));
+
+        setDownIdleAnimation(new Animation(0, 0,
+                player.getWidth(), player.getHeight(), 6, SPRITE_PATH_DOWN_MOVEMENT));
+        setLeftIdleAnimation(new Animation(0, 0,
+                player.getWidth(), player.getHeight(), 6, SPRITE_PATH_LEFT_MOVEMENT));
+        setRightIdleAnimation(new Animation(0, 0,
+                player.getWidth(), player.getHeight(), 6, SPRITE_PATH_RIGHT_MOVEMENT));
+        setUpIdleAnimation(new Animation(0, 0,
+                player.getWidth(), player.getHeight(), 6, SPRITE_PATH_UP_MOVEMENT));
+
         setDownAttackAnimation(new Animation(0, 64,
                 player.getWidth(), player.getHeight(), 7, SPRITE_DOWN_SLASH));
         setUpAttackAnimation(new Animation(0, 64,

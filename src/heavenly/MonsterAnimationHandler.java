@@ -13,13 +13,13 @@ public class MonsterAnimationHandler extends AnimationHandler {
         setAnimationSpeed(10);
         setResetAnimation(new Animation(96, 0,
                 ia.getWidth(), ia.getHeight(), 3, SPRITE_PATH));
-        setDownAnimation(new Animation(96, 0,
+        setDownMovementAnimation(new Animation(96, 0,
                 ia.getWidth(), ia.getHeight(), 3, SPRITE_PATH));
-        setLeftAnimation(new Animation(96, 32,
+        setLeftMovementAnimation(new Animation(96, 32,
                 ia.getWidth(), ia.getHeight(), 3, SPRITE_PATH));
-        setRightAnimation(new Animation(96, 64,
+        setRightMovementAnimation(new Animation(96, 64,
                 ia.getWidth(), ia.getHeight(), 3, SPRITE_PATH));
-        setUpAnimation(new Animation(96, 96,
+        setUpMovementAnimation(new Animation(96, 96,
                 ia.getWidth(), ia.getHeight(), 3, SPRITE_PATH));
     }
 }

@@ -46,6 +46,7 @@ public class Player extends ControllableEntity {
             SoundEffect.MELEE_SWORD.play();
         }
 
+        State currentState = state;
         if (hasMoved()) {
             state = State.MOVE;
             animationHandler.update();
@@ -54,8 +55,13 @@ public class Player extends ControllableEntity {
             animationHandler.update();
         } else {
             state = State.IDLE;
+            animationHandler.update();
+        }
+
+        if (currentState != state) {
             animationHandler.reset();
         }
+
     }
 
     @Override
@@ -63,8 +69,10 @@ public class Player extends ControllableEntity {
         Image sprite;
         if (hasAttacked) {
             sprite = animationHandler.getAttackFrame();
-        } else {
+        } else if (hasMoved()) {
             sprite = animationHandler.getDirectionFrame();
+        } else {
+            sprite = animationHandler.getIdleFrame();
         }
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
 

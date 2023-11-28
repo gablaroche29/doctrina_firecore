@@ -2,21 +2,25 @@ package doctrina;
 
 import java.awt.*;
 
-public class  AnimationHandler {
+public class AnimationHandler {
 
-    private static int ANIMATION_SPEED = 100;
+    private static int ANIMATION_SPEED = 6;
     private int currentAnimationFrame = 1; // idle
     private int nextFrame = ANIMATION_SPEED;
     private Animation currentAnimation;
-    private Animation upAnimation;
-    private Animation downAnimation;
-    private Animation leftAnimation;
-    private Animation rightAnimation;
+    private Animation upMovementAnimation;
+    private Animation downMovementAnimation;
+    private Animation leftMovementAnimation;
+    private Animation rightMovementAnimation;
     private Animation resetAnimation;
     private Animation upAttackAnimation;
     private Animation downAttackAnimation;
     private Animation leftAttackAnimation;
     private Animation rightAttackAnimation;
+    private Animation upIdleAnimation;
+    private Animation downIdleAnimation;
+    private Animation leftIdleAnimation;
+    private Animation rightIdleAnimation;
 
     private final MovableEntity entity;
 
@@ -24,60 +28,42 @@ public class  AnimationHandler {
         this.entity = entity;
     }
 
+    private Animation getAnimationByDirection(State state) {
+        Animation directionAnimation = switch (entity.getDirection()) {
+            case RIGHT -> (state == State.ATTACK) ? rightAttackAnimation :
+                    (state == State.IDLE) ? rightIdleAnimation : rightMovementAnimation;
+            case LEFT -> (state == State.ATTACK) ? leftAttackAnimation :
+                    (state == State.IDLE) ? leftIdleAnimation : leftMovementAnimation;
+            case UP -> (state == State.ATTACK) ? upAttackAnimation :
+                    (state == State.IDLE) ? upIdleAnimation : upMovementAnimation;
+            case DOWN -> (state == State.ATTACK) ? downAttackAnimation :
+                    (state == State.IDLE) ? downIdleAnimation : downMovementAnimation;
+        };
+        return (directionAnimation != null) ? directionAnimation : downMovementAnimation;
+    }
+
     public Image getDirectionFrame() {
-        if (entity.getDirection() == Direction.RIGHT) {
-            return rightAnimation.getSprite(currentAnimationFrame);
-        } else if (entity.getDirection() == Direction.LEFT) {
-            return leftAnimation.getSprite(currentAnimationFrame);
-        } else if (entity.getDirection() == Direction.UP) {
-            return upAnimation.getSprite(currentAnimationFrame);
-        } else if (entity.getDirection() == Direction.DOWN) {
-            return downAnimation.getSprite(currentAnimationFrame);
-        }
-        return (resetAnimation != null) ? resetAnimation.getSprite(currentAnimationFrame) : downAnimation.getSprite(1);
+        return getAnimationByDirection(State.MOVE).getSprite(currentAnimationFrame);
     }
 
     public Animation getDirectionAnimation() {
-        if (entity.getDirection() == Direction.RIGHT) {
-            return rightAnimation;
-        } else if (entity.getDirection() == Direction.LEFT) {
-            return leftAnimation;
-        } else if (entity.getDirection() == Direction.UP) {
-            return upAnimation;
-        } else if (entity.getDirection() == Direction.DOWN) {
-            return downAnimation;
-        }
-        return (resetAnimation != null) ? resetAnimation : downAnimation;
+        return getAnimationByDirection(State.MOVE);
     }
 
     public Animation getAttackAnimation() {
-        if (entity.getDirection() == Direction.RIGHT) {
-            return rightAttackAnimation;
-        } else if (entity.getDirection() == Direction.LEFT) {
-            return leftAttackAnimation;
-        } else if (entity.getDirection() == Direction.UP) {
-            return upAttackAnimation;
-        } else if (entity.getDirection() == Direction.DOWN) {
-            return downAttackAnimation;
-        }
-        return downAttackAnimation;
+        return getAnimationByDirection(State.ATTACK);
     }
 
     public Image getAttackFrame() {
-        if (entity.getDirection() == Direction.RIGHT) {
-            return rightAttackAnimation.getSprite(currentAnimationFrame);
-        } else if (entity.getDirection() == Direction.LEFT) {
-            return leftAttackAnimation.getSprite(currentAnimationFrame);
-        } else if (entity.getDirection() == Direction.UP) {
-            return upAttackAnimation.getSprite(currentAnimationFrame);
-        } else if (entity.getDirection() == Direction.DOWN) {
-            return downAttackAnimation.getSprite(currentAnimationFrame);
-        }
-        return downAttackAnimation.getSprite(currentAnimationFrame);
+        return getAnimationByDirection(State.ATTACK).getSprite(currentAnimationFrame);
     }
 
-    public Image getIdleSprite() {
-        return resetAnimation.getSprite(currentAnimationFrame);
+    public Animation getIdleAnimation() {
+        return getAnimationByDirection(State.IDLE);
+    }
+
+    public Image getIdleFrame() {
+        return getAnimationByDirection(State.IDLE).getSprite(currentAnimationFrame);
     }
 
     public void setAnimationSpeed(int speed) {
@@ -98,7 +84,7 @@ public class  AnimationHandler {
 
     private void updateCurrentAnimation() {
         switch (entity.getState()) {
-            case IDLE -> currentAnimation = downAnimation;
+            case IDLE -> currentAnimation = getIdleAnimation();
             case MOVE -> currentAnimation = getDirectionAnimation();
             case ATTACK -> currentAnimation = getAttackAnimation();
         }
@@ -109,23 +95,23 @@ public class  AnimationHandler {
     }
 
     public void reset() {
-        currentAnimationFrame = 1;
+        currentAnimationFrame = 0;
     }
 
-    public void setUpAnimation(Animation animation) {
-        this.upAnimation = animation;
+    public void setUpMovementAnimation(Animation animation) {
+        this.upMovementAnimation = animation;
     }
 
-    public void setDownAnimation(Animation animation) {
-        this.downAnimation = animation;
+    public void setDownMovementAnimation(Animation animation) {
+        this.downMovementAnimation = animation;
     }
 
-    public void setLeftAnimation(Animation animation) {
-        this.leftAnimation = animation;
+    public void setLeftMovementAnimation(Animation animation) {
+        this.leftMovementAnimation = animation;
     }
 
-    public void setRightAnimation(Animation animation) {
-        this.rightAnimation = animation;
+    public void setRightMovementAnimation(Animation animation) {
+        this.rightMovementAnimation = animation;
     }
 
     public void setDownAttackAnimation(Animation downAttackAnimation) {
@@ -142,5 +128,21 @@ public class  AnimationHandler {
 
     public void setRightAttackAnimation(Animation rightAttackAnimation) {
         this.rightAttackAnimation = rightAttackAnimation;
+    }
+
+    public void setUpIdleAnimation(Animation upIdleAnimation) {
+        this.upIdleAnimation = upIdleAnimation;
+    }
+
+    public void setDownIdleAnimation(Animation downIdleAnimation) {
+        this.downIdleAnimation = downIdleAnimation;
+    }
+
+    public void setLeftIdleAnimation(Animation leftIdleAnimation) {
+        this.leftIdleAnimation = leftIdleAnimation;
+    }
+
+    public void setRightIdleAnimation(Animation rightIdleAnimation) {
+        this.rightIdleAnimation = rightIdleAnimation;
     }
 }
