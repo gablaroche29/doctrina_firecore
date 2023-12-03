@@ -16,6 +16,7 @@ public class MenuPad extends MouseController {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        SoundEffect.CLICK.play();
         super.mouseClicked(e);
         for (Button button : buttons) {
             button.setActive(button.getBounds().contains(mouseCoords));
@@ -23,7 +24,6 @@ public class MenuPad extends MouseController {
                 GameContext.INSTANCE.setCurrentState(button.getGameState());
             }
         }
-        SoundEffect.CLICK.play();
     }
 
     @Override

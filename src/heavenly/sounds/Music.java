@@ -1,5 +1,6 @@
 package heavenly.sounds;
 
+import doctrina.GameConfig;
 import doctrina.Sound;
 
 public enum Music {
@@ -14,6 +15,7 @@ public enum Music {
     }
 
     public void play(int count) {
+        sound.setVolume(GameConfig.getMusicVolume());
         sound.start();
         sound.loop(count);
     }

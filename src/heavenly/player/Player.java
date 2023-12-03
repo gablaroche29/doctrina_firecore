@@ -65,7 +65,6 @@ public class Player extends ControllableEntity {
         if (currentState != state) {
             animationHandler.reset();
         }
-
     }
 
     @Override
