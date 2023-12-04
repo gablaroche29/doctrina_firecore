@@ -3,6 +3,7 @@ package utopia;
 import doctrina.*;
 import doctrina.Canvas;
 import utopia.enemy.Enemies;
+import utopia.entities.ChestManager;
 import utopia.sounds.Music;
 import utopia.player.Player;
 
@@ -25,6 +26,7 @@ public class World extends StaticEntity {
     private final Player player;
     private final Enemies enemies;
 
+    private final ChestManager chestManager;
     private final RainEffect rainEffect;
 
     public World(Player player) {
@@ -38,6 +40,7 @@ public class World extends StaticEntity {
 
         initializeCollidableEntities();
 
+        chestManager = new ChestManager();
         rainEffect = new RainEffect();
         playBackgroundMusic();
     }
@@ -53,6 +56,8 @@ public class World extends StaticEntity {
     public void draw(Canvas canvas, Camera camera) {
         canvas.drawImage(background, x - camera.getX(), y - camera.getY());
         enemies.draw(canvas, camera);
+
+        chestManager.draw(canvas, camera);
 
         if (GameConfig.isDebugEnabled()) {
             for (Blockade blockade : collisionRepository.getCollisions()) {
