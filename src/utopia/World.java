@@ -5,6 +5,7 @@ import doctrina.Canvas;
 import utopia.enemy.Enemies;
 import utopia.entities.ChestManager;
 import utopia.entities.CollisionManager;
+import utopia.entities.obstacles.ObstacleManager;
 import utopia.sounds.Music;
 import utopia.player.Player;
 
@@ -22,25 +23,27 @@ public class World extends StaticEntity {
     private Image background;
 
     private final CollisionManager collisionManager;
+    private final ChestManager chestManager;
+    private final ObstacleManager obstacleManager;
     private List<MovableEntity> collidableEntities;
     private final Player player;
     private final Enemies enemies;
 
-    private final ChestManager chestManager;
     private final RainEffect rainEffect;
 
     public World(Player player) {
         setDimension(3200, 3200);
         teleport(0, 0);
         load();
-        collisionManager = new CollisionManager();
-        this.player = player;
 
+        this.player = player;
+        collisionManager = new CollisionManager();
+        chestManager = new ChestManager();
+        obstacleManager = new ObstacleManager(player);
         enemies = new Enemies(this, player);
 
         initializeCollidableEntities();
 
-        chestManager = new ChestManager();
         rainEffect = new RainEffect();
         playBackgroundMusic();
     }
@@ -48,8 +51,12 @@ public class World extends StaticEntity {
     public void update() {
         enemies.update();
         updateCollisionWorld();
+        updateCollidableEntities();
 
+        obstacleManager.update(collidableEntities);
         rainEffect.update();
+
+        System.out.println(CollidableRepository.getInstance().count());
     }
 
     @Override
@@ -57,6 +64,7 @@ public class World extends StaticEntity {
         canvas.drawImage(background, x - camera.getX(), y - camera.getY());
         enemies.draw(canvas, camera);
 
+        obstacleManager.draw(canvas, camera);
         chestManager.draw(canvas, camera);
 
         if (GameConfig.isDebugEnabled()) {
@@ -81,6 +89,10 @@ public class World extends StaticEntity {
         for (Blockade blockade : collisionManager.getBlockades()) {
             blockade.update(collidableEntities);
         }
+    }
+
+    private void updateCollidableEntities() {
+        collidableEntities.removeAll(enemies.getDeadEnemies());
     }
 
     private void load() {

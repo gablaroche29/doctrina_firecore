@@ -23,6 +23,7 @@ public class Enemies {
     }
 
     public void update() {
+        deadEnemies.clear();
         for (Ai ai : enemies) {
             ai.update();
             if (!ai.isAlive()) {
@@ -30,13 +31,16 @@ public class Enemies {
             }
         }
         enemies.removeAll(deadEnemies);
-        deadEnemies.clear();
     }
 
     public void draw(Canvas canvas, Camera camera) {
         for (Ai ai : enemies) {
             ai.draw(canvas, camera);
         }
+    }
+
+    public List<Ai> getDeadEnemies() {
+        return deadEnemies;
     }
 
     public List<Ai> getEnemies() {

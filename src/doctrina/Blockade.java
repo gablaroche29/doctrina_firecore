@@ -12,17 +12,19 @@ public class Blockade extends StaticEntity {
     }
 
     public void update(Collection<MovableEntity> entities) {
-        int collide = 0;
-
+        boolean collide = false;
         for (MovableEntity entity : entities) {
             if (intersectWith(entity.getCollisionDetector())) {
-                collide++;
+                collide = true;
+                break;
             }
         }
 
-        if (collide > 0) {
-            CollidableRepository.getInstance().registerEntity(this);
-            setRender(true);
+        if (collide) {
+            if (!CollidableRepository.getInstance().isItRegister(this)) {
+                CollidableRepository.getInstance().registerEntity(this);
+                setRender(true);
+            }
         } else {
             CollidableRepository.getInstance().unregisterEntity(this);
             setRender(false);
