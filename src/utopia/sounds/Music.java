@@ -1,4 +1,4 @@
-package heavenly.sounds;
+package utopia.sounds;
 
 import doctrina.GameConfig;
 import doctrina.Sound;

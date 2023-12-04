@@ -1,7 +1,7 @@
-package heavenly;
+package utopia;
 
 public class App {
     public static void main(String[] args) {
-        new HeavenlyGame().start();
+        new UtopiaGame().start();
     }
 }

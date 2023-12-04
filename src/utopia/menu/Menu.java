@@ -1,8 +1,8 @@
-package heavenly.menu;
+package utopia.menu;
 
 import doctrina.Canvas;
 import doctrina.GameState;
-import heavenly.sounds.Music;
+import utopia.sounds.Music;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;

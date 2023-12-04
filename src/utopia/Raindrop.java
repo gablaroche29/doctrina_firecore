@@ -1,4 +1,4 @@
-package heavenly;
+package utopia;
 
 import doctrina.*;
 import doctrina.Canvas;

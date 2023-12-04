@@ -1,10 +1,10 @@
-package heavenly;
+package utopia;
 
 import doctrina.*;
 import doctrina.Canvas;
-import heavenly.enemy.Enemies;
-import heavenly.sounds.Music;
-import heavenly.player.Player;
+import utopia.enemy.Enemies;
+import utopia.sounds.Music;
+import utopia.player.Player;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;

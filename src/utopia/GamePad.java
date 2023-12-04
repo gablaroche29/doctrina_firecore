@@ -1,4 +1,4 @@
-package heavenly;
+package utopia;
 
 import doctrina.MovementController;
 import java.awt.event.KeyEvent;

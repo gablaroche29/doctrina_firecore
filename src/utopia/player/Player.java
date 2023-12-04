@@ -1,9 +1,9 @@
-package heavenly.player;
+package utopia.player;
 
 import doctrina.*;
 import doctrina.Canvas;
 import doctrina.ControllableEntity;
-import heavenly.sounds.SoundEffect;
+import utopia.sounds.SoundEffect;
 
 import java.awt.*;
 

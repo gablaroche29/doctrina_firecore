@@ -1,8 +1,8 @@
-package heavenly.menu;
+package utopia.menu;
 
 import doctrina.MouseController;
 import doctrina.GameContext;
-import heavenly.sounds.SoundEffect;
+import utopia.sounds.SoundEffect;
 
 import java.awt.event.MouseEvent;
 

@@ -1,26 +1,26 @@
 package doctrina;
 
-import heavenly.MonsterAnimationHandler;
-import heavenly.player.Player;
-import heavenly.sounds.SoundEffect;
+import utopia.MonsterAnimationHandler;
+import utopia.player.Player;
+import utopia.sounds.SoundEffect;
 
 import java.awt.*;
 
-public class Ia extends MovableEntity {
+public class Ai extends MovableEntity {
 
     private final Player player;
     private Bounds triggerZone;
     private MonsterAnimationHandler animationHandler;
-    private Direction directionToGo;
     private boolean moving;
     private boolean isAlive = true;
     private int attackCooldown = 0;
 
-    public Ia(int x, int y, float speed, Player player) {
+    public Ai(int x, int y, float speed, Player player) {
         super(2);
         teleport(x, y);
         setSpeed(speed);
         setDimension(32, 32);
+        setDirection(Direction.DOWN);
 
         this.player = player;
 
@@ -66,16 +66,7 @@ public class Ia extends MovableEntity {
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
-//        canvas.drawRectangle(triggerZone.x - camera.getX(),
-//                triggerZone.y - camera.getY(),
-//                triggerZone.width, triggerZone.height, new Color(0, 0, 255, 200));
-        Image sprite;
-//        if (hasMoved()) {
-//            sprite = animationHandler.getDirectionSprite(getDirection());
-//        } else {
-//            sprite = animationHandler.getIdleSprite();
-//        }
-        sprite = animationHandler.getDirectionFrame();
+        Image sprite = animationHandler.getDirectionFrame();
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
 
         if (GameConfig.isDebugEnabled()) {
@@ -95,6 +86,7 @@ public class Ia extends MovableEntity {
         Direction playerDirection = calculatePlayerDirection();
 
         if (distanceX != 0 || distanceY != 0) {
+            Direction directionToGo;
             if (playerDirectionIsCorrupted(playerDirection)) {
                 directionToGo = simulateNewDirection(distanceX, distanceY);
             } else {

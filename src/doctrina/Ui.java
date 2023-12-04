@@ -1,6 +1,6 @@
 package doctrina;
 
-import heavenly.player.Player;
+import utopia.player.Player;
 
 import java.awt.*;
 

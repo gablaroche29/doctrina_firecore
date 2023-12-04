@@ -1,4 +1,4 @@
-package heavenly.menu;
+package utopia.menu;
 
 import doctrina.Bounds;
 import doctrina.Canvas;

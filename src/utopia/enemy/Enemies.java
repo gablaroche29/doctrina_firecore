@@ -1,32 +1,32 @@
-package heavenly.enemy;
+package utopia.enemy;
 
 import doctrina.*;
-import heavenly.player.Player;
-import heavenly.World;
+import utopia.player.Player;
+import utopia.World;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Enemies {
 
-    private final List<Ia> enemies;
-    private final List<Ia> deadEnemies;
+    private final List<Ai> enemies;
+    private final List<Ai> deadEnemies;
     private World world;
 
     public Enemies(World world, Player player) {
         this.world = world;
         enemies = new ArrayList<>();
-        enemies.add(new Ia(1150, 2518, 1.5f, player));
-        enemies.add(new Ia(1130, 2538, 1.5f, player));
+        enemies.add(new Ai(1150, 2518, 1.5f, player));
+        enemies.add(new Ai(1130, 2538, 1.5f, player));
 
         deadEnemies = new ArrayList<>();
     }
 
     public void update() {
-        for (Ia ia : enemies) {
-            ia.update();
-            if (!ia.isAlive()) {
-                deadEnemies.add(ia);
+        for (Ai ai : enemies) {
+            ai.update();
+            if (!ai.isAlive()) {
+                deadEnemies.add(ai);
             }
         }
         enemies.removeAll(deadEnemies);
@@ -34,12 +34,12 @@ public class Enemies {
     }
 
     public void draw(Canvas canvas, Camera camera) {
-        for (Ia ia : enemies) {
-            ia.draw(canvas, camera);
+        for (Ai ai : enemies) {
+            ai.draw(canvas, camera);
         }
     }
 
-    public List<Ia> getEnemies() {
+    public List<Ai> getEnemies() {
         return enemies;
     }
 }

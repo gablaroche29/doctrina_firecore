@@ -1,11 +1,11 @@
-package heavenly;
+package utopia;
 
 import doctrina.*;
-import heavenly.menu.Menu;
-import heavenly.player.Player;
+import utopia.menu.Menu;
+import utopia.player.Player;
 
 
-public class HeavenlyGame extends Game {
+public class UtopiaGame extends Game {
 
     private GameContext gameContext;
     private Menu menu;
