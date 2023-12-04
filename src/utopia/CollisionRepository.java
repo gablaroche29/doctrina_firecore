@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CollisionRepository {
 
-    private List<Blockade> collisions;
+    private final List<Blockade> collisions;
 
     public List<Blockade> getCollisions() {
         return collisions;
@@ -21,8 +21,8 @@ public class CollisionRepository {
         int[][] coordsCollisions = new int[width][height];
 
         try {
-            File fichier = new File(COLLISIONS_PATH);
-            FileReader fileReader = new FileReader(fichier);
+            File file = new File(COLLISIONS_PATH);
+            FileReader fileReader = new FileReader(file);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
             String ligne;

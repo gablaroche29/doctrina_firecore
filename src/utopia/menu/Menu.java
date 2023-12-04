@@ -2,6 +2,7 @@ package utopia.menu;
 
 import doctrina.Canvas;
 import doctrina.GameState;
+import doctrina.SpriteSheetSlicer;
 import utopia.sounds.Music;
 
 import javax.imageio.ImageIO;
@@ -12,8 +13,8 @@ import java.util.Objects;
 
 public class Menu {
 
-    private final String BG_PATH = "image/menu/bg.png";
     private Image background;
+    private Image title;
     private final Button[] buttons = new Button[3];
     private final MenuPad menuPad;
 
@@ -29,6 +30,7 @@ public class Menu {
 
     public void draw(Canvas canvas) {
         canvas.drawImage(background, 0, 0);
+        canvas.drawImage(title, 250, 100);
         for (Button button : buttons) {
             button.draw(canvas);
         }
@@ -41,22 +43,25 @@ public class Menu {
 
     private void load() {
         try {
+            String bg_path = "image/menu/bg.png";
+            String title_path = "image/menu/title.png";
             background = ImageIO.read(
-                    Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(BG_PATH)));
+                    Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(bg_path)));
+            title = SpriteSheetSlicer.getSprite(257, 41, 301, 91, title_path);
         } catch (IOException exception) {
             System.out.println(exception.getMessage());
         }
     }
 
     private Button initializePlayButton() {
-        return new Button(298, 172, 298, 172, 203, 83, GameState.INITIALIZE);
+        return new Button(297, 250, 297, 172, 203, 83, GameState.INITIALIZE);
     }
 
     private Button initializeOptionsButton() {
-        return new Button(298, 262, 298, 262, 203, 83, GameState.OPTIONS);
+        return new Button(297, 340, 297, 262, 203, 83, GameState.OPTIONS);
     }
 
     private Button initializeQuitButton() {
-        return new Button(298, 353, 298, 353, 203, 83, GameState.QUIT);
+        return new Button(297, 430, 297, 352, 203, 83, GameState.QUIT);
     }
 }
