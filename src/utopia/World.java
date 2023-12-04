@@ -4,6 +4,7 @@ import doctrina.*;
 import doctrina.Canvas;
 import utopia.enemy.Enemies;
 import utopia.entities.ChestManager;
+import utopia.entities.CollisionManager;
 import utopia.sounds.Music;
 import utopia.player.Player;
 
@@ -18,10 +19,9 @@ import java.util.Objects;
 public class World extends StaticEntity {
 
     private static final String MAP_PATH = "image/background/heavenly/Map.png";
-    private static final String COLLISIONS_PATH = "resources/collisions/collision_heavenly.txt";
     private Image background;
 
-    private final CollisionRepository collisionRepository;
+    private final CollisionManager collisionManager;
     private List<MovableEntity> collidableEntities;
     private final Player player;
     private final Enemies enemies;
@@ -33,7 +33,7 @@ public class World extends StaticEntity {
         setDimension(3200, 3200);
         teleport(0, 0);
         load();
-        collisionRepository = new CollisionRepository(COLLISIONS_PATH, 100, 100, 32, 833);
+        collisionManager = new CollisionManager();
         this.player = player;
 
         enemies = new Enemies(this, player);
@@ -60,7 +60,7 @@ public class World extends StaticEntity {
         chestManager.draw(canvas, camera);
 
         if (GameConfig.isDebugEnabled()) {
-            for (Blockade blockade : collisionRepository.getCollisions()) {
+            for (Blockade blockade : collisionManager.getBlockades()) {
                 blockade.draw(canvas, camera);
             }
         }
@@ -78,7 +78,7 @@ public class World extends StaticEntity {
     }
 
     private void updateCollisionWorld() {
-        for (Blockade blockade : collisionRepository.getCollisions()) {
+        for (Blockade blockade : collisionManager.getBlockades()) {
             blockade.update(collidableEntities);
         }
     }
