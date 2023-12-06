@@ -1,6 +1,7 @@
-package doctrina;
+package utopia.entities.enemy;
 
-import utopia.MonsterAnimationHandler;
+import doctrina.*;
+import doctrina.Canvas;
 import utopia.player.Player;
 import utopia.sounds.SoundEffect;
 
@@ -10,7 +11,7 @@ public class Ai extends MovableEntity {
 
     private final Player player;
     private Bounds triggerZone;
-    private MonsterAnimationHandler animationHandler;
+    private AiAnimationHandler animationHandler;
     private boolean moving;
     private boolean isAlive = true;
     private int attackCooldown = 0;
@@ -156,7 +157,7 @@ public class Ai extends MovableEntity {
     }
 
     private void loadAnimationHandler() {
-        animationHandler = new MonsterAnimationHandler(this);
+        animationHandler = new AiAnimationHandler(this);
     }
 
 }

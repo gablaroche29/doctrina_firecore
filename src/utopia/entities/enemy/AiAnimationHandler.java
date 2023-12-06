@@ -1,14 +1,13 @@
-package utopia;
+package utopia.entities.enemy;
 
 import doctrina.Animation;
 import doctrina.AnimationHandler;
-import doctrina.Ai;
 
-public class MonsterAnimationHandler extends AnimationHandler {
+public class AiAnimationHandler extends AnimationHandler {
 
     private static final String SPRITE_PATH = "image/characters/monsters.png";
 
-    public MonsterAnimationHandler(Ai ai) {
+    public AiAnimationHandler(Ai ai) {
         super(ai);
         setAnimationSpeed(10);
         setResetAnimation(new Animation(96, 0,

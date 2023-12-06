@@ -2,10 +2,10 @@ package utopia;
 
 import doctrina.*;
 import doctrina.Canvas;
-import utopia.enemy.Enemies;
-import utopia.entities.ChestManager;
+import utopia.entities.chest.ChestManager;
+import utopia.entities.enemy.AiManager;
 import utopia.entities.CollisionManager;
-import utopia.entities.obstacles.ObstacleManager;
+import utopia.entities.obstacle.ObstacleManager;
 import utopia.sounds.Music;
 import utopia.player.Player;
 
@@ -27,7 +27,7 @@ public class World extends StaticEntity {
     private final ObstacleManager obstacleManager;
     private List<MovableEntity> collidableEntities;
     private final Player player;
-    private final Enemies enemies;
+    private final AiManager aiManager;
 
     private final RainEffect rainEffect;
 
@@ -40,7 +40,7 @@ public class World extends StaticEntity {
         collisionManager = new CollisionManager();
         chestManager = new ChestManager();
         obstacleManager = new ObstacleManager(player);
-        enemies = new Enemies(this, player);
+        aiManager = new AiManager(player);
 
         initializeCollidableEntities();
 
@@ -49,7 +49,7 @@ public class World extends StaticEntity {
     }
 
     public void update() {
-        enemies.update();
+        aiManager.update();
         updateCollisionWorld();
         updateCollidableEntities();
 
@@ -62,15 +62,13 @@ public class World extends StaticEntity {
     @Override
     public void draw(Canvas canvas, Camera camera) {
         canvas.drawImage(background, x - camera.getX(), y - camera.getY());
-        enemies.draw(canvas, camera);
+        aiManager.draw(canvas, camera);
 
         obstacleManager.draw(canvas, camera);
         chestManager.draw(canvas, camera);
 
         if (GameConfig.isDebugEnabled()) {
-            for (Blockade blockade : collisionManager.getBlockades()) {
-                blockade.draw(canvas, camera);
-            }
+            collisionManager.draw(canvas, camera);
         }
     }
 
@@ -82,7 +80,7 @@ public class World extends StaticEntity {
     private void initializeCollidableEntities() {
         collidableEntities = new ArrayList<>();
         collidableEntities.add(player);
-        collidableEntities.addAll(enemies.getEnemies());
+        collidableEntities.addAll(aiManager.getEnemies());
     }
 
     private void updateCollisionWorld() {
@@ -92,7 +90,7 @@ public class World extends StaticEntity {
     }
 
     private void updateCollidableEntities() {
-        collidableEntities.removeAll(enemies.getDeadEnemies());
+        collidableEntities.removeAll(aiManager.getDeadEnemies());
     }
 
     private void load() {

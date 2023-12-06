@@ -32,6 +32,11 @@ public class Blockade extends StaticEntity {
     }
 
     @Override
+    public void update() {
+        // TODO: 2023-12-05  
+    }
+
+    @Override
     public void draw(Canvas canvas, Camera camera) {
         if (isRender()) {
             canvas.drawRectangle(x - camera.getX(), y - camera.getY(), width, height, new Color(255, 0, 0, 100));

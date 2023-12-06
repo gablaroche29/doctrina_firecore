@@ -2,7 +2,7 @@ package doctrina;
 
 import java.awt.*;
 
-public class AnimationHandler {
+public abstract class AnimationHandler {
 
     private static int ANIMATION_SPEED = 6;
     private int currentAnimationFrame = 1; // idle

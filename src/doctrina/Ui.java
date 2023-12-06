@@ -20,6 +20,11 @@ public class Ui extends StaticEntity {
     }
 
     @Override
+    public void update() {
+        // TODO: 2023-12-05
+    }
+
+    @Override
     public void draw(Canvas canvas, Camera camera) {
         int indexPv = (player.getPv() == 0) ? 0 : player.getPv() - 1;
         canvas.drawImage(healthBar[indexPv], 10, 10);

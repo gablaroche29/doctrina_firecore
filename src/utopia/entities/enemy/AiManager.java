@@ -1,20 +1,17 @@
-package utopia.enemy;
+package utopia.entities.enemy;
 
 import doctrina.*;
 import utopia.player.Player;
-import utopia.World;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Enemies {
+public class AiManager {
 
     private final List<Ai> enemies;
     private final List<Ai> deadEnemies;
-    private World world;
 
-    public Enemies(World world, Player player) {
-        this.world = world;
+    public AiManager(Player player) {
         enemies = new ArrayList<>();
         enemies.add(new Ai(1150, 2518, 1.5f, player));
         enemies.add(new Ai(1130, 2538, 1.5f, player));

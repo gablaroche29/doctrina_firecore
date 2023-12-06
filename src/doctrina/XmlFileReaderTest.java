@@ -9,7 +9,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 
-public interface XmlFileReader {
+public interface XmlFileReaderTest {
 
     String getFileName();
     String getNameAttribute();

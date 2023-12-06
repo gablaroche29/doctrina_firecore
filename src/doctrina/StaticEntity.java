@@ -11,6 +11,7 @@ public abstract class StaticEntity {
     protected boolean render;
     protected State state;
 
+    public abstract void update();
     public abstract void draw(Canvas canvas, Camera camera);
 
     public void teleport(int x, int y) {

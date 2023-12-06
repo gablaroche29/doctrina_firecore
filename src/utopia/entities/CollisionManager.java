@@ -1,12 +1,14 @@
 package utopia.entities;
 
 import doctrina.Blockade;
-import doctrina.XmlFileReader;
+import doctrina.Camera;
+import doctrina.Canvas;
+import doctrina.XmlFileReaderTest;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CollisionManager implements XmlFileReader {
+public class CollisionManager implements XmlFileReaderTest {
 
     private final List<Blockade> blockades;
 
@@ -19,9 +21,15 @@ public class CollisionManager implements XmlFileReader {
         return blockades;
     }
 
+    public void draw(Canvas canvas, Camera camera) {
+        for (Blockade blockade : blockades) {
+            blockade.draw(canvas, camera);
+        }
+    }
+
     @Override
     public String getFileName() {
-        return "resources/xml/entities.xml";
+        return "resources/xml/collisions.xml";
     }
 
     @Override

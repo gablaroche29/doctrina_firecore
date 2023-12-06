@@ -1,4 +1,4 @@
-package utopia.entities.obstacles;
+package utopia.entities.obstacle;
 
 import doctrina.*;
 import doctrina.Canvas;

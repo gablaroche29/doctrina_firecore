@@ -1,4 +1,4 @@
-package utopia.entities.obstacles;
+package utopia.entities.obstacle;
 
 import doctrina.*;
 import utopia.player.Player;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class ObstacleManager implements XmlFileReader {
+public class ObstacleManager implements XmlFileReaderTest {
 
     private final List<Obstacle> obstacles;
     private final List<Obstacle> destructObstacles;
@@ -39,7 +39,7 @@ public class ObstacleManager implements XmlFileReader {
 
     @Override
     public String getFileName() {
-        return "resources/xml/entities.xml";
+        return "resources/xml/collisions.xml";
     }
 
     @Override
