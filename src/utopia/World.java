@@ -55,8 +55,6 @@ public class World extends StaticEntity {
 
         obstacleManager.update(collidableEntities);
         rainEffect.update();
-
-        System.out.println(CollidableRepository.getInstance().count());
     }
 
     @Override

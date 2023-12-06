@@ -10,10 +10,10 @@ import java.util.Collection;
 public class Obstacle extends Blockade {
 
     private boolean isDestruct;
-    private final int id;
+    private final String id;
     private Image sprite;
 
-    public Obstacle(int x, int y, int id) {
+    public Obstacle(int x, int y, String id) {
         super(x, y);
         this.id = id;
         load();
@@ -45,7 +45,7 @@ public class Obstacle extends Blockade {
     }
 
     private void load() {
-        sprite = (id == 1) ?
+        sprite = (id.equals("Big_Box")) ?
                 SpriteSheetSlicer.getSprite(0, 0, 32, 64, "image/props/obstacles.png")
                 : SpriteSheetSlicer.getSprite(32, 0, 32, 64, "image/props/obstacles.png");
     }

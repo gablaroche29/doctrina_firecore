@@ -8,33 +8,19 @@ import org.w3c.dom.NodeList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class Manager implements XmlReader {
 
     protected NodeList objects;
-    protected final List<StaticEntity> entitiesList;
     public abstract String getFileName();
     public abstract String getNameAttribute();
     public abstract void instanceObject(NodeList nodeList);
+    public abstract void update();
+    public abstract void draw(Canvas canvas, Camera camera);
 
     public Manager() {
-        entitiesList = new ArrayList<>();
         this.readXmlFile();
         instanceObject(objects);
-    }
-
-    public void update() {
-        for (StaticEntity entity : entitiesList) {
-            entity.update();
-        }
-    }
-
-    public void draw(Canvas canvas, Camera camera) {
-        for (StaticEntity entity : entitiesList) {
-            entity.draw(canvas, camera);
-        }
     }
 
     private void readXmlFile() {
