@@ -11,6 +11,12 @@ public class Blockade extends StaticEntity {
         CollidableRepository.getInstance().registerEntity(this);
     }
 
+    public Blockade(int x, int y, int width, int height) {
+        teleport(x, y);
+        setDimension(width, height);
+        CollidableRepository.getInstance().registerEntity(this);
+    }
+
     public void update(Collection<MovableEntity> entities) {
         boolean collide = false;
         for (MovableEntity entity : entities) {

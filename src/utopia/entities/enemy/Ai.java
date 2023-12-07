@@ -7,29 +7,24 @@ import utopia.sounds.SoundEffect;
 
 import java.awt.*;
 
-public class Ai extends MovableEntity {
+public abstract class Ai extends MovableEntity {
 
-    private final Player player;
+    private Player player;
     private Bounds triggerZone;
-    private AiAnimationHandler animationHandler;
+    protected AnimationHandler animationHandler;
     private boolean moving;
     private boolean isAlive = true;
     private int attackCooldown = 0;
 
-    public Ai(int x, int y, float speed, Player player) {
+    public Ai(int x, int y, float speed) {
         super(2);
         teleport(x, y);
         setSpeed(speed);
         setDimension(32, 32);
         setDirection(Direction.DOWN);
-
-        this.player = player;
-
-        setTriggerZone();
-        loadAnimationHandler();
-
         state = State.MOVE;
 
+        setTriggerZone();
     }
 
     @Override
@@ -156,8 +151,8 @@ public class Ai extends MovableEntity {
         triggerZone.setCoords(x + (width / 2) - (triggerZone.getWidth() / 2), y + (height / 2) - (triggerZone.getWidth() / 2));
     }
 
-    private void loadAnimationHandler() {
-        animationHandler = new AiAnimationHandler(this);
+    public void setPlayer(Player player) {
+        this.player = player;
     }
 
 }
