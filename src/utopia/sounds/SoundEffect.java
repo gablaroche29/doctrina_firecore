@@ -6,8 +6,8 @@ public enum SoundEffect {
 
     CLICK("audio/sound/menu/click.wav"),
     MELEE_SWORD("audio/sound/sword_effect.wav"),
+    BROKEN_CRATE("audio/sound/wooden_crate.wav"),
     MONSTER_ATTACK("audio/sound/monster_attack.wav");
-//    FOOTSTEPS("audio/sound/footsteps_grass/footsteps_grass.wav");
 
     private final Sound sound;
 

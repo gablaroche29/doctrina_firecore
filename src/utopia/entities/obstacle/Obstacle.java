@@ -3,6 +3,7 @@ package utopia.entities.obstacle;
 import doctrina.*;
 import doctrina.Canvas;
 import utopia.player.Player;
+import utopia.sounds.SoundEffect;
 
 import java.awt.*;
 import java.util.Collection;
@@ -22,6 +23,7 @@ public class Obstacle extends Blockade {
     public void update(Player player, Collection<MovableEntity> entities) {
         if (player.hasAttacked()) {
             if (intersectWith(player.getAttackZone())) {
+                SoundEffect.BROKEN_CRATE.play();
                 isDestruct = true;
             }
         }

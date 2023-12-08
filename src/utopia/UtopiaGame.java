@@ -18,7 +18,7 @@ public class UtopiaGame extends Game {
     protected void initialize() {
 //        .contains("win")
 //        System.out.println(System.getProperty("os.name").toLowerCase());
-        GameConfig.enableDebug();
+        GameConfig.disableDebug();
         RenderingEngine.getInstance().getScreen().fullscreen();
 
         gameContext = GameContext.INSTANCE;
