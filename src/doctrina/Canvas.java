@@ -35,6 +35,12 @@ public class Canvas {
         graphics.drawString(text, x, y);
     }
 
+    public void drawString(String text, int x, int y, Paint paint, Font font) {
+        graphics.setPaint(paint);
+        graphics.setFont(font);
+        graphics.drawString(text, x, y);
+    }
+
     public void drawLine(int x1, int y1, int x2, int y2, Paint paint) {
         graphics.setPaint(paint);
         graphics.drawLine(x1, y1, x2, y2);

@@ -7,9 +7,7 @@ import java.awt.*;
 
 public class BlackSmith extends MovableEntity {
 
-    private Image sprite;
-
-    private BlackSmithAnimationHandler animationHandler;
+    private final BlackSmithAnimationHandler animationHandler;
     private String[] dialogues;
     private int dialogueIndex = 0;
     private boolean finishTalking;
@@ -32,7 +30,7 @@ public class BlackSmith extends MovableEntity {
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
-        sprite = animationHandler.getIdleFrame();
+        Image sprite = animationHandler.getIdleFrame();
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
     }
 
@@ -54,8 +52,8 @@ public class BlackSmith extends MovableEntity {
     private void setDialogues() {
         dialogues = new String[4];
         dialogues[0] = "Salut chère amie!";
-        dialogues[1] = "Cela fait longtemps qu'on ce n'est pas vue...";
-        dialogues[2] = "Je te souhaite bonne chance dans ta quête!";
+        dialogues[1] = "Cela fait longtemps qu'on \nce n'est pas vue...";
+        dialogues[2] = "Je te souhaite bonne chance dans \nta quête!";
         dialogues[3] = "";
     }
 }

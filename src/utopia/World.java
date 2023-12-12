@@ -51,7 +51,7 @@ public class World extends StaticEntity {
 
 
         blackSmith = new BlackSmith();
-        //playBackgroundMusic();
+        playBackgroundMusic();
     }
 
     public void update() {
@@ -90,7 +90,7 @@ public class World extends StaticEntity {
             SoundEffect.INTERACTION.play();
             if (player.intersectWith(blackSmith)) {
                 GameContext.INSTANCE.setCurrentState(GameState.DIALOGUE);
-                Ui.setText(blackSmith.speak());
+                Ui.setTexts(blackSmith.speak());
             }
             gamePad.setKeyStateFalse(GamePad.enterKey);
             if (blackSmith.isFinishTalking()) {
