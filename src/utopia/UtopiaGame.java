@@ -48,7 +48,7 @@ public class UtopiaGame extends Game {
         gamePad = new GamePad();
         player = new Player(gamePad, 864, 2368);
         world = new World(player);
-        camera = new Camera(player, 800, 600);
+        camera = new Camera(world, player, 800, 600);
         ui = new Ui(player);
         gameContext.setCurrentState(GameState.GAME);
         RenderingEngine.getInstance().getScreen().hideCursor();

@@ -44,7 +44,7 @@ public class World extends StaticEntity {
 
         initializeCollidableEntities();
 
-        rainEffect = new RainEffect();
+        rainEffect = new RainEffect(player);
         playBackgroundMusic();
     }
 
@@ -72,7 +72,7 @@ public class World extends StaticEntity {
 
     public void drawRain(Canvas canvas, Camera camera) {
         rainEffect.draw(canvas, camera);
-        canvas.drawRectangle(0, 0, 800, 600, new Color(0, 0, 0, 0.4f));
+        //canvas.drawRectangle(0, 0, 800, 600, new Color(0, 0, 0, 0.4f));
     }
     
     private void initializeCollidableEntities() {

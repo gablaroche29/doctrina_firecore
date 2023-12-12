@@ -3,16 +3,20 @@ package utopia;
 import doctrina.Camera;
 import doctrina.Canvas;
 import doctrina.RenderingEngine;
+import utopia.environment.EnvironmentManager;
+import utopia.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RainEffect {
 
-    private List<Raindrop> raindrops;
+    private final EnvironmentManager environmentManager;
+    private final List<Raindrop> raindrops;
     private boolean stopRaining;
 
-    public RainEffect() {
+    public RainEffect(Player player) {
+        environmentManager = new EnvironmentManager(player);
         raindrops = new ArrayList<>();
     }
 
@@ -36,6 +40,7 @@ public class RainEffect {
         for (Raindrop raindrop : raindrops) {
             raindrop.draw(canvas, camera);
         }
+        environmentManager.draw(canvas, camera);
     }
 
 }
