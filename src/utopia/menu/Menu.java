@@ -3,7 +3,7 @@ package utopia.menu;
 import doctrina.Canvas;
 import doctrina.GameState;
 import doctrina.SpriteSheetSlicer;
-import utopia.sounds.Music;
+import utopia.audio.Music;
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;

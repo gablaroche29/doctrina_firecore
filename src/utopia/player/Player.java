@@ -3,7 +3,7 @@ package utopia.player;
 import doctrina.*;
 import doctrina.Canvas;
 import doctrina.ControllableEntity;
-import utopia.sounds.SoundEffect;
+import utopia.audio.SoundEffect;
 
 import java.awt.*;
 

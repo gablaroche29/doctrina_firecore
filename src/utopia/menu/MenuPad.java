@@ -2,7 +2,7 @@ package utopia.menu;
 
 import doctrina.MouseController;
 import doctrina.GameContext;
-import utopia.sounds.SoundEffect;
+import utopia.audio.SoundEffect;
 
 import java.awt.event.MouseEvent;
 

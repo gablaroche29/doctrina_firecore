@@ -3,7 +3,7 @@ package utopia.entities.enemy;
 import doctrina.*;
 import doctrina.Canvas;
 import utopia.player.Player;
-import utopia.sounds.SoundEffect;
+import utopia.audio.SoundEffect;
 
 import java.awt.*;
 

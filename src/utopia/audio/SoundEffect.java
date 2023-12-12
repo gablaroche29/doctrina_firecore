@@ -1,4 +1,4 @@
-package utopia.sounds;
+package utopia.audio;
 
 import doctrina.Sound;
 

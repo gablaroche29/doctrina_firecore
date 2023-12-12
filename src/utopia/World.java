@@ -7,9 +7,9 @@ import utopia.entities.chest.ChestManager;
 import utopia.entities.enemy.AiManager;
 import utopia.entities.CollisionManager;
 import utopia.entities.obstacle.ObstacleManager;
-import utopia.sounds.Music;
+import utopia.audio.Music;
 import utopia.player.Player;
-import utopia.sounds.SoundEffect;
+import utopia.audio.SoundEffect;
 
 import javax.sound.sampled.Clip;
 import java.awt.*;
