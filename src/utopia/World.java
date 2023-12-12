@@ -82,7 +82,6 @@ public class World extends StaticEntity {
 
     public void drawRain(Canvas canvas, Camera camera) {
         rainEffect.draw(canvas, camera);
-        canvas.drawRectangle(0, 0, 800, 600, new Color(0, 0, 0, 0.4f));
     }
 
     private void updateInteraction() {

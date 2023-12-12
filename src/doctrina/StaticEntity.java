@@ -36,7 +36,7 @@ public abstract class StaticEntity {
         return bounds.intersectsWith(getBounds());
     }
 
-    protected Rectangle getBounds() {
+    public Rectangle getBounds() {
         return new Rectangle(x, y, width, height);
     }
 

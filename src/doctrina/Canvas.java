@@ -10,6 +10,10 @@ public class Canvas {
         this.graphics = graphics;
     }
 
+    public Graphics2D getGraphics() {
+        return graphics;
+    }
+
     public void drawRectangle(int x, int y, int width, int height, Paint paint) {
         graphics.setPaint(paint);
         graphics.fillRect(x, y, width, height);
