@@ -9,7 +9,7 @@ public class MovementController extends Controller {
     private int rightKey = KeyEvent.VK_RIGHT;
     private int leftKey = KeyEvent.VK_LEFT;
     private final int spaceKey = KeyEvent.VK_SPACE;
-    private int pKey = KeyEvent.VK_P;
+    private final int pKey = KeyEvent.VK_P;
 
 
     public MovementController() {

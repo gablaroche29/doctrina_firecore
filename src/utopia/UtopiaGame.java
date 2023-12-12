@@ -18,7 +18,7 @@ public class UtopiaGame extends Game {
     protected void initialize() {
 //        .contains("win")
 //        System.out.println(System.getProperty("os.name").toLowerCase());
-        GameConfig.enableDebug();
+        GameConfig.disableDebug();
         RenderingEngine.getInstance().getScreen().fullscreen();
 
         gameContext = GameContext.INSTANCE;
@@ -31,7 +31,7 @@ public class UtopiaGame extends Game {
         switch (gameContext.getCurrentState()) {
             case QUIT -> stop();
             case INITIALIZE -> initializeGame();
-            case GAME -> updateGame();
+            case GAME, DIALOGUE -> updateGame();
         }
     }
 
@@ -41,13 +41,16 @@ public class UtopiaGame extends Game {
             case MENU -> drawMenu(canvas);
             case GAME -> drawGame(canvas);
         }
+        if (ui != null) {
+            ui.draw(canvas, gameContext.getCurrentState());
+        }
     }
 
     private void initializeGame() {
         menu.quit();
         gamePad = new GamePad();
         player = new Player(gamePad, 864, 2368);
-        world = new World(player);
+        world = new World(player, gamePad);
         camera = new Camera(world, player, 800, 600);
         ui = new Ui(player);
         gameContext.setCurrentState(GameState.GAME);
@@ -55,13 +58,18 @@ public class UtopiaGame extends Game {
     }
 
     private void updateGame() {
-        if (gamePad.isQuitPressed()) {
-            camera.stopCameraThread();
-            gameContext.setCurrentState(GameState.QUIT);
-            return;
+        if (gameContext.getCurrentState() == GameState.GAME) {
+            if (gamePad.isQuitPressed()) {
+                camera.stopCameraThread();
+                gameContext.setCurrentState(GameState.QUIT);
+                return;
+            }
+            player.update();
+            world.update();
+        } else {
+            world.update();
         }
-        player.update();
-        world.update();
+
     }
 
     private void drawMenu(Canvas canvas) {
@@ -72,6 +80,5 @@ public class UtopiaGame extends Game {
         world.draw(canvas, camera);
         player.draw(canvas, camera);
         world.drawRain(canvas, camera);
-        ui.draw(canvas, camera);
     }
 }

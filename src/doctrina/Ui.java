@@ -4,28 +4,49 @@ import utopia.player.Player;
 
 import java.awt.*;
 
-public class Ui extends StaticEntity {
+public class Ui {
 
+    private final int x = 0;
+    private final int y = 0;
+    private final int width = 800;
+    private final int height = 600;
     private final Image[] healthBar;
     private final String healthBarPath = "image/ui/health_bar.png";
+
+    private static String text;
 
     private final Player player;
 
     public Ui(Player player) {
         this.player = player;
-        setDimension(800, 600);
-        teleport(0, 0);
 
         healthBar = SpriteSheetSlicer.getSprites(0, 0, 104, 28, 5, healthBarPath);
     }
 
-    @Override
-    public void update() {
-        // TODO: 2023-12-05
+    public void update(GameState gameState) {
+        switch (gameState) {
+            case GAME -> updateGame();
+        }
     }
 
-    @Override
-    public void draw(Canvas canvas, Camera camera) {
+    public void draw(Canvas canvas, GameState gameState) {
+        switch (gameState) {
+            case GAME -> drawGame(canvas);
+            case DIALOGUE -> drawDialogue(canvas);
+        }
+
+    }
+
+    private void updateGame() {
+        // TODO: 2023-12-12
+    }
+
+    private void drawDialogue(Canvas canvas) {
+        canvas.drawRoundRectangle(150, 32, 500, 200, 35, 35, Color.BLACK);
+        canvas.drawString(text, 180, 50, Color.WHITE);
+    }
+
+    private void drawGame(Canvas canvas) {
         int indexPv = (player.getPv() == 0) ? 0 : player.getPv() - 1;
         canvas.drawImage(healthBar[indexPv], 10, 10);
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 760, 20, Color.WHITE);
@@ -33,5 +54,9 @@ public class Ui extends StaticEntity {
         if (GameConfig.isDebugEnabled()) {
             canvas.drawString("FPS " + GameTime.getCurrentFps(), 760, 20, Color.WHITE);
         }
+    }
+
+    public static void setText(String text) {
+        Ui.text = text;
     }
 }

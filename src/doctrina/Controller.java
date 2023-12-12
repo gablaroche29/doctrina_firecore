@@ -30,6 +30,12 @@ public abstract class Controller implements KeyListener {
                 && pressedKeys.get(keyCode);
     }
 
+    public void setKeyStateFalse(int keyCode) {
+        if (pressedKeys.containsKey(keyCode)) {
+            pressedKeys.put(keyCode, false);
+        }
+    }
+
     @Override
     public void keyTyped(KeyEvent e) {
 

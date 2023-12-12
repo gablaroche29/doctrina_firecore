@@ -15,9 +15,9 @@ public class Canvas {
         graphics.fillRect(x, y, width, height);
     }
 
-    public void drawRectangle(Rectangle rectangle, Paint paint) {
+    public void drawRoundRectangle(int x, int y, int width, int height, int arcWidth, int arcHeight, Paint paint) {
         graphics.setPaint(paint);
-        graphics.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+        graphics.fillRoundRect(x, y, width, height, arcWidth, arcHeight);
     }
 
     public void drawRectangle(StaticEntity entity, Paint paint) {

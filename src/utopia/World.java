@@ -2,6 +2,7 @@ package utopia;
 
 import doctrina.*;
 import doctrina.Canvas;
+import utopia.entities.BlackSmith;
 import utopia.entities.chest.ChestManager;
 import utopia.entities.enemy.AiManager;
 import utopia.entities.CollisionManager;
@@ -12,6 +13,7 @@ import utopia.player.Player;
 import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ public class World extends StaticEntity {
     private static final String MAP_PATH = "image/background/heavenly/Map.png";
     private Image background;
 
+    private final GamePad gamePad;
     private final CollisionManager collisionManager;
     private final ChestManager chestManager;
     private final ObstacleManager obstacleManager;
@@ -31,12 +34,15 @@ public class World extends StaticEntity {
 
     private final RainEffect rainEffect;
 
-    public World(Player player) {
+    private final BlackSmith blackSmith;
+
+    public World(Player player, GamePad gamePad) {
         setDimension(3200, 3200);
         teleport(0, 0);
         load();
 
         this.player = player;
+        this.gamePad = gamePad;
         collisionManager = new CollisionManager();
         chestManager = new ChestManager();
         obstacleManager = new ObstacleManager(player);
@@ -45,7 +51,10 @@ public class World extends StaticEntity {
         initializeCollidableEntities();
 
         rainEffect = new RainEffect(player);
-        playBackgroundMusic();
+
+
+        blackSmith = new BlackSmith();
+        //playBackgroundMusic();
     }
 
     public void update() {
@@ -55,6 +64,7 @@ public class World extends StaticEntity {
 
         obstacleManager.update(collidableEntities);
         rainEffect.update();
+        updateInteraction();
     }
 
     @Override
@@ -65,6 +75,8 @@ public class World extends StaticEntity {
         obstacleManager.draw(canvas, camera);
         chestManager.draw(canvas, camera);
 
+        blackSmith.draw(canvas, camera);
+
         if (GameConfig.isDebugEnabled()) {
             collisionManager.draw(canvas, camera);
         }
@@ -73,6 +85,20 @@ public class World extends StaticEntity {
     public void drawRain(Canvas canvas, Camera camera) {
         rainEffect.draw(canvas, camera);
         canvas.drawRectangle(0, 0, 800, 600, new Color(0, 0, 0, 0.4f));
+    }
+
+    private void updateInteraction() {
+        if (gamePad.isEnterPressed()) {
+            if (player.intersectWith(blackSmith)) {
+                GameContext.INSTANCE.setCurrentState(GameState.DIALOGUE);
+                Ui.setText(blackSmith.speak());
+            }
+            gamePad.setKeyStateFalse(GamePad.enterKey);
+
+            if (blackSmith.isFinishTalking()) {
+                GameContext.INSTANCE.setCurrentState(GameState.GAME);
+            }
+        }
     }
     
     private void initializeCollidableEntities() {
@@ -92,12 +118,7 @@ public class World extends StaticEntity {
     }
 
     private void load() {
-        try {
-            background = ImageIO.read(
-                    Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(MAP_PATH)));
-        } catch (IOException exception) {
-            System.out.println(exception.getMessage());
-        }
+        background = SpriteSheetSlicer.getSprite(0, 0, 3200, 3200, MAP_PATH);
     }
 
     private void playBackgroundMusic() {
