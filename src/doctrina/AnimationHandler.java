@@ -22,7 +22,7 @@ public abstract class AnimationHandler {
     private Animation leftIdleAnimation;
     private Animation rightIdleAnimation;
 
-    private final MovableEntity entity;
+    private MovableEntity entity;
 
     public AnimationHandler(MovableEntity entity) {
         this.entity = entity;

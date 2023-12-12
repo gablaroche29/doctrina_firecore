@@ -2,7 +2,7 @@ package utopia;
 
 import doctrina.*;
 import doctrina.Canvas;
-import utopia.entities.BlackSmith;
+import utopia.entities.png.BlackSmith;
 import utopia.entities.chest.ChestManager;
 import utopia.entities.enemy.AiManager;
 import utopia.entities.CollisionManager;
@@ -10,14 +10,10 @@ import utopia.entities.obstacle.ObstacleManager;
 import utopia.sounds.Music;
 import utopia.player.Player;
 
-import javax.imageio.ImageIO;
 import javax.sound.sampled.Clip;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class World extends StaticEntity {
 
@@ -64,6 +60,7 @@ public class World extends StaticEntity {
 
         obstacleManager.update(collidableEntities);
         rainEffect.update();
+        blackSmith.update();
         updateInteraction();
     }
 

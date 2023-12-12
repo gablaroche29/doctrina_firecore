@@ -1,36 +1,38 @@
-package utopia.entities;
+package utopia.entities.png;
 
-import doctrina.Camera;
+import doctrina.*;
 import doctrina.Canvas;
-import doctrina.SpriteSheetSlicer;
-import doctrina.StaticEntity;
 
 import java.awt.*;
 
-public class BlackSmith extends StaticEntity {
+public class BlackSmith extends MovableEntity {
 
-    private static final String PATH = "image/characters/BlackSmith/blacksmith.png";
     private Image sprite;
 
+    private BlackSmithAnimationHandler animationHandler;
     private String[] dialogues;
     private int dialogueIndex = 0;
     private boolean finishTalking;
 
     public BlackSmith() {
+        super(0);
         setDimension(32, 32);
         teleport(832, 2432);
-        load();
 
+        animationHandler = new BlackSmithAnimationHandler(this);
         setDialogues();
+        setState(State.IDLE);
+        setDirection(Direction.DOWN);
     }
 
     @Override
     public void update() {
-        // TODO: 2023-12-12
+        animationHandler.update();
     }
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
+        sprite = animationHandler.getIdleFrame();
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
     }
 
@@ -47,10 +49,6 @@ public class BlackSmith extends StaticEntity {
 
     public boolean isFinishTalking() {
         return finishTalking;
-    }
-
-    private void load() {
-        sprite = SpriteSheetSlicer.getSprite(0, 0, 32, 32, PATH);
     }
 
     private void setDialogues() {
