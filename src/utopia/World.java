@@ -9,6 +9,7 @@ import utopia.entities.CollisionManager;
 import utopia.entities.obstacle.ObstacleManager;
 import utopia.sounds.Music;
 import utopia.player.Player;
+import utopia.sounds.SoundEffect;
 
 import javax.sound.sampled.Clip;
 import java.awt.*;
@@ -86,12 +87,12 @@ public class World extends StaticEntity {
 
     private void updateInteraction() {
         if (gamePad.isEnterPressed()) {
+            SoundEffect.INTERACTION.play();
             if (player.intersectWith(blackSmith)) {
                 GameContext.INSTANCE.setCurrentState(GameState.DIALOGUE);
                 Ui.setText(blackSmith.speak());
             }
             gamePad.setKeyStateFalse(GamePad.enterKey);
-
             if (blackSmith.isFinishTalking()) {
                 GameContext.INSTANCE.setCurrentState(GameState.GAME);
             }

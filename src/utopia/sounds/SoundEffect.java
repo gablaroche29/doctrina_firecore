@@ -5,6 +5,7 @@ import doctrina.Sound;
 public enum SoundEffect {
 
     CLICK("audio/sound/menu/click.wav"),
+    INTERACTION("audio/sound/interaction.wav"),
     MELEE_SWORD("audio/sound/sword_effect.wav"),
     BROKEN_CRATE("audio/sound/wooden_crate.wav"),
     MONSTER_ATTACK("audio/sound/monster_attack.wav");
