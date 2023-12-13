@@ -7,6 +7,7 @@ import utopia.audio.SoundEffect;
 import utopia.player.Player;
 
 import java.awt.*;
+import java.util.Random;
 
 public class Chest extends StaticEntity {
 
@@ -14,8 +15,11 @@ public class Chest extends StaticEntity {
     private Image open;
     private boolean isOpen;
     private Player player;
+    private int crystal;
 
     public Chest(int x, int y) {
+        Random rnd = new Random();
+        crystal = rnd.nextInt(10) + 1;
         setDimension(32, 32);
         teleport(x, y);
         load();
@@ -26,8 +30,9 @@ public class Chest extends StaticEntity {
             if (player.intersectWith(this) && !isOpen) {
                 SoundEffect.BROKEN_CRATE.play();
                 isOpen = true;
+                player.addCrystal(crystal);
                 GamePad.getInstance().setKeyStateFalse(GamePad.enterKey);
-                Ui.openChest();
+                Ui.openChest(crystal);
             }
         }
     }

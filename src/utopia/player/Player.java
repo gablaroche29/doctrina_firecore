@@ -15,6 +15,7 @@ public class Player extends ControllableEntity {
     private int attackCoolDown = 0;
 
     private int pv = 5;
+    private int crystal = 0;
 
     public Player(MovementController controller, int x, int y) {
         super(controller, 5);
@@ -63,6 +64,14 @@ public class Player extends ControllableEntity {
 
     public int getPv() {
         return pv;
+    }
+
+    public void addCrystal(int crystal) {
+        this.crystal += crystal;
+    }
+
+    public int getCrystal() {
+        return crystal;
     }
 
     public boolean hasAttacked() {
