@@ -41,7 +41,7 @@ public class World extends StaticEntity {
         this.player = player;
         this.gamePad = gamePad;
         collisionManager = new CollisionManager();
-        chestManager = new ChestManager();
+        chestManager = new ChestManager(player);
         obstacleManager = new ObstacleManager(player);
         aiManager = new AiManager(player);
 
@@ -50,7 +50,7 @@ public class World extends StaticEntity {
         rainEffect = new RainEffect(player);
 
 
-        blackSmith = new BlackSmith();
+        blackSmith = new BlackSmith(player);
         playBackgroundMusic();
     }
 
@@ -60,9 +60,9 @@ public class World extends StaticEntity {
         updateCollidableEntities();
 
         obstacleManager.update(collidableEntities);
+        chestManager.update();
         rainEffect.update();
         blackSmith.update();
-        updateInteraction();
     }
 
     @Override
@@ -82,20 +82,6 @@ public class World extends StaticEntity {
 
     public void drawRain(Canvas canvas, Camera camera) {
         rainEffect.draw(canvas, camera);
-    }
-
-    private void updateInteraction() {
-        if (gamePad.isEnterPressed()) {
-            SoundEffect.INTERACTION.play();
-            if (player.intersectWith(blackSmith)) {
-                GameContext.INSTANCE.setCurrentState(GameState.DIALOGUE);
-                Ui.setTexts(blackSmith.speak());
-            }
-            gamePad.setKeyStateFalse(GamePad.enterKey);
-            if (blackSmith.isFinishTalking()) {
-                GameContext.INSTANCE.setCurrentState(GameState.GAME);
-            }
-        }
     }
     
     private void initializeCollidableEntities() {

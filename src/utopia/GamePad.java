@@ -1,12 +1,22 @@
 package utopia;
 
 import doctrina.MovementController;
+import doctrina.RenderingEngine;
+
 import java.awt.event.KeyEvent;
 
 public class GamePad extends MovementController {
 
+    private static GamePad instance;
     public static final int quitKey = KeyEvent.VK_Q;
     public static final int enterKey = KeyEvent.VK_ENTER;
+
+    public static GamePad getInstance() {
+        if (instance == null) {
+            instance = new GamePad();
+        }
+        return instance;
+    }
 
     public GamePad() {
         bindKey(quitKey);

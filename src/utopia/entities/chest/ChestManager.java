@@ -4,16 +4,21 @@ import doctrina.*;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import utopia.entities.enemy.Ai;
+import utopia.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChestManager extends Manager {
 
+    private final Player player;
     private List<Chest> chests;
 
-    public ChestManager() {
+    public ChestManager(Player player) {
         super();
+        this.player = player;
+        setPlayerForChest();
     }
 
     @Override
@@ -48,6 +53,12 @@ public class ChestManager extends Manager {
             Element element = (Element) node;
             chests.add(new Chest(Integer.parseInt(element.getAttribute("x")),
                     Integer.parseInt(element.getAttribute("y"))));
+        }
+    }
+
+    private void setPlayerForChest() {
+        for (Chest chest : chests) {
+            chest.setPlayer(player);
         }
     }
 }

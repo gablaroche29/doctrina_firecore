@@ -18,7 +18,6 @@ public class AiManager extends Manager {
     private final List<Ai> deadEnemies;
 
     public AiManager(Player player) {
-        super();
         this.player = player;
         setPlayerForEnemies();
         //enemies.add(new Ai(1150, 2518, 1.5f, player));
