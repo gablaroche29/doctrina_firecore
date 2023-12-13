@@ -3,6 +3,7 @@ package utopia.player;
 import doctrina.*;
 import doctrina.Canvas;
 import doctrina.ControllableEntity;
+import utopia.GamePad;
 import utopia.audio.SoundEffect;
 
 import java.awt.*;
@@ -21,7 +22,7 @@ public class Player extends ControllableEntity {
         controller.useWasdKeys();
         setDimension(32, 32);
         setSpeed(2);
-        loadAnimationHandler();
+        animationHandler = new PlayerAnimationHandler(this);
         setDirection(Direction.DOWN);
 
         state = State.IDLE;
@@ -34,22 +35,48 @@ public class Player extends ControllableEntity {
             moveWithController();
         }
 
-        attackCoolDown--;
-        if (attackCoolDown <= 0) {
-            attackCoolDown = 0;
-            hasAttacked = false;
-        }
-
-        if (getController().isSpacePressed()) {
+        updateAttackCooldown();
+        if (GamePad.getInstance().isSpacePressed()) {
             hasAttacked = true;
             attackCoolDown = 40;
             SoundEffect.MELEE_SWORD.play();
         }
 
-        if (getController().isPPressed()) {
+        if (GamePad.getInstance().isPPressed()) {
             pv = 5;
         }
+        updateAnimationState();
+    }
 
+    @Override
+    public void draw(Canvas canvas, Camera camera) {
+        canvas.drawImage(getAnimationFrame(), x - camera.getX(), y - camera.getY());
+
+        if (GameConfig.isDebugEnabled()) {
+            drawHitBox(canvas, camera);
+            drawCollisionDetector(canvas, camera);
+            if (hasAttacked) {
+                drawAttackZone(canvas, camera);
+            }
+        }
+    }
+
+    public int getPv() {
+        return pv;
+    }
+
+    public boolean hasAttacked() {
+        return hasAttacked;
+    }
+
+    public void dropPv() {
+        pv--;
+        if (pv <= 0 ) {
+            pv = 0;
+        }
+    }
+
+    private void updateAnimationState() {
         State currentState = state;
         if (hasMoved()) {
             state = State.MOVE;
@@ -67,43 +94,22 @@ public class Player extends ControllableEntity {
         }
     }
 
-    @Override
-    public void draw(Canvas canvas, Camera camera) {
-        Image sprite;
+    private void updateAttackCooldown() {
+        attackCoolDown--;
+        if (attackCoolDown <= 0) {
+            attackCoolDown = 0;
+            hasAttacked = false;
+        }
+    }
+
+    private Image getAnimationFrame() {
         if (hasAttacked) {
-            sprite = animationHandler.getAttackFrame();
-        } else if (hasMoved()) {
-            sprite = animationHandler.getDirectionFrame();
-        } else {
-            sprite = animationHandler.getIdleFrame();
+            return animationHandler.getAttackFrame();
         }
-        canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
-
-        if (GameConfig.isDebugEnabled()) {
-            drawHitBox(canvas, camera);
-            drawCollisionDetector(canvas, camera);
-            if (hasAttacked) {
-                drawAttackZone(canvas, camera);
-            }
+        if (hasMoved()) {
+            return animationHandler.getDirectionFrame();
         }
+        return animationHandler.getIdleFrame();
     }
 
-    private void loadAnimationHandler() {
-        animationHandler = new PlayerAnimationHandler(this);
-    }
-
-    public int getPv() {
-        return pv;
-    }
-
-    public boolean hasAttacked() {
-        return hasAttacked;
-    }
-
-    public void dropPv() {
-        pv--;
-        if (pv <= 0 ) {
-            pv = 0;
-        }
-    }
 }

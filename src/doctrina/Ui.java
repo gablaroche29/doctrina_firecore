@@ -1,8 +1,10 @@
 package doctrina;
 
+import utopia.GamePad;
 import utopia.player.Player;
 
 import java.awt.*;
+import java.util.Arrays;
 
 public class Ui {
 
@@ -14,20 +16,17 @@ public class Ui {
     private final String healthBarPath = "image/ui/health_bar.png";
     private final FontLoader fontLoader;
 
+    private static boolean openChest;
     private static String[] texts;
 
     private final Player player;
+
+    private int eventCooldown = 100;
 
     public Ui(Player player) {
         this.player = player;
         fontLoader = new FontLoader("/font/perpetua/perpetua_bold.ttf", 25.0f);
         healthBar = SpriteSheetSlicer.getSprites(0, 0, 104, 28, 5, healthBarPath);
-    }
-
-    public void update(GameState gameState) {
-        switch (gameState) {
-            case GAME -> updateGame();
-        }
     }
 
     public void draw(Canvas canvas, GameState gameState) {
@@ -36,10 +35,6 @@ public class Ui {
             case DIALOGUE -> drawDialogue(canvas);
         }
 
-    }
-
-    private void updateGame() {
-        // TODO: 2023-12-12
     }
 
     private void drawDialogue(Canvas canvas) {
@@ -55,16 +50,28 @@ public class Ui {
         int indexPv = (player.getPv() == 0) ? 0 : player.getPv() - 1;
         canvas.drawImage(healthBar[indexPv], 10, 10);
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 760, 20, Color.WHITE);
-        if (GameConfig.isDebugEnabled()) {
-            canvas.drawString("FPS " + GameTime.getCurrentFps(), 760, 20, Color.WHITE);
+        if (openChest) {
+            chestEvent(canvas);
         }
     }
 
-    public static void setTexts(String texts) {
-        Ui.texts = Ui.stringCutter(texts, "\n");
+    public static void openChest() {
+        Ui.openChest = true;
     }
 
-    private static String[] stringCutter(String text, String separator) {
-        return text.split(separator);
+    public static void setTexts(String texts) {
+        Ui.texts = texts.split("\n");
+    }
+
+    private void chestEvent(Canvas canvas) {
+        String text = "Tu as ouvert un coffre!\nIl y avait deux lingots!";
+        setTexts(text);
+        drawDialogue(canvas);
+        eventCooldown--;
+        if (eventCooldown <= 0) {
+            eventCooldown = 100;
+            openChest = false;
+        }
+
     }
 }

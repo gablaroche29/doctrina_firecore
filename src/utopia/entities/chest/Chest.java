@@ -23,9 +23,11 @@ public class Chest extends StaticEntity {
 
     public void update() {
         if (GamePad.getInstance().isEnterPressed()) {
-            if (player.intersectWith(this)) {
+            if (player.intersectWith(this) && !isOpen) {
                 SoundEffect.BROKEN_CRATE.play();
                 isOpen = true;
+                GamePad.getInstance().setKeyStateFalse(GamePad.enterKey);
+                Ui.openChest();
             }
         }
     }
