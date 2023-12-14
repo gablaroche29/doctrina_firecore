@@ -3,6 +3,7 @@ package utopia.player;
 import doctrina.*;
 import doctrina.Canvas;
 import doctrina.ControllableEntity;
+import utopia.GameMouse;
 import utopia.GamePad;
 import utopia.audio.SoundEffect;
 
@@ -37,7 +38,7 @@ public class Player extends ControllableEntity {
         }
 
         updateAttackCooldown();
-        if (GamePad.getInstance().isSpacePressed()) {
+        if (GameMouse.getInstance().isKeyPressed(GameMouse.leftClick)) {
             hasAttacked = true;
             attackCoolDown = 40;
             SoundEffect.MELEE_SWORD.play();

@@ -19,7 +19,9 @@ import java.util.List;
 public class World extends StaticEntity {
 
     private static final String MAP_PATH = "image/background/heavenly/Map.png";
+    private static final String FRONTVIEW_PATH = "image/background/heavenly/FrontView.png";
     private Image background;
+    private Image frontview;
 
     private final GamePad gamePad;
     private final CollisionManager collisionManager;
@@ -52,6 +54,8 @@ public class World extends StaticEntity {
 
         blackSmith = new BlackSmith(player);
         playBackgroundMusic();
+
+        GameMouse mouse = new GameMouse();
     }
 
     public void update() {
@@ -68,12 +72,11 @@ public class World extends StaticEntity {
     @Override
     public void draw(Canvas canvas, Camera camera) {
         canvas.drawImage(background, x - camera.getX(), y - camera.getY());
-        aiManager.draw(canvas, camera);
-
         obstacleManager.draw(canvas, camera);
         chestManager.draw(canvas, camera);
 
         blackSmith.draw(canvas, camera);
+        aiManager.draw(canvas, camera);
 
         if (GameConfig.isDebugEnabled()) {
             collisionManager.draw(canvas, camera);
@@ -82,6 +85,10 @@ public class World extends StaticEntity {
 
     public void drawRain(Canvas canvas, Camera camera) {
         rainEffect.draw(canvas, camera);
+    }
+
+    public void drawFrontview(Canvas canvas, Camera camera) {
+        canvas.drawImage(frontview, x - camera.getX(), y - camera.getY());
     }
     
     private void initializeCollidableEntities() {
@@ -102,6 +109,7 @@ public class World extends StaticEntity {
 
     private void load() {
         background = SpriteSheetSlicer.getSprite(0, 0, 3200, 3200, MAP_PATH);
+        frontview = SpriteSheetSlicer.getSprite(0, 0, 3200, 3200, FRONTVIEW_PATH);
     }
 
     private void playBackgroundMusic() {

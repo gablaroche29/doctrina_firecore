@@ -4,6 +4,8 @@ import doctrina.MovementController;
 import doctrina.RenderingEngine;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class GamePad extends MovementController {
 
@@ -29,5 +31,4 @@ public class GamePad extends MovementController {
     public boolean isEnterPressed() {
         return isKeyPressed(enterKey);
     }
-
 }

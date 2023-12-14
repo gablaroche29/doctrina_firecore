@@ -79,6 +79,7 @@ public class UtopiaGame extends Game {
     private void drawGame(Canvas canvas) {
         world.draw(canvas, camera);
         player.draw(canvas, camera);
+        world.drawFrontview(canvas, camera);
         world.drawRain(canvas, camera);
     }
 }
