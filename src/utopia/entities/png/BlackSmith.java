@@ -2,6 +2,7 @@ package utopia.entities.png;
 
 import doctrina.*;
 import doctrina.Canvas;
+import utopia.GameMouse;
 import utopia.GamePad;
 import utopia.audio.SoundEffect;
 import utopia.player.Player;
@@ -30,13 +31,13 @@ public class BlackSmith extends MovableEntity {
 
     @Override
     public void update() {
-        if (GamePad.getInstance().isEnterPressed()) {
-            SoundEffect.INTERACTION.play();
+        if (GameMouse.getInstance().isKeyPressed(GameMouse.rightClick)) {
             if (player.intersectWith(this)) {
+                SoundEffect.INTERACTION.play();
                 GameContext.INSTANCE.setCurrentState(GameState.DIALOGUE);
                 Ui.setTexts(speak());
             }
-            GamePad.getInstance().setKeyStateFalse(GamePad.enterKey);
+            GameMouse.getInstance().setKeyStateFalse(GameMouse.rightClick);
             if (isFinishTalking()) {
                 GameContext.INSTANCE.setCurrentState(GameState.GAME);
             }

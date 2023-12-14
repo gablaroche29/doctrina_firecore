@@ -2,6 +2,7 @@ package utopia.entities.chest;
 
 import doctrina.*;
 import doctrina.Canvas;
+import utopia.GameMouse;
 import utopia.GamePad;
 import utopia.audio.SoundEffect;
 import utopia.player.Player;
@@ -15,7 +16,7 @@ public class Chest extends StaticEntity {
     private Image open;
     private boolean isOpen;
     private Player player;
-    private int crystal;
+    private final int crystal;
 
     public Chest(int x, int y) {
         Random rnd = new Random();
@@ -26,12 +27,13 @@ public class Chest extends StaticEntity {
     }
 
     public void update() {
-        if (GamePad.getInstance().isEnterPressed()) {
+        if (GameMouse.getInstance().isKeyPressed(GameMouse.rightClick)) {
             if (player.intersectWith(this) && !isOpen) {
+                SoundEffect.INTERACTION.play();
                 SoundEffect.BROKEN_CRATE.play();
                 isOpen = true;
                 player.addCrystal(crystal);
-                GamePad.getInstance().setKeyStateFalse(GamePad.enterKey);
+                GameMouse.getInstance().setKeyStateFalse(GameMouse.rightClick);
                 Ui.openChest(crystal);
             }
         }

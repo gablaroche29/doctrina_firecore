@@ -3,7 +3,6 @@ package utopia;
 import doctrina.MouseController;
 
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
 
 public class GameMouse extends MouseController {
 
