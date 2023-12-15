@@ -78,6 +78,24 @@ public abstract class MovableEntity extends StaticEntity {
         return direction;
     }
 
+    public Direction getOpposateDirection() {
+        switch (direction) {
+            case UP -> {
+                return Direction.DOWN;
+            }
+            case DOWN -> {
+                return Direction.UP;
+            }
+            case LEFT -> {
+                return Direction.RIGHT;
+            }
+            case RIGHT -> {
+                return Direction.LEFT;
+            }
+        }
+        return direction;
+    }
+
     public void setDirection(Direction direction) {
         this.direction = direction;
     }

@@ -15,6 +15,9 @@ public abstract class Ai extends MovableEntity {
     private boolean moving;
     private boolean isAlive = true;
     private int attackCooldown = 0;
+    private int pv = 3;
+
+    private boolean isKnockback;
 
     public Ai(int x, int y, float speed) {
         super(2);
@@ -45,25 +48,49 @@ public abstract class Ai extends MovableEntity {
             moving();
         }
 
-        if (player.hasAttacked()) {
+        if (player.hasAttacked() && !isKnockback) {
             if (intersectWith(player.getAttackZone())) {
-                isAlive = false;
+                SoundEffect.MONSTER_ATTACK.play();
+                isKnockback = true;
+                pv--;
+                if (pv == 0) {
+                    isAlive = false;
+                }
+//                setSpeed(50f);
+//                move(getOpposateDirection());
+//                setSpeed(1.5f);
+//                isAlive = false;
+            }
+        }
+
+        if (isKnockback) {
+            setSpeed(getSpeed() + 1.5f);
+            move(getOpposateDirection());
+            setDirection(getOpposateDirection());
+            if (getSpeed() > 40f) {
+                setSpeed(1.5f);
+                isKnockback = false;
             }
         }
 
         if (getAttackZone().intersectsWith(player) && attackCooldown == 0) {
             attackCooldown = 60;
             player.dropPv();
-            SoundEffect.MONSTER_ATTACK.play();
+            //SoundEffect.MONSTER_ATTACK.play();
         }
-
         animationHandler.update();
+
+
     }
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
         Image sprite = animationHandler.getDirectionFrame();
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
+        float prop = (float) pv / 3;
+        float pvString = prop * width;
+        System.out.println(prop);
+        canvas.drawRectangle(x - camera.getX(), y - 5 - camera.getY(), (int) pvString, 2, Color.GREEN);
 
         if (GameConfig.isDebugEnabled()) {
             drawCollisionDetector(canvas, camera);
