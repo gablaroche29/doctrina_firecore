@@ -56,8 +56,8 @@ public class Ui {
         int indexPv = (player.getPv() == 0) ? 0 : player.getPv() - 1;
         String crystalQuantity = "X " + player.getCrystal();
         canvas.drawImage(healthBar[indexPv], 10, 10);
-        canvas.drawImage(crystal, -5, 60);
-        canvas.drawString(crystalQuantity, 60, 92, Color.WHITE, fontLoader.getFont());
+        canvas.drawImage(crystal, 0, 60, 48, 48);
+        canvas.drawString(crystalQuantity, 50, 92, Color.WHITE, fontLoader.getFont());
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 700, 20, Color.WHITE);
         if (openChest) {
             chestEvent(canvas);
