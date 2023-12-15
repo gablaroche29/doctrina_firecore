@@ -50,16 +50,13 @@ public abstract class Ai extends MovableEntity {
 
         if (player.hasAttacked() && !isKnockback) {
             if (intersectWith(player.getAttackZone())) {
-                SoundEffect.MONSTER_ATTACK.play();
+                SoundEffect.MONSTER_HIT.play();
                 isKnockback = true;
                 pv--;
                 if (pv == 0) {
+                    SoundEffect.MONSTER_DEAD.play();
                     isAlive = false;
                 }
-//                setSpeed(50f);
-//                move(getOpposateDirection());
-//                setSpeed(1.5f);
-//                isAlive = false;
             }
         }
 

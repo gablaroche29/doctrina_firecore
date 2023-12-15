@@ -8,6 +8,8 @@ public enum SoundEffect {
     INTERACTION("audio/sound/interaction.wav"),
     MELEE_SWORD("audio/sound/sword_effect.wav"),
     BROKEN_CRATE("audio/sound/wooden_crate.wav"),
+    MONSTER_HIT("audio/sound/monster/monster_hit.wav"),
+    MONSTER_DEAD("audio/sound/monster/monster_dead.wav"),
     MONSTER_ATTACK("audio/sound/monster_attack.wav");
 
     private final Sound sound;
