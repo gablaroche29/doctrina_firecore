@@ -17,7 +17,8 @@ public class Ui {
 
     private final Player player;
 
-    private int eventCooldown = 100;
+    private int chestEventCooldown = 100;
+    private int hurtEventCoooldown = 50;
 
     public Ui(Player player) {
         this.player = player;
@@ -32,6 +33,20 @@ public class Ui {
             case DIALOGUE -> drawDialogue(canvas);
         }
 
+    }
+
+    public static void openChest(int crystal) {
+        String text = "Tu as ouvert un coffre!\nIl y avait " + crystal + " crystal(s)!";
+        setEventText(text);
+        Ui.openChest = true;
+    }
+
+    private static void setEventText(String text) {
+        eventText = text.split("\n");
+    }
+
+    public static void setTexts(String texts) {
+        Ui.texts = texts.split("\n");
     }
 
     private void drawDialogue(Canvas canvas) {
@@ -58,33 +73,35 @@ public class Ui {
         canvas.drawImage(healthBar[indexPv], 10, 10);
         canvas.drawImage(crystal, 0, 60, 48, 48);
         canvas.drawString(crystalQuantity, 50, 92, Color.WHITE, fontLoader.getFont());
+
+        if (player.isHurt()) {
+            hurtEvent(canvas);
+        }
         canvas.drawString("FPS " + GameTime.getCurrentFps(), 700, 20, Color.WHITE);
         if (openChest) {
             chestEvent(canvas);
         }
     }
 
-    public static void openChest(int crystal) {
-        String text = "Tu as ouvert un coffre!\nIl y avait " + crystal + " crystal(s)!";
-        setEventText(text);
-        Ui.openChest = true;
-    }
-
-    public static void setTexts(String texts) {
-        Ui.texts = texts.split("\n");
-    }
-
-    private static void setEventText(String text) {
-        eventText = text.split("\n");
+    private void drawHurtDamage(Canvas canvas) {
+        canvas.drawRectangle(0, 0, 800, 600, new Color(0.1f, 0, 0, 0.2f));
     }
 
     private void chestEvent(Canvas canvas) {
         drawEvent(canvas);
-        eventCooldown--;
-        if (eventCooldown <= 0) {
-            eventCooldown = 100;
+        chestEventCooldown--;
+        if (chestEventCooldown <= 0) {
+            chestEventCooldown = 100;
             openChest = false;
         }
+    }
 
+    private void hurtEvent(Canvas canvas) {
+        drawHurtDamage(canvas);
+        hurtEventCoooldown--;
+        if (hurtEventCoooldown <= 0) {
+            hurtEventCoooldown = 50;
+            player.setHurt(false);
+        }
     }
 }

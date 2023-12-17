@@ -8,15 +8,16 @@ import utopia.GamePad;
 import utopia.audio.SoundEffect;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 public class Player extends ControllableEntity {
 
     private PlayerAnimationHandler animationHandler;
     private boolean hasAttacked;
     private int attackCoolDown = 0;
-
     private int pv = 5;
     private int crystal = 0;
+    private boolean isHurt;
 
     public Player(MovementController controller, int x, int y) {
         super(controller, 5);
@@ -75,11 +76,20 @@ public class Player extends ControllableEntity {
         return crystal;
     }
 
+    public void setHurt(boolean hurt) {
+        isHurt = hurt;
+    }
+
+    public boolean isHurt() {
+        return isHurt;
+    }
+
     public boolean hasAttacked() {
         return hasAttacked;
     }
 
     public void dropPv() {
+        SoundEffect.HIT_DAMAGE.play();
         pv--;
         if (pv <= 0 ) {
             pv = 0;

@@ -1,6 +1,9 @@
 package doctrina;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 
 public class Canvas {
 
@@ -56,5 +59,14 @@ public class Canvas {
 
     public void drawImage(Image image, int x, int y, int width, int height) {
         graphics.drawImage(image, x, y, width, height, null);
+    }
+
+    public void drawImage(BufferedImage image, int x, int y, int angle) {
+        double rotationRequired = Math.toRadians(angle);
+        double locationX = (double) image.getWidth() / 2;
+        double locationY = (double) image.getHeight() / 2;
+        AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+        graphics.drawImage(op.filter(image, null), x, y, null);
     }
 }

@@ -73,10 +73,10 @@ public abstract class Ai extends MovableEntity {
         if (getAttackZone().intersectsWith(player) && attackCooldown == 0) {
             attackCooldown = 60;
             player.dropPv();
+            player.setHurt(true);
             //SoundEffect.MONSTER_ATTACK.play();
         }
         animationHandler.update();
-
 
     }
 
@@ -86,7 +86,6 @@ public abstract class Ai extends MovableEntity {
         canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
         float prop = (float) pv / 3;
         float pvString = prop * width;
-        System.out.println(prop);
         canvas.drawRectangle(x - camera.getX(), y - 5 - camera.getY(), (int) pvString, 2, Color.GREEN);
 
         if (GameConfig.isDebugEnabled()) {

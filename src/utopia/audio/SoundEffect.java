@@ -10,6 +10,7 @@ public enum SoundEffect {
     BROKEN_CRATE("audio/sound/wooden_crate.wav"),
     MONSTER_HIT("audio/sound/monster/monster_hit.wav"),
     MONSTER_DEAD("audio/sound/monster/monster_dead.wav"),
+    HIT_DAMAGE("audio/sound/hit_damage.wav"),
     MONSTER_ATTACK("audio/sound/monster_attack.wav");
 
     private final Sound sound;
