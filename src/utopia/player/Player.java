@@ -64,38 +64,6 @@ public class Player extends ControllableEntity {
         }
     }
 
-    public int getPv() {
-        return pv;
-    }
-
-    public void addCrystal(int crystal) {
-        this.crystal += crystal;
-    }
-
-    public int getCrystal() {
-        return crystal;
-    }
-
-    public void setHurt(boolean hurt) {
-        isHurt = hurt;
-    }
-
-    public boolean isHurt() {
-        return isHurt;
-    }
-
-    public boolean hasAttacked() {
-        return hasAttacked;
-    }
-
-    public void dropPv() {
-        SoundEffect.HIT_DAMAGE.play();
-        pv--;
-        if (pv <= 0 ) {
-            pv = 0;
-        }
-    }
-
     private void updateAnimationState() {
         State currentState = state;
         if (hasMoved()) {
@@ -132,4 +100,35 @@ public class Player extends ControllableEntity {
         return animationHandler.getIdleFrame();
     }
 
+    public int getPv() {
+        return pv;
+    }
+
+    public void addCrystal(int crystal) {
+        this.crystal += crystal;
+    }
+
+    public int getCrystal() {
+        return crystal;
+    }
+
+    public void setHurt(boolean hurt) {
+        isHurt = hurt;
+    }
+
+    public boolean isHurt() {
+        return isHurt;
+    }
+
+    public boolean hasAttacked() {
+        return hasAttacked;
+    }
+
+    public void dropPv() {
+        SoundEffect.HIT_DAMAGE.play();
+        pv--;
+        if (pv <= 0 ) {
+            pv = 0;
+        }
+    }
 }

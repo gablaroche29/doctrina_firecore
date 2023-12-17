@@ -6,6 +6,7 @@ import utopia.player.Player;
 import utopia.audio.SoundEffect;
 
 import java.awt.*;
+import java.util.Random;
 
 public abstract class Ai extends MovableEntity {
 
@@ -16,6 +17,7 @@ public abstract class Ai extends MovableEntity {
     private boolean isAlive = true;
     private int attackCooldown = 0;
     private int pv = 3;
+    private final int crystal;
 
     private boolean isKnockback;
 
@@ -27,6 +29,8 @@ public abstract class Ai extends MovableEntity {
         setDirection(Direction.DOWN);
         state = State.MOVE;
 
+        Random rnd = new Random();
+        crystal = rnd.nextInt(5) + 1;
         setTriggerZone();
     }
 
@@ -55,6 +59,8 @@ public abstract class Ai extends MovableEntity {
                 pv--;
                 if (pv == 0) {
                     SoundEffect.MONSTER_DEAD.play();
+                    player.addCrystal(crystal);
+                    Ui.enemyKilled(crystal);
                     isAlive = false;
                 }
             }
