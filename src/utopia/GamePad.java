@@ -12,6 +12,7 @@ public class GamePad extends MovementController {
     private static GamePad instance;
     public static final int quitKey = KeyEvent.VK_Q;
     public static final int enterKey = KeyEvent.VK_ENTER;
+    public static final int pKey = KeyEvent.VK_P;
 
     public static GamePad getInstance() {
         if (instance == null) {
@@ -23,6 +24,7 @@ public class GamePad extends MovementController {
     public GamePad() {
         bindKey(quitKey);
         bindKey(enterKey);
+        bindKey(pKey);
     }
 
     public boolean isQuitPressed() {
@@ -31,4 +33,8 @@ public class GamePad extends MovementController {
     public boolean isEnterPressed() {
         return isKeyPressed(enterKey);
     }
+    public boolean isPPressed() {
+        return isKeyPressed(pKey);
+    }
+
 }

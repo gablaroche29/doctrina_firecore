@@ -16,14 +16,15 @@ public class Chest extends StaticEntity {
     private Image open;
     private boolean isOpen;
     private Player player;
-    private final int crystal;
+    private final int potion;
 
     public Chest(int x, int y) {
         Random rnd = new Random();
-        crystal = rnd.nextInt(10) + 1;
+        potion = rnd.nextInt(2) + 1;
         setDimension(32, 32);
         teleport(x, y);
         load();
+        CollidableRepository.getInstance().registerEntity(this);
     }
 
     public void update() {
@@ -32,9 +33,9 @@ public class Chest extends StaticEntity {
                 SoundEffect.INTERACTION.play();
                 SoundEffect.BROKEN_CRATE.play();
                 isOpen = true;
-                player.addCrystal(crystal);
+                player.addPotion(potion);
                 GameMouse.getInstance().setKeyStateFalse(GameMouse.rightClick);
-                Ui.openChest(crystal);
+                Ui.openChest(potion);
             }
         }
     }

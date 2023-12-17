@@ -73,10 +73,10 @@ public class AiManager extends Manager {
 
     private Ai getEnemy(Element element) {
         return switch (element.getAttribute("name")) {
-            case "Blue_Bat" -> new RedBat(
+            case "Blue_Bat" -> new BlueBat(
                     Integer.parseInt(element.getAttribute("x")),
                     Integer.parseInt(element.getAttribute("y")));
-            case "Red_Bat" -> new BlueBat(
+            case "Red_Bat" -> new RedBat(
                     Integer.parseInt(element.getAttribute("x")),
                     Integer.parseInt(element.getAttribute("y")));
             default -> new RedBat(0, 0);

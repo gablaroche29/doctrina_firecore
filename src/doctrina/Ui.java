@@ -11,6 +11,7 @@ import java.awt.*;
 public class Ui {
     private final Image[] healthBar;
     private final Image crystal;
+    private final Image potion;
     private final FontLoader fontLoader;
 
     private static String[] dialogueText;
@@ -30,6 +31,8 @@ public class Ui {
         healthBar = SpriteSheetSlicer.getSprites(0, 0, 104, 28, 5, HEALTH_BAR_PATH);
         String CRYSTAL_PATH = "image/ui/crystal.png";
         crystal = SpriteSheetSlicer.getSprite(0, 0, 64, 64, CRYSTAL_PATH);
+        String POTION_PATH = "image/items/potion.png";
+        potion = SpriteSheetSlicer.getSprite(0, 0, 48, 48, POTION_PATH);
         chestEvent = new ChestEvent(100);
         enemyKilledEvent = new EnemyKilledEvent(100);
         deathEvent = new DeathEvent(Clip.LOOP_CONTINUOUSLY);
@@ -55,9 +58,14 @@ public class Ui {
     private void drawGame(Canvas canvas) {
         int indexPv = (player.getPv() == 0) ? 0 : player.getPv() - 1;
         String crystalQuantity = "X " + player.getCrystal();
+        String potionQuantity = "X " + player.getPotion();
         canvas.drawImage(healthBar[indexPv], 10, 10);
+
         canvas.drawImage(crystal, 0, 60, 48, 48);
         canvas.drawString(crystalQuantity, 50, 92, Color.WHITE, fontLoader.getFont());
+
+        canvas.drawImage(potion, 0, 120);
+        canvas.drawString(potionQuantity, 50, 152, Color.WHITE, fontLoader.getFont());
 
         if (player.isHurt()) {
             hurtEvent(canvas);
@@ -79,8 +87,8 @@ public class Ui {
         }
     }
 
-    public static void openChest(int crystal) {
-        chestEvent.setText("Tu as ouvert un coffre!\nIl y avait " + crystal + " crystal(s)!");
+    public static void openChest(int potion) {
+        chestEvent.setText("Tu as ouvert un coffre!\nIl y avait " + potion + " potion(s)!");
         chestEvent.setActive(true);
     }
 

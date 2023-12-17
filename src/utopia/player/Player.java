@@ -11,11 +11,12 @@ import java.awt.*;
 
 public class Player extends ControllableEntity {
 
-    private PlayerAnimationHandler animationHandler;
+    private final PlayerAnimationHandler animationHandler;
     private boolean hasAttacked;
     private int attackCoolDown = 0;
     private int pv = 5;
     private int crystal = 0;
+    private int potion = 1;
     private boolean isHurt;
     private boolean isAlive = true;
 
@@ -45,8 +46,11 @@ public class Player extends ControllableEntity {
             SoundEffect.MELEE_SWORD.play();
         }
 
-        if (GamePad.getInstance().isPPressed()) {
-            pv = 5;
+        if (GamePad.getInstance().isPPressed() && potion > 0) {
+            SoundEffect.HEAL_SPELL.play();
+            heal();
+            potion--;
+            GamePad.getInstance().setKeyStateFalse(GamePad.pKey);
         }
 
         if (pv <= 0) {
@@ -131,6 +135,14 @@ public class Player extends ControllableEntity {
 
     public int getCrystal() {
         return crystal;
+    }
+
+    public void addPotion(int potion) {
+        this.potion += potion;
+    }
+
+    public int getPotion() {
+        return potion;
     }
 
     public void setHurt(boolean hurt) {
