@@ -91,6 +91,10 @@ public class World extends StaticEntity {
     public void drawFrontview(Canvas canvas, Camera camera) {
         canvas.drawImage(frontview, x - camera.getX(), y - camera.getY());
     }
+
+    public void updateInteraction() {
+        blackSmith.update();
+    }
     
     private void initializeCollidableEntities() {
         collidableEntities = new ArrayList<>();

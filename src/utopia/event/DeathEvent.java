@@ -20,7 +20,7 @@ public class DeathEvent extends GameEvent {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawRectangle(0, 0, 800, 600, new Color(0, 0, 0, 200));
+        canvas.drawRectangle(0, 0, 800, 600, new Color(0, 0, 0, 150));
         canvas.drawString("Vous êtes mort...", 250, 250, Color.RED, fontLoader.getFont());
         canvas.drawString("[Continuer]", 250, 300, Color.WHITE, fontLoader.getFont());
         canvas.drawImage(enterKey, 380, 280);

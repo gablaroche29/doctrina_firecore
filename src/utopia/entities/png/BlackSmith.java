@@ -33,7 +33,7 @@ public class BlackSmith extends MovableEntity {
         if (GameMouse.getInstance().isKeyPressed(GameMouse.rightClick)) {
             if (player.intersectWith(this)) {
                 SoundEffect.INTERACTION.play();
-                GameContext.INSTANCE.setCurrentState(GameState.DIALOGUE);
+                GameContext.INSTANCE.setCurrentState(GameState.INTERACTION);
                 Ui.setDialogueText(speak());
             }
             GameMouse.getInstance().setKeyStateFalse(GameMouse.rightClick);

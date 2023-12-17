@@ -32,8 +32,9 @@ public class UtopiaGame extends Game {
         switch (gameContext.getCurrentState()) {
             case QUIT -> stop();
             case INITIALIZE -> initializeGame();
-            case GAME, DIALOGUE -> updateGame();
+            case GAME -> updateGame();
             case DEAD_PLAYER -> updateDeadPlayer();
+            case INTERACTION -> updateDialogue();
         }
     }
 
@@ -41,7 +42,7 @@ public class UtopiaGame extends Game {
     protected void draw(Canvas canvas) {
         switch (gameContext.getCurrentState()) {
             case MENU -> drawMenu(canvas);
-            case GAME -> drawGame(canvas);
+            case GAME, DEAD_PLAYER, INTERACTION -> drawGame(canvas);
         }
         if (ui != null) {
             ui.draw(canvas, gameContext.getCurrentState());
@@ -74,6 +75,10 @@ public class UtopiaGame extends Game {
         } else {
             world.update();
         }
+    }
+
+    private void updateDialogue() {
+        world.updateInteraction();
     }
 
     private void updateDeadPlayer() {

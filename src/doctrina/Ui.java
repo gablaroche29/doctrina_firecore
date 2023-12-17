@@ -1,6 +1,5 @@
 package doctrina;
 
-import utopia.entities.chest.Chest;
 import utopia.event.ChestEvent;
 import utopia.event.DeathEvent;
 import utopia.event.EnemyKilledEvent;
@@ -18,7 +17,7 @@ public class Ui {
 
     private final Player player;
 
-    private int hurtEventCoooldown = 50;
+    private int hurtEventCoooldown = 30;
 
     private static ChestEvent chestEvent;
     private static EnemyKilledEvent enemyKilledEvent;
@@ -39,7 +38,7 @@ public class Ui {
     public void draw(Canvas canvas, GameState gameState) {
         switch (gameState) {
             case GAME -> drawGame(canvas);
-            case DIALOGUE -> drawDialogue(canvas);
+            case INTERACTION -> drawDialogue(canvas);
             case DEAD_PLAYER -> drawEvent(canvas);
         }
     }
@@ -75,7 +74,7 @@ public class Ui {
         drawHurtDamage(canvas);
         hurtEventCoooldown--;
         if (hurtEventCoooldown <= 0) {
-            hurtEventCoooldown = 50;
+            hurtEventCoooldown = 30;
             player.setHurt(false);
         }
     }
