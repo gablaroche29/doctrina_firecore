@@ -3,6 +3,7 @@ package utopia;
 import doctrina.*;
 import utopia.menu.Menu;
 import utopia.player.Player;
+import utopia.spawnpoint.SpawnPoint;
 
 
 public class UtopiaGame extends Game {
@@ -32,6 +33,7 @@ public class UtopiaGame extends Game {
             case QUIT -> stop();
             case INITIALIZE -> initializeGame();
             case GAME, DIALOGUE -> updateGame();
+            case DEAD_PLAYER -> updateDeadPlayer();
         }
     }
 
@@ -66,10 +68,22 @@ public class UtopiaGame extends Game {
             }
             player.update();
             world.update();
+            if (!player.isAlive()) {
+                gameContext.setCurrentState(GameState.DEAD_PLAYER);
+            }
         } else {
             world.update();
         }
+    }
 
+    private void updateDeadPlayer() {
+        Ui.death(true);
+        if (GamePad.getInstance().isEnterPressed()) {
+            player.teleport(SpawnPoint.FIRST.getCoords());
+            player.heal();
+            Ui.death(false);
+            gameContext.setCurrentState(GameState.GAME);
+        }
     }
 
     private void drawMenu(Canvas canvas) {

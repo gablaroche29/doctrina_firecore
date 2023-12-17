@@ -10,6 +10,7 @@ import utopia.entities.obstacle.ObstacleManager;
 import utopia.audio.Music;
 import utopia.player.Player;
 import utopia.audio.SoundEffect;
+import utopia.spawnpoint.SpawnPoint;
 
 import javax.sound.sampled.Clip;
 import java.awt.*;
@@ -55,7 +56,7 @@ public class World extends StaticEntity {
         blackSmith = new BlackSmith(player);
         playBackgroundMusic();
 
-        GameMouse mouse = new GameMouse();
+        new GameMouse();
     }
 
     public void update() {

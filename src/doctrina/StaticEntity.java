@@ -19,6 +19,11 @@ public abstract class StaticEntity {
         this.y = y;
     }
 
+    public void teleport(Point point) {
+        this.x = (int) point.getX();
+        this.y = (int) point.getY();
+    }
+
     public void setDimension(int width, int height) {
         this.width = width;
         this.height = height;

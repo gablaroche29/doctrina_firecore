@@ -8,7 +8,6 @@ import utopia.GamePad;
 import utopia.audio.SoundEffect;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class Player extends ControllableEntity {
 
@@ -18,6 +17,7 @@ public class Player extends ControllableEntity {
     private int pv = 5;
     private int crystal = 0;
     private boolean isHurt;
+    private boolean isAlive = true;
 
     public Player(MovementController controller, int x, int y) {
         super(controller, 5);
@@ -47,6 +47,10 @@ public class Player extends ControllableEntity {
 
         if (GamePad.getInstance().isPPressed()) {
             pv = 5;
+        }
+
+        if (pv <= 0) {
+            isAlive = false;
         }
         updateAnimationState();
     }
@@ -104,16 +108,17 @@ public class Player extends ControllableEntity {
         return pv;
     }
 
+    public void heal() {
+        pv = 5;
+        isAlive = true;
+    }
+
     public void addCrystal(int crystal) {
         this.crystal += crystal;
     }
 
-    public int getCrystal() {
-        return crystal;
-    }
-
-    public void setHurt(boolean hurt) {
-        isHurt = hurt;
+    public boolean isAlive() {
+        return isAlive;
     }
 
     public boolean isHurt() {
@@ -122,6 +127,14 @@ public class Player extends ControllableEntity {
 
     public boolean hasAttacked() {
         return hasAttacked;
+    }
+
+    public int getCrystal() {
+        return crystal;
+    }
+
+    public void setHurt(boolean hurt) {
+        isHurt = hurt;
     }
 
     public void dropPv() {

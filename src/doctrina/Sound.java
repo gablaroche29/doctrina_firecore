@@ -47,10 +47,7 @@ public class Sound {
     private record SoundLineListener(Sound sound) implements LineListener {
         @Override
         public void update(LineEvent event) {
-            if (event.getType() == LineEvent.Type.START) {
-                System.out.println("Le son (" + sound.path + ") a commencé.");
-            } else if (event.getType() == LineEvent.Type.STOP) {
-                System.out.println("Le son (" + sound.path + ") a arrêté.");
+            if (event.getType() == LineEvent.Type.STOP) {
                 sound.reset();
             }
         }

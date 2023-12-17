@@ -2,9 +2,11 @@ package doctrina;
 
 import utopia.entities.chest.Chest;
 import utopia.event.ChestEvent;
+import utopia.event.DeathEvent;
 import utopia.event.EnemyKilledEvent;
 import utopia.player.Player;
 
+import javax.sound.sampled.Clip;
 import java.awt.*;
 
 public class Ui {
@@ -20,6 +22,7 @@ public class Ui {
 
     private static ChestEvent chestEvent;
     private static EnemyKilledEvent enemyKilledEvent;
+    private static DeathEvent deathEvent;
 
     public Ui(Player player) {
         this.player = player;
@@ -30,12 +33,14 @@ public class Ui {
         crystal = SpriteSheetSlicer.getSprite(0, 0, 64, 64, CRYSTAL_PATH);
         chestEvent = new ChestEvent(100);
         enemyKilledEvent = new EnemyKilledEvent(100);
+        deathEvent = new DeathEvent(Clip.LOOP_CONTINUOUSLY);
     }
 
     public void draw(Canvas canvas, GameState gameState) {
         switch (gameState) {
             case GAME -> drawGame(canvas);
             case DIALOGUE -> drawDialogue(canvas);
+            case DEAD_PLAYER -> drawEvent(canvas);
         }
     }
 
@@ -85,6 +90,10 @@ public class Ui {
         enemyKilledEvent.setActive(true);
     }
 
+    public static void death(boolean value) {
+        deathEvent.setActive(value);
+    }
+
     public static void setDialogueText(String dialogueText) {
         Ui.dialogueText = dialogueText.split("\n");
     }
@@ -95,6 +104,9 @@ public class Ui {
         }
         if (enemyKilledEvent.isActive()) {
             enemyKilledEvent.draw(canvas);
+        }
+        if (deathEvent.isActive()) {
+            deathEvent.draw(canvas);
         }
     }
 }
