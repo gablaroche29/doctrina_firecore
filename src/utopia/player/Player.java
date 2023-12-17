@@ -6,6 +6,7 @@ import doctrina.ControllableEntity;
 import utopia.GameMouse;
 import utopia.GamePad;
 import utopia.audio.SoundEffect;
+import utopia.entities.spawnpoint.SpawnPoint;
 
 import java.awt.*;
 
@@ -19,6 +20,7 @@ public class Player extends ControllableEntity {
     private int potion = 1;
     private boolean isHurt;
     private boolean isAlive = true;
+    private SpawnPoint spawnPoint;
 
     public Player(MovementController controller, int x, int y) {
         super(controller, 5);
@@ -115,6 +117,14 @@ public class Player extends ControllableEntity {
     public void heal() {
         pv = 5;
         isAlive = true;
+    }
+
+    public void setSpawnPoint(SpawnPoint spawnPoint) {
+        this.spawnPoint = spawnPoint;
+    }
+
+    public SpawnPoint getSpawnPoint() {
+        return spawnPoint;
     }
 
     public void addCrystal(int crystal) {

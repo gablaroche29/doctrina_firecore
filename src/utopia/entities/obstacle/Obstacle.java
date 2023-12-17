@@ -39,7 +39,9 @@ public class Obstacle extends Blockade {
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
-        canvas.drawImage(sprite, x - camera.getX(), y - camera.getY() - 32);
+        if (camera.intersectWith(this)) {
+            canvas.drawImage(sprite, x - camera.getX(), y - camera.getY() - 32);
+        }
     }
 
     public boolean isDestruct() {

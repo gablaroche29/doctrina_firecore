@@ -3,7 +3,7 @@ package utopia;
 import doctrina.*;
 import utopia.menu.Menu;
 import utopia.player.Player;
-import utopia.spawnpoint.SpawnPoint;
+import utopia.entities.spawnpoint.Coords;
 
 
 public class UtopiaGame extends Game {
@@ -84,7 +84,7 @@ public class UtopiaGame extends Game {
     private void updateDeadPlayer() {
         Ui.death(true);
         if (GamePad.getInstance().isEnterPressed()) {
-            player.teleport(SpawnPoint.FIRST.getCoords());
+            player.teleport(player.getSpawnPoint());
             player.heal();
             Ui.death(false);
             gameContext.setCurrentState(GameState.GAME);

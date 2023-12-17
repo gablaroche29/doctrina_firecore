@@ -36,10 +36,6 @@ public class Camera extends StaticEntity implements Runnable {
         setPosition();
     }
 
-    public boolean isItInArea(StaticEntity entity) {
-        return intersectWith(entity);
-    }
-
     private void startCameraThread() {
         cameraThread = new Thread(this);
         cameraThread.start();

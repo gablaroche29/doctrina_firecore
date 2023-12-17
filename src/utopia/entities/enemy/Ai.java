@@ -88,11 +88,14 @@ public abstract class Ai extends MovableEntity {
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
-        Image sprite = animationHandler.getDirectionFrame();
-        canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
         float prop = (float) pv / 3;
         float pvString = prop * width;
-        canvas.drawRectangle(x - camera.getX(), y - 5 - camera.getY(), (int) pvString, 2, Color.GREEN);
+
+        if (camera.intersectWith(this)) {
+            Image sprite = animationHandler.getDirectionFrame();
+            canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
+            canvas.drawRectangle(x - camera.getX(), y - 5 - camera.getY(), (int) pvString, 2, Color.GREEN);
+        }
 
         if (GameConfig.isDebugEnabled()) {
             drawCollisionDetector(canvas, camera);

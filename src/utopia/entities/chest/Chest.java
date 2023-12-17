@@ -42,8 +42,10 @@ public class Chest extends StaticEntity {
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
-        Image sprite = (isOpen) ? open : close;
-        canvas.drawImage(sprite, x - camera.getX(), y - camera.getY() - 32);
+        if (camera.intersectWith(this)) {
+            Image sprite = (isOpen) ? open : close;
+            canvas.drawImage(sprite, x - camera.getX(), y - camera.getY() - 32);
+        }
     }
 
     public void setPlayer(Player player) {

@@ -1,14 +1,14 @@
-package utopia.spawnpoint;
+package utopia.entities.spawnpoint;
 
 import java.awt.*;
 
-public enum SpawnPoint {
+public enum Coords {
     FIRST(864, 2368),
     SECOND(2752, 1888);
 
     private final Point point;
 
-    SpawnPoint(int x, int y) {
+    Coords(int x, int y) {
         this.point = new Point(x, y);
     }
 

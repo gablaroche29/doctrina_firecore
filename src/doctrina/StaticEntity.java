@@ -1,5 +1,7 @@
 package doctrina;
 
+import utopia.entities.spawnpoint.SpawnPoint;
+
 import java.awt.*;
 
 public abstract class StaticEntity {
@@ -19,9 +21,9 @@ public abstract class StaticEntity {
         this.y = y;
     }
 
-    public void teleport(Point point) {
-        this.x = (int) point.getX();
-        this.y = (int) point.getY();
+    public void teleport(SpawnPoint point) {
+        this.x = point.getX();
+        this.y = point.getY();
     }
 
     public void setDimension(int width, int height) {
@@ -67,10 +69,6 @@ public abstract class StaticEntity {
 
     public boolean isRender() {
         return render;
-    }
-
-    public boolean isInCameraField(Camera camera) {
-        return camera.isItInArea(this);
     }
 
     public State getState() {

@@ -8,9 +8,8 @@ import utopia.entities.enemy.AiManager;
 import utopia.entities.CollisionManager;
 import utopia.entities.obstacle.ObstacleManager;
 import utopia.audio.Music;
+import utopia.entities.spawnpoint.SpawnPointManager;
 import utopia.player.Player;
-import utopia.audio.SoundEffect;
-import utopia.spawnpoint.SpawnPoint;
 
 import javax.sound.sampled.Clip;
 import java.awt.*;
@@ -28,6 +27,7 @@ public class World extends StaticEntity {
     private final CollisionManager collisionManager;
     private final ChestManager chestManager;
     private final ObstacleManager obstacleManager;
+    private final SpawnPointManager spawnPointManager;
     private List<MovableEntity> collidableEntities;
     private final Player player;
     private final AiManager aiManager;
@@ -47,6 +47,7 @@ public class World extends StaticEntity {
         chestManager = new ChestManager(player);
         obstacleManager = new ObstacleManager(player);
         aiManager = new AiManager(player);
+        spawnPointManager = new SpawnPointManager(player);
 
         initializeCollidableEntities();
 
@@ -66,6 +67,7 @@ public class World extends StaticEntity {
 
         obstacleManager.update(collidableEntities);
         chestManager.update();
+        spawnPointManager.update();
         rainEffect.update();
         blackSmith.update();
     }
@@ -75,6 +77,7 @@ public class World extends StaticEntity {
         canvas.drawImage(background, x - camera.getX(), y - camera.getY());
         obstacleManager.draw(canvas, camera);
         chestManager.draw(canvas, camera);
+        spawnPointManager.draw(canvas, camera);
 
         blackSmith.draw(canvas, camera);
         aiManager.draw(canvas, camera);

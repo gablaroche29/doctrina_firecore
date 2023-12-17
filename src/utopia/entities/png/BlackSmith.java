@@ -46,8 +46,10 @@ public class BlackSmith extends MovableEntity {
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
-        Image sprite = animationHandler.getIdleFrame();
-        canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
+        if (camera.intersectWith(this)) {
+            Image sprite = animationHandler.getIdleFrame();
+            canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
+        }
     }
 
     public String speak() {
