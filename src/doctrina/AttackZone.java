@@ -28,7 +28,7 @@ public class AttackZone {
     }
 
     private Bounds getUpperAttackZone() {
-        return new Bounds(entity.x, (entity.y - attackRadius + (entity.height / 2)), entity.width, attackRadius);
+        return new Bounds(entity.x, (entity.y - (attackRadius * 4) + (entity.height / 2)), entity.width, attackRadius);
     }
 
     private Bounds getLowerAttackZone() {

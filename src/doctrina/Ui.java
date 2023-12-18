@@ -47,7 +47,9 @@ public class Ui {
     }
 
     private void drawDialogue(Canvas canvas) {
-        canvas.drawRoundRectangle(150, 30, 500, 200, 35, 35, Color.BLACK);
+        canvas.drawRoundRectangle(147, 27, 506, 206, 35, 35, Color.BLACK);
+        canvas.drawRoundRectangle(150, 30, 500, 200, 35, 35, Color.WHITE);
+        canvas.drawRoundRectangle(153, 33, 494, 194, 35, 35, Color.BLACK);
         int startY = 70;
         for (String string : dialogueText) {
             canvas.drawString(string, 180, startY, Color.WHITE, fontLoader.getFont());

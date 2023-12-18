@@ -69,4 +69,9 @@ public class Canvas {
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
         graphics.drawImage(op.filter(image, null), x, y, null);
     }
+
+    public FontMetrics getFontMetrics() {
+        return graphics.getFontMetrics();
+    }
+
 }

@@ -3,7 +3,7 @@ package doctrina;
 public class GameConfig {
 
     private static boolean debug;
-    private static float musicVolume = 0.7f;
+    private static float musicVolume = 0.5f;
 
     public static boolean isDebugEnabled() {
         return debug;

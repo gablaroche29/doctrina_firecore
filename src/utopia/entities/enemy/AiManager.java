@@ -6,6 +6,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import utopia.entities.enemy.type.RedBat;
 import utopia.entities.enemy.type.BlueBat;
+import utopia.entities.enemy.type.RedScorpion;
+import utopia.entities.enemy.type.YellowScorpion;
 import utopia.player.Player;
 
 import java.util.ArrayList;
@@ -77,6 +79,12 @@ public class AiManager extends Manager {
                     Integer.parseInt(element.getAttribute("x")),
                     Integer.parseInt(element.getAttribute("y")));
             case "Red_Bat" -> new RedBat(
+                    Integer.parseInt(element.getAttribute("x")),
+                    Integer.parseInt(element.getAttribute("y")));
+            case "Red_Scorpion" -> new RedScorpion(
+                    Integer.parseInt(element.getAttribute("x")),
+                    Integer.parseInt(element.getAttribute("y")));
+            case "Yellow_Scorpion" -> new YellowScorpion(
                     Integer.parseInt(element.getAttribute("x")),
                     Integer.parseInt(element.getAttribute("y")));
             default -> new RedBat(0, 0);

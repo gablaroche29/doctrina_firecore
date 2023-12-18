@@ -80,7 +80,6 @@ public abstract class Ai extends MovableEntity {
             attackCooldown = 60;
             player.dropPv();
             player.setHurt(true);
-            //SoundEffect.MONSTER_ATTACK.play();
         }
         animationHandler.update();
 
@@ -90,9 +89,14 @@ public abstract class Ai extends MovableEntity {
     public void draw(Canvas canvas, Camera camera) {
         float prop = (float) pv / 3;
         float pvString = prop * width;
+        Image sprite;
 
         if (camera.intersectWith(this)) {
-            Image sprite = animationHandler.getDirectionFrame();
+            if (moving) {
+                sprite = animationHandler.getDirectionFrame();
+            } else {
+                sprite = animationHandler.getIdleFrame();
+            }
             canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
             canvas.drawRectangle(x - camera.getX(), y - 5 - camera.getY(), (int) pvString, 2, Color.GREEN);
         }

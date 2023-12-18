@@ -3,7 +3,6 @@ package utopia;
 import doctrina.*;
 import utopia.menu.Menu;
 import utopia.player.Player;
-import utopia.entities.spawnpoint.Coords;
 
 
 public class UtopiaGame extends Game {

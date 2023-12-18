@@ -3,15 +3,12 @@ package utopia.entities.spawnpoint;
 import doctrina.Camera;
 import doctrina.Canvas;
 import doctrina.Manager;
-import doctrina.MovableEntity;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import utopia.entities.obstacle.Obstacle;
 import utopia.player.Player;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class SpawnPointManager extends Manager {
