@@ -2,7 +2,7 @@ package utopia.entities.enemy;
 
 import doctrina.*;
 import doctrina.Canvas;
-import utopia.missile.Missile;
+import utopia.spell.Spell;
 import utopia.player.Player;
 import utopia.audio.SoundEffect;
 
@@ -67,8 +67,8 @@ public abstract class Ai extends MovableEntity {
             }
         }
 
-        for (Missile missile : player.getProjectiles()) {
-            if (intersectWith(missile)) {
+        for (Spell spell : player.getProjectiles()) {
+            if (intersectWith(spell)) {
                 SoundEffect.MONSTER_HIT.play();
                 SoundEffect.MONSTER_DEAD.play();
                 player.addCrystal(crystal);
@@ -95,7 +95,6 @@ public abstract class Ai extends MovableEntity {
         }
 
         animationHandler.update();
-
     }
 
     @Override

@@ -1,4 +1,4 @@
-package utopia.missile;
+package utopia.spell;
 
 import doctrina.Animation;
 import doctrina.AnimationHandler;
@@ -6,8 +6,8 @@ import doctrina.MovableEntity;
 
 public class MissileAnimationHandler extends AnimationHandler {
 
-    private static final String ICEBALL_X_PATH = "image/items/iceball_x.png";
-    private static final String ICEBALL_Y_PATH = "image/items/iceball_y.png";
+    private static final String ICEBALL_X_PATH = "image/items/ice_spell_x.png";
+    private static final String ICEBALL_Y_PATH = "image/items/ice_spell_y.png";
 
     public MissileAnimationHandler(MovableEntity entity) {
         super(entity);

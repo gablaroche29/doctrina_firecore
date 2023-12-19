@@ -7,16 +7,16 @@ import utopia.GameMouse;
 import utopia.GamePad;
 import utopia.audio.SoundEffect;
 import utopia.entities.spawnpoint.SpawnPoint;
-import utopia.missile.Missile;
+import utopia.spell.Spell;
+import utopia.spell.SpellLoader;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Player extends ControllableEntity {
 
     private final PlayerAnimationHandler animationHandler;
-    private final Projectiles projectiles;
+    private final SpellLoader spellLoader;
     private boolean hasAttacked;
     private int attackCoolDown = 0;
     private int pv = 5;
@@ -34,7 +34,7 @@ public class Player extends ControllableEntity {
         setSpeed(2);
         animationHandler = new PlayerAnimationHandler(this);
         setDirection(Direction.DOWN);
-        projectiles = new Projectiles(this);
+        spellLoader = new IceSpellLoader(this);
         state = State.IDLE;
     }
 
@@ -54,7 +54,7 @@ public class Player extends ControllableEntity {
         } else if (GamePad.getInstance().isQPressed() && !hasAttacked) {
             hasAttacked = true;
             attackCoolDown = 60;
-            projectiles.shoot();
+            spellLoader.shoot();
 //            SoundEffect.MELEE_SWORD.play();
             SoundEffect.ICE_BALL.play();
             GamePad.getInstance().setKeyStateFalse(GamePad.qKey);
@@ -70,7 +70,7 @@ public class Player extends ControllableEntity {
         if (pv <= 0) {
             isAlive = false;
         }
-        projectiles.update();
+        spellLoader.update();
         updateAnimationState();
 //        System.out.println(state +":"+ animationHandler.currentAnimationFrame);
     }
@@ -78,7 +78,7 @@ public class Player extends ControllableEntity {
     @Override
     public void draw(Canvas canvas, Camera camera) {
         canvas.drawImage(getAnimationFrame(), x - camera.getX(), y - camera.getY());
-        projectiles.draw(canvas, camera);
+        spellLoader.draw(canvas, camera);
 
         if (GameConfig.isDebugEnabled()) {
             drawHitBox(canvas, camera);
@@ -172,8 +172,8 @@ public class Player extends ControllableEntity {
         isHurt = hurt;
     }
 
-    public List<Missile> getProjectiles() {
-        return projectiles.getMissiles();
+    public List<Spell> getProjectiles() {
+        return spellLoader.getSpells();
     }
 
     public void dropPv() {

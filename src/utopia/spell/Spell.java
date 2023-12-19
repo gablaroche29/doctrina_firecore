@@ -1,19 +1,18 @@
-package utopia.missile;
+package utopia.spell;
 
 import doctrina.*;
 import doctrina.Canvas;
 
-public class Missile extends MovableEntity {
+public class Spell extends MovableEntity {
 
-    private final MissileAnimationHandler animationHandler;
+    protected AnimationHandler animationHandler;
     private int distance = 0;
 
-    public Missile() {
+    public Spell(float speed) {
         super(2);
         teleport(0, 0);
         setState(State.MOVE);
-        setSpeed(2.7f);
-        animationHandler = new MissileAnimationHandler(this);
+        setSpeed(speed);
     }
 
     public void update() {

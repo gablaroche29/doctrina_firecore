@@ -22,9 +22,6 @@ public class AiManager extends Manager {
     public AiManager(Player player) {
         this.player = player;
         setPlayerForEnemies();
-        //enemies.add(new Ai(1150, 2518, 1.5f, player));
-        //enemies.add(new Ai(1130, 2538, 1.5f, player));
-
         deadEnemies = new ArrayList<>();
     }
 
