@@ -3,7 +3,7 @@ package utopia.entities.enemy.type;
 import doctrina.Animation;
 import doctrina.AnimationHandler;
 import doctrina.State;
-import utopia.entities.enemy.Ai;
+import utopia.entities.enemy.ai.Ai;
 
 public class RedScorpion extends Ai {
 

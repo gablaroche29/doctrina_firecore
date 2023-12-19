@@ -7,6 +7,7 @@ public class Spell extends MovableEntity {
 
     protected AnimationHandler animationHandler;
     private int distance = 0;
+    protected int maxDistance = 125;
 
     public Spell(float speed) {
         super(2);
@@ -90,7 +91,6 @@ public class Spell extends MovableEntity {
     }
 
     private boolean isOutOfRange() {
-        int maxDistance = 125;
         return distance >= maxDistance;
     }
 }

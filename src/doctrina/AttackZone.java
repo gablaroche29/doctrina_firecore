@@ -28,7 +28,7 @@ public class AttackZone {
     }
 
     private Bounds getUpperAttackZone() {
-        return new Bounds(entity.x, (entity.y - (attackRadius * 4) + (entity.height / 2)), entity.width, attackRadius);
+        return new Bounds(entity.x, (entity.y - attackRadius), entity.width, attackRadius);
     }
 
     private Bounds getLowerAttackZone() {
@@ -36,10 +36,10 @@ public class AttackZone {
     }
 
     private Bounds getLeftAttackZone() {
-        return new Bounds((entity.x - attackRadius), entity.y + (entity.height / 2), attackRadius, entity.height / 2);
+        return new Bounds((entity.x - attackRadius), entity.y, attackRadius, entity.height);
     }
 
     private Bounds getRightAttackZone() {
-        return new Bounds(entity.x + entity.width, entity.y + (entity.height / 2), attackRadius, entity.height / 2);
+        return new Bounds(entity.x + entity.width, entity.y, attackRadius, entity.height);
     }
 }

@@ -2,13 +2,14 @@ package utopia.entities.enemy.type.necromancer;
 
 import doctrina.Animation;
 import doctrina.AnimationHandler;
-import utopia.entities.enemy.Ai;
+import utopia.entities.enemy.boss.Boss;
 
-public class Necromancer extends Ai {
+public class Necromancer extends Boss {
 
     public Necromancer(int x, int y) {
         super(x, y, 1.f);
         setDimension(80, 80);
+        setPv(30);
         animationHandler = new NecromancerAnimationHandler(this);
     }
 
@@ -16,17 +17,35 @@ public class Necromancer extends Ai {
 
         private static final String SPRITE_PATH = "image/characters/Necromancer/necromancer.png";
 
-        public NecromancerAnimationHandler(Ai ai) {
-            super(ai);
-            setAnimationSpeed(10);
+        public NecromancerAnimationHandler(Boss boss) {
+            super(boss);
+            setAnimationSpeed(6);
             setDownMovementAnimation(new Animation(0, 80,
-                    ai.getWidth(), ai.getHeight(), 8, SPRITE_PATH));
+                    boss.getWidth(), boss.getHeight(), 8, SPRITE_PATH));
             setLeftMovementAnimation(new Animation(0, 480,
-                    ai.getWidth(), ai.getHeight(), 8, SPRITE_PATH));
+                    boss.getWidth(), boss.getHeight(), 8, SPRITE_PATH));
             setRightMovementAnimation(new Animation(0, 80,
-                    ai.getWidth(), ai.getHeight(), 8, SPRITE_PATH));
+                    boss.getWidth(), boss.getHeight(), 8, SPRITE_PATH));
             setUpMovementAnimation(new Animation(0, 80,
-                    ai.getWidth(), ai.getHeight(), 8, SPRITE_PATH));
+                    boss.getWidth(), boss.getHeight(), 8, SPRITE_PATH));
+
+            setDownIdleAnimation(new Animation(0, 0,
+                    boss.getWidth(), boss.getHeight(), 8, SPRITE_PATH));
+            setLeftIdleAnimation(new Animation(0, 400,
+                    boss.getWidth(), boss.getHeight(), 8, SPRITE_PATH));
+            setRightIdleAnimation(new Animation(0, 0,
+                    boss.getWidth(), boss.getHeight(), 8, SPRITE_PATH));
+            setUpIdleAnimation(new Animation(0, 0,
+                    boss.getWidth(), boss.getHeight(), 8, SPRITE_PATH));
+
+            setDownAttackAnimation(new Animation(0, 160,
+                    boss.getWidth(), boss.getHeight(), 17, SPRITE_PATH));
+            setUpAttackAnimation(new Animation(0, 160,
+                    boss.getWidth(), boss.getHeight(), 17, SPRITE_PATH));
+            setRightAttackAnimation(new Animation(0, 160,
+                    boss.getWidth(), boss.getHeight(), 17, SPRITE_PATH));
+            setLeftAttackAnimation(new Animation(0, 560,
+                    boss.getWidth(), boss.getHeight(), 17, SPRITE_PATH));
         }
     }
 }

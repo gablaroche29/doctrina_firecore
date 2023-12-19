@@ -4,7 +4,6 @@ import doctrina.*;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import utopia.entities.enemy.Ai;
 import utopia.player.Player;
 
 import java.util.ArrayList;

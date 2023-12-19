@@ -2,7 +2,7 @@ package utopia.entities.enemy.type;
 
 import doctrina.Animation;
 import doctrina.AnimationHandler;
-import utopia.entities.enemy.Ai;
+import utopia.entities.enemy.ai.Ai;
 
 public class RedBat extends Ai {
 

@@ -1,9 +1,10 @@
-package utopia.entities.enemy;
+package utopia.entities.enemy.ai;
 
 import doctrina.*;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import utopia.entities.enemy.ai.Ai;
 import utopia.entities.enemy.type.RedBat;
 import utopia.entities.enemy.type.BlueBat;
 import utopia.entities.enemy.type.RedScorpion;

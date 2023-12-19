@@ -2,10 +2,10 @@ package utopia;
 
 import doctrina.*;
 import doctrina.Canvas;
-import utopia.entities.png.BlackSmith;
 import utopia.entities.chest.ChestManager;
-import utopia.entities.enemy.AiManager;
+import utopia.entities.enemy.ai.AiManager;
 import utopia.entities.CollisionManager;
+import utopia.entities.enemy.boss.BossManager;
 import utopia.entities.obstacle.ObstacleManager;
 import utopia.audio.Music;
 import utopia.entities.png.PngManager;
@@ -34,6 +34,7 @@ public class World extends StaticEntity {
     private final Player player;
     private final AiManager aiManager;
     private final PngManager pngManager;
+    private final BossManager bossManager;
 
     private final RainEffect rainEffect;
 
@@ -50,6 +51,7 @@ public class World extends StaticEntity {
         spawnPointManager = new SpawnPointManager(player);
         signManager = new SignManager(player);
         pngManager = new PngManager(player);
+        bossManager = new BossManager(player);
 
         initializeCollidableEntities();
 
@@ -70,6 +72,7 @@ public class World extends StaticEntity {
         signManager.update();
         rainEffect.update();
         pngManager.update();
+        bossManager.update();
     }
 
     @Override
@@ -82,6 +85,7 @@ public class World extends StaticEntity {
 
         pngManager.draw(canvas, camera);
         aiManager.draw(canvas, camera);
+        bossManager.draw(canvas, camera);
 
         if (GameConfig.isDebugEnabled()) {
             collisionManager.draw(canvas, camera);
@@ -104,6 +108,7 @@ public class World extends StaticEntity {
         collidableEntities = new ArrayList<>();
         collidableEntities.add(player);
         collidableEntities.addAll(aiManager.getEnemies());
+        collidableEntities.addAll(bossManager.getEnemies());
     }
 
     private void updateCollisionWorld() {
@@ -114,6 +119,7 @@ public class World extends StaticEntity {
 
     private void updateCollidableEntities() {
         collidableEntities.removeAll(aiManager.getDeadEnemies());
+        collidableEntities.removeAll(bossManager.getDeadEnemies());
     }
 
     private void load() {

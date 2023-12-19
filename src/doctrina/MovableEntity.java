@@ -100,7 +100,7 @@ public abstract class MovableEntity extends StaticEntity {
         this.direction = direction;
     }
 
-    public boolean hitBoxIntersectWidth(StaticEntity other) {
+    public boolean hitBoxIntersectWith(StaticEntity other) {
         if (other == null) {
             return false;
         }

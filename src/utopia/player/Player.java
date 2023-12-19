@@ -22,7 +22,7 @@ public class Player extends ControllableEntity {
     private boolean hasAttacked;
     private int attackCoolDown = 0;
     private int pv = 5;
-    private int crystal = 0;
+    private int crystal = 2;
     private int potion = 1;
     private boolean isHurt;
     private boolean isAlive = true;
@@ -53,12 +53,13 @@ public class Player extends ControllableEntity {
             attackCoolDown = 60;
             SoundEffect.MELEE_SWORD.play();
             GameMouse.getInstance().setKeyStateFalse(GameMouse.leftClick);
-        } else if (GamePad.getInstance().isQPressed() && !hasAttacked) {
+        } else if (GamePad.getInstance().isQPressed() && !hasAttacked && crystal > 0) {
             hasAttacked = true;
             attackCoolDown = 60;
             spellLoader.shoot();
 //            SoundEffect.MELEE_SWORD.play();
             SoundEffect.ICE_BALL.play();
+            crystal--;
             GamePad.getInstance().setKeyStateFalse(GamePad.qKey);
         }
 
@@ -70,7 +71,7 @@ public class Player extends ControllableEntity {
         }
 
         if (pv <= 0) {
-            isAlive = false;
+            //isAlive = false;
         }
         spellLoader.update();
         updateAnimationState();
