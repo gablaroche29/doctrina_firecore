@@ -1077,11 +1077,11 @@
   <object id="40" name="Chest" x="2336" y="1632">
    <point/>
   </object>
-  <object id="87" name="Chest" x="896" y="2432">
+  <object id="87" name="Chest" x="928" y="2528">
    <point/>
   </object>
  </objectgroup>
- <objectgroup id="13" name="Enemies">
+ <objectgroup id="13" name="Enemies" visible="0" locked="1">
   <object id="19" name="Red_Bat" gid="1271" x="819" y="2721" width="32" height="32"/>
   <object id="20" name="Red_Bat" gid="1271" x="1209" y="2583" width="32" height="32"/>
   <object id="21" name="Blue_Bat" gid="1275" x="1439" y="2378" width="32" height="32"/>

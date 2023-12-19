@@ -1,5 +1,6 @@
 package doctrina;
 
+import utopia.GamePad;
 import utopia.event.ChestEvent;
 import utopia.event.DeathEvent;
 import utopia.event.EnemyKilledEvent;
@@ -26,7 +27,7 @@ public class Ui {
 
     public Ui(Player player) {
         this.player = player;
-        fontLoader = new FontLoader("/font/perpetua/perpetua_bold.ttf", 15.f);
+        fontLoader = new FontLoader("/font/perpetua/perpetua_bold.ttf", 25.f);
         String HEALTH_BAR_PATH = "image/ui/health_bar.png";
         healthBar = SpriteSheetSlicer.getSprites(0, 0, 104, 28, 5, HEALTH_BAR_PATH);
         String CRYSTAL_PATH = "image/ui/crystal.png";
@@ -72,8 +73,10 @@ public class Ui {
         if (player.isHurt()) {
             hurtEvent(canvas);
         }
-        canvas.drawString("FPS " + GameTime.getCurrentFps(), 700, 20, Color.WHITE);
         drawEvent(canvas);
+        if (GameConfig.isDebugEnabled()) {
+            canvas.drawString("FPS " + GameTime.getCurrentFps(), 700, 20, Color.WHITE);
+        }
     }
 
     private void drawHurtDamage(Canvas canvas) {

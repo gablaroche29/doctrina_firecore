@@ -8,6 +8,7 @@ import utopia.entities.enemy.AiManager;
 import utopia.entities.CollisionManager;
 import utopia.entities.obstacle.ObstacleManager;
 import utopia.audio.Music;
+import utopia.entities.png.PngManager;
 import utopia.entities.sign.SignManager;
 import utopia.entities.spawnpoint.SpawnPointManager;
 import utopia.player.Player;
@@ -24,7 +25,6 @@ public class World extends StaticEntity {
     private Image background;
     private Image frontview;
 
-    private final GamePad gamePad;
     private final CollisionManager collisionManager;
     private final ChestManager chestManager;
     private final ObstacleManager obstacleManager;
@@ -33,33 +33,29 @@ public class World extends StaticEntity {
     private List<MovableEntity> collidableEntities;
     private final Player player;
     private final AiManager aiManager;
+    private final PngManager pngManager;
 
     private final RainEffect rainEffect;
 
-    private final BlackSmith blackSmith;
-
-    public World(Player player, GamePad gamePad) {
+    public World(Player player) {
         setDimension(3200, 3200);
         teleport(0, 0);
         load();
 
         this.player = player;
-        this.gamePad = gamePad;
         collisionManager = new CollisionManager();
         chestManager = new ChestManager(player);
         obstacleManager = new ObstacleManager(player);
         aiManager = new AiManager(player);
         spawnPointManager = new SpawnPointManager(player);
         signManager = new SignManager(player);
+        pngManager = new PngManager(player);
 
         initializeCollidableEntities();
 
         rainEffect = new RainEffect(player);
 
-
-        blackSmith = new BlackSmith(player);
         playBackgroundMusic();
-
         new GameMouse();
     }
 
@@ -73,7 +69,7 @@ public class World extends StaticEntity {
         spawnPointManager.update();
         signManager.update();
         rainEffect.update();
-        blackSmith.update();
+        pngManager.update();
     }
 
     @Override
@@ -84,7 +80,7 @@ public class World extends StaticEntity {
         spawnPointManager.draw(canvas, camera);
         signManager.draw(canvas, camera);
 
-        blackSmith.draw(canvas, camera);
+        pngManager.draw(canvas, camera);
         aiManager.draw(canvas, camera);
 
         if (GameConfig.isDebugEnabled()) {
@@ -101,7 +97,7 @@ public class World extends StaticEntity {
     }
 
     public void updateInteraction() {
-        blackSmith.update();
+        pngManager.update();
     }
     
     private void initializeCollidableEntities() {

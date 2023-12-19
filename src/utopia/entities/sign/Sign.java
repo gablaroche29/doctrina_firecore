@@ -46,8 +46,8 @@ public class Sign extends StaticEntity {
         if (camera.intersectWith(this)) {
             canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
             if (valueCooldown == 0){
-                canvas.drawString("Interagir", x - 25 - camera.getX(), y - camera.getY(), new Color(255, 255, 255), font.getFont());
-                canvas.drawImage(rightClick, x + 30 - camera.getX(), y - 15 - camera.getY(), 20, 20);
+                canvas.drawImage(rightClick, x + 7 - camera.getX(), y - 20 - camera.getY(), 20, 20);
+
             } else {
                 canvas.drawString(value, x - 40 - camera.getX(), y - camera.getY(), new Color(255, 255, 255), font.getFont());
             }

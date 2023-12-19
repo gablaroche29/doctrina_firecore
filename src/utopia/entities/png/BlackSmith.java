@@ -7,6 +7,7 @@ import utopia.audio.SoundEffect;
 import utopia.player.Player;
 
 import java.awt.*;
+import java.nio.FloatBuffer;
 
 public class BlackSmith extends MovableEntity {
 
@@ -14,18 +15,22 @@ public class BlackSmith extends MovableEntity {
     private String[] dialogues;
     private int dialogueIndex = 0;
     private boolean finishTalking;
-    private final Player player;
+    private Player player;
+    private Image rightClick;
+    private final FontLoader font;
 
-    public BlackSmith(Player player) {
+    public BlackSmith(int x, int y) {
         super(0);
-        this.player = player;
         setDimension(32, 32);
-        teleport(832, 2432);
+        teleport(768, 2368);
 
         animationHandler = new BlackSmithAnimationHandler(this);
+        load();
+        font = new FontLoader("/font/perpetua/perpetua_bold.ttf", 15.f);
         setDialogues();
         setState(State.IDLE);
         setDirection(Direction.DOWN);
+        CollidableRepository.getInstance().registerEntity(this);
     }
 
     @Override
@@ -49,6 +54,7 @@ public class BlackSmith extends MovableEntity {
         if (camera.intersectWith(this)) {
             Image sprite = animationHandler.getIdleFrame();
             canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
+            canvas.drawImage(rightClick, x + 7 - camera.getX(), y - 20 - camera.getY(), 20, 20);
         }
     }
 
@@ -67,11 +73,20 @@ public class BlackSmith extends MovableEntity {
         return finishTalking;
     }
 
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     private void setDialogues() {
-        dialogues = new String[4];
-        dialogues[0] = "Salut chère amie!";
-        dialogues[1] = "Cela fait longtemps qu'on \nce n'est pas vue...";
-        dialogues[2] = "Je te souhaite bonne chance dans \nta quête!";
-        dialogues[3] = "";
+        dialogues = new String[5];
+        dialogues[0] = "Salut, voyageuse...";
+        dialogues[1] = "Cela faisait longtemps que j'en avais pas\nvu comme toi...";
+        dialogues[2] = "À ta place, j'arrêterai tout ce que je fais\n, mais fais ce que tu veux...";
+        dialogues[3] = "Après tout, je ne suis qu'un simple\nforgeron...";
+        dialogues[4] = "";
+    }
+
+    private void load() {
+        rightClick = SpriteSheetSlicer.getSprite(32, 0, 32, 32, "image/ui/keys.png");
     }
 }

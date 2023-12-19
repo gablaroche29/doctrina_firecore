@@ -29,7 +29,7 @@ public class CollisionManager implements XmlFileReaderTest {
 
     @Override
     public String getFileName() {
-        return "resources/xml/collisions.xml";
+        return "resources/xml/entities.xml";
     }
 
     @Override
