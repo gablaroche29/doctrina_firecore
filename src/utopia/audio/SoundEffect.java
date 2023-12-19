@@ -13,6 +13,8 @@ public enum SoundEffect {
     HIT_DAMAGE("audio/sound/hit_damage.wav"),
     HEAL_SPELL("audio/sound/heal_spell.wav"),
     SPAWN("audio/sound/spawn.wav"),
+    ICE_BALL("audio/sound/ice_ball.wav"),
+    FIRE_BALL("audio/sound/fire_ball.wav"),
     MONSTER_ATTACK("audio/sound/monster_attack.wav");
 
     private final Sound sound;

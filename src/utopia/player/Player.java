@@ -55,7 +55,8 @@ public class Player extends ControllableEntity {
             hasAttacked = true;
             attackCoolDown = 60;
             projectiles.shoot();
-            SoundEffect.MELEE_SWORD.play();
+//            SoundEffect.MELEE_SWORD.play();
+            SoundEffect.ICE_BALL.play();
             GamePad.getInstance().setKeyStateFalse(GamePad.qKey);
         }
 
