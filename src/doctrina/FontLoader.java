@@ -13,7 +13,7 @@ public class FontLoader {
         try {
             InputStream is = getClass().getResourceAsStream(path);
             font = Font.createFont(Font.TRUETYPE_FONT, is);
-            font = font.deriveFont(size); // Set the font size
+            font = font.deriveFont(size);
         } catch (FontFormatException e) {
             e.printStackTrace();
         } catch (IOException e) {

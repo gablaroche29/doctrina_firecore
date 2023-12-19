@@ -7,10 +7,8 @@ import java.util.Objects;
 public class Sound {
 
     private Clip clip;
-    private final String path;
 
     public Sound(String path) {
-        this.path = path;
         SoundLineListener lineListener = new SoundLineListener(this);
         try {
             clip = AudioSystem.getClip();

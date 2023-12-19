@@ -25,19 +25,6 @@ public class SpriteSheetSlicer {
         return sprites;
     }
 
-//    public static Image[] getHorizontalySprites(int x, int y,
-//                                              int spriteWidth, int spriteHeight, int numberOfSprite, String path) {
-//        BufferedImage spriteSheet = loadSpriteSheet(path);
-//        Image[] sprites = new Image[numberOfSprite];
-//
-//        int currentY = y;
-//        for (int i = 0; i < sprites.length; i++) {
-//            sprites[i] = spriteSheet.getSubimage(x, currentY, spriteWidth, spriteHeight);
-//            currentY += spriteHeight;
-//        }
-//        return sprites;
-//    }
-
     private static BufferedImage loadSpriteSheet(String path) {
         try {
             return ImageIO.read(SpriteSheetSlicer.class.getClassLoader().getResourceAsStream(path));

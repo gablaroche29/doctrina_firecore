@@ -4,8 +4,9 @@ import java.awt.*;
 
 public class Bounds {
 
-    private Point coords;
-    private int width, height;
+    private final Point coords;
+    private final int width;
+    private final int height;
 
     public Bounds(int x, int y, int width, int height) {
         this.coords = new Point(x, y);
