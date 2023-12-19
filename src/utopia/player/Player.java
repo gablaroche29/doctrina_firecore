@@ -57,7 +57,6 @@ public class Player extends ControllableEntity {
             hasAttacked = true;
             attackCoolDown = 60;
             spellLoader.shoot();
-//            SoundEffect.MELEE_SWORD.play();
             SoundEffect.ICE_BALL.play();
             crystal--;
             GamePad.getInstance().setKeyStateFalse(GamePad.qKey);
@@ -71,11 +70,10 @@ public class Player extends ControllableEntity {
         }
 
         if (pv <= 0) {
-            //isAlive = false;
+            isAlive = false;
         }
         spellLoader.update();
         updateAnimationState();
-//        System.out.println(state +":"+ animationHandler.currentAnimationFrame);
     }
 
     @Override

@@ -1,8 +1,11 @@
 package utopia;
 
 import doctrina.*;
+import utopia.audio.Music;
 import utopia.menu.Menu;
 import utopia.player.Player;
+
+import javax.sound.sampled.Clip;
 
 
 public class UtopiaGame extends Game {
@@ -16,8 +19,6 @@ public class UtopiaGame extends Game {
 
     @Override
     protected void initialize() {
-//        .contains("win")
-//        System.out.println(System.getProperty("os.name").toLowerCase());
         GameConfig.disableDebug();
         RenderingEngine.getInstance().getScreen().fullscreen();
 
@@ -89,6 +90,9 @@ public class UtopiaGame extends Game {
             player.heal();
             Ui.death(false);
             gameContext.setCurrentState(GameState.GAME);
+            Music.BOSS_BATTLE.stop();
+            Music.BG_GAME.play(Clip.LOOP_CONTINUOUSLY);
+            Music.RAIN_AMBIANCE.play(Clip.LOOP_CONTINUOUSLY);
         }
     }
 

@@ -31,7 +31,7 @@ public abstract class Ai extends MovableEntity {
         state = State.MOVE;
 
         Random rnd = new Random();
-        crystal = rnd.nextInt(5) + 1;
+        crystal = rnd.nextInt(2) + 1;
         setTriggerZone();
     }
 

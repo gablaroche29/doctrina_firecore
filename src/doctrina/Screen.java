@@ -63,6 +63,8 @@ public class Screen {
     }
 
     public void fullscreen() {
+        // .contains("win")
+        // System.out.println(System.getProperty("os.name").toLowerCase());
         if (device.isFullScreenSupported()) {
             device.setFullScreenWindow(frame);
         }

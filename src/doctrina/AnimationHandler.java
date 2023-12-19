@@ -5,7 +5,7 @@ import java.awt.*;
 public abstract class AnimationHandler {
 
     private static int ANIMATION_SPEED = 6;
-    public int currentAnimationFrame = 1; // idle
+    public int currentAnimationFrame = 1;
     private int nextFrame = ANIMATION_SPEED;
     private Animation currentAnimation;
     private Animation upMovementAnimation;
@@ -20,7 +20,6 @@ public abstract class AnimationHandler {
     private Animation downIdleAnimation;
     private Animation leftIdleAnimation;
     private Animation rightIdleAnimation;
-
     private final MovableEntity entity;
 
     public AnimationHandler(MovableEntity entity) {
@@ -87,9 +86,6 @@ public abstract class AnimationHandler {
             case MOVE -> currentAnimation = getDirectionAnimation();
             case ATTACK -> currentAnimation = getAttackAnimation();
         }
-    }
-
-    public void setResetAnimation(Animation animation) {
     }
 
     public void reset() {

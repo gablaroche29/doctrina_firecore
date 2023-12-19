@@ -2,12 +2,14 @@ package utopia.entities.enemy.boss;
 
 import doctrina.*;
 import doctrina.Canvas;
+import utopia.audio.Music;
 import utopia.audio.SoundEffect;
 import utopia.entities.enemy.type.necromancer.FireSpellLoader;
 import utopia.player.Player;
 import utopia.spell.Spell;
 import utopia.spell.SpellLoader;
 
+import javax.sound.sampled.Clip;
 import java.awt.*;
 import java.util.Random;
 
@@ -21,7 +23,8 @@ public class Boss extends MovableEntity {
 
     private boolean isAlive = true;
     private int attackCoolDown = 0;
-    private int pv = 3;
+    protected int maxPv = 3;
+    private int pv = maxPv;
     private final int crystal;
     private boolean isKnockback;
     private boolean hasAttacked;
@@ -49,6 +52,9 @@ public class Boss extends MovableEntity {
 
         if (triggerZone.intersectsWith(player) && !activate) {
             activate = true;
+            Music.BG_GAME.stop();
+            Music.RAIN_AMBIANCE.stop();
+            Music.BOSS_BATTLE.play(Clip.LOOP_CONTINUOUSLY);
         }
 
         if (activate && !hasAttacked) {
@@ -60,23 +66,25 @@ public class Boss extends MovableEntity {
                 SoundEffect.MONSTER_HIT.play();
                 isKnockback = true;
                 pv--;
-                if (pv == 0) {
-                    SoundEffect.MONSTER_DEAD.play();
-                    player.addCrystal(crystal);
-                    Ui.enemyKilled(crystal);
-                    isAlive = false;
-                }
+                killed();
+            }
+        }
+
+        for (Spell spell : spellLoader.getSpells()) {
+            if (spell.getAttackZone().intersectsWith(player)) {
+                player.dropPv();
+                player.setHurt(true);
+                spell.remove();
             }
         }
 
         for (Spell spell : player.getSpells()) {
-            if (intersectWith(spell)) {
+            if (intersectWith(spell.getAttackZone())) {
                 SoundEffect.MONSTER_HIT.play();
-                SoundEffect.MONSTER_DEAD.play();
-                player.addCrystal(crystal);
-                Ui.enemyKilled(crystal);
-                isAlive = false;
-                break;
+                pv -= 5;
+                spell.remove();
+                isKnockback = true;
+                killed();
             }
         }
 
@@ -104,7 +112,7 @@ public class Boss extends MovableEntity {
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
-        float prop = (float) pv / 30;
+        float prop = (float) pv / maxPv;
         float pvString = prop * width;
         if (camera.intersectWith(this)) {
             canvas.drawImage(getAnimationFrame(), x - camera.getX(), y - camera.getY());
@@ -117,6 +125,22 @@ public class Boss extends MovableEntity {
             drawHitBox(canvas, camera);
             drawAttackZone(canvas, camera);
         }
+    }
+
+    private void killed() {
+        if (pv <= 0) {
+            SoundEffect.MONSTER_DEAD.play();
+            player.addCrystal(crystal);
+            Ui.enemyKilled(crystal);
+            isAlive = false;
+            restartMusic();
+        }
+    }
+
+    private void restartMusic() {
+        Music.BOSS_BATTLE.stop();
+        Music.BG_GAME.play(Clip.LOOP_CONTINUOUSLY);
+        Music.RAIN_AMBIANCE.play(Clip.LOOP_CONTINUOUSLY);
     }
 
     private Image getAnimationFrame() {
@@ -229,16 +253,13 @@ public class Boss extends MovableEntity {
                 diameter, diameter);
     }
 
-    private Bounds getTriggerZone() {
-        return triggerZone;
-    }
-
     private void updateTriggerZone() {
         triggerZone.setCoords(x + (width / 2) - (triggerZone.getWidth() / 2), y + (height / 2) - (triggerZone.getWidth() / 2));
     }
 
     public void setPv(int pv) {
-        this.pv = pv;
+        maxPv = pv;
+        this.pv = maxPv;
     }
 
     public void setPlayer(Player player) {

@@ -9,7 +9,7 @@ public class Necromancer extends Boss {
     public Necromancer(int x, int y) {
         super(x, y, 1.f);
         setDimension(80, 80);
-        setPv(30);
+        setPv(50);
         animationHandler = new NecromancerAnimationHandler(this);
     }
 

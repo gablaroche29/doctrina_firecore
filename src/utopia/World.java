@@ -11,6 +11,7 @@ import utopia.audio.Music;
 import utopia.entities.png.PngManager;
 import utopia.entities.sign.SignManager;
 import utopia.entities.spawnpoint.SpawnPointManager;
+import utopia.environment.RainEffect;
 import utopia.player.Player;
 
 import javax.sound.sampled.Clip;
@@ -52,20 +53,14 @@ public class World extends StaticEntity {
         signManager = new SignManager(player);
         pngManager = new PngManager(player);
         bossManager = new BossManager(player);
-
+        rainEffect = new RainEffect();
         initializeCollidableEntities();
-
-        rainEffect = new RainEffect(player);
-
         playBackgroundMusic();
         new GameMouse();
     }
 
     public void update() {
         aiManager.update();
-        updateCollisionWorld();
-        updateCollidableEntities();
-
         obstacleManager.update(collidableEntities);
         chestManager.update();
         spawnPointManager.update();
@@ -73,6 +68,8 @@ public class World extends StaticEntity {
         rainEffect.update();
         pngManager.update();
         bossManager.update();
+        updateCollisionWorld();
+        updateCollidableEntities();
     }
 
     @Override
@@ -82,7 +79,6 @@ public class World extends StaticEntity {
         chestManager.draw(canvas, camera);
         spawnPointManager.draw(canvas, camera);
         signManager.draw(canvas, camera);
-
         pngManager.draw(canvas, camera);
         aiManager.draw(canvas, camera);
         bossManager.draw(canvas, camera);

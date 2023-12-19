@@ -18,8 +18,6 @@ public class BlueBat extends Ai {
         public RedBatAnimationHandler(Ai ai) {
             super(ai);
             setAnimationSpeed(10);
-            setResetAnimation(new Animation(96, 128,
-                    ai.getWidth(), ai.getHeight(), 3, SPRITE_PATH));
             setDownMovementAnimation(new Animation(96, 128,
                     ai.getWidth(), ai.getHeight(), 3, SPRITE_PATH));
             setLeftMovementAnimation(new Animation(96, 160,
