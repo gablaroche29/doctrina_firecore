@@ -5,14 +5,13 @@ import java.awt.*;
 public abstract class AnimationHandler {
 
     private static int ANIMATION_SPEED = 6;
-    private int currentAnimationFrame = 1; // idle
+    public int currentAnimationFrame = 1; // idle
     private int nextFrame = ANIMATION_SPEED;
     private Animation currentAnimation;
     private Animation upMovementAnimation;
     private Animation downMovementAnimation;
     private Animation leftMovementAnimation;
     private Animation rightMovementAnimation;
-    private Animation resetAnimation;
     private Animation upAttackAnimation;
     private Animation downAttackAnimation;
     private Animation leftAttackAnimation;
@@ -22,7 +21,7 @@ public abstract class AnimationHandler {
     private Animation leftIdleAnimation;
     private Animation rightIdleAnimation;
 
-    private MovableEntity entity;
+    private final MovableEntity entity;
 
     public AnimationHandler(MovableEntity entity) {
         this.entity = entity;
@@ -91,7 +90,6 @@ public abstract class AnimationHandler {
     }
 
     public void setResetAnimation(Animation animation) {
-        this.resetAnimation = animation;
     }
 
     public void reset() {

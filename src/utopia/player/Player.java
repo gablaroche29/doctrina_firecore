@@ -7,12 +7,16 @@ import utopia.GameMouse;
 import utopia.GamePad;
 import utopia.audio.SoundEffect;
 import utopia.entities.spawnpoint.SpawnPoint;
+import utopia.missile.Missile;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Player extends ControllableEntity {
 
     private final PlayerAnimationHandler animationHandler;
+    private final Projectiles projectiles;
     private boolean hasAttacked;
     private int attackCoolDown = 0;
     private int pv = 5;
@@ -30,7 +34,7 @@ public class Player extends ControllableEntity {
         setSpeed(2);
         animationHandler = new PlayerAnimationHandler(this);
         setDirection(Direction.DOWN);
-
+        projectiles = new Projectiles(this);
         state = State.IDLE;
     }
 
@@ -42,10 +46,17 @@ public class Player extends ControllableEntity {
         }
 
         updateAttackCooldown();
-        if (GameMouse.getInstance().isKeyPressed(GameMouse.leftClick)) {
+        if (GameMouse.getInstance().isKeyPressed(GameMouse.leftClick) && !hasAttacked) {
             hasAttacked = true;
-            attackCoolDown = 40;
+            attackCoolDown = 60;
             SoundEffect.MELEE_SWORD.play();
+            GameMouse.getInstance().setKeyStateFalse(GameMouse.leftClick);
+        } else if (GamePad.getInstance().isQPressed() && !hasAttacked) {
+            hasAttacked = true;
+            attackCoolDown = 60;
+            projectiles.shoot();
+            SoundEffect.MELEE_SWORD.play();
+            GamePad.getInstance().setKeyStateFalse(GamePad.qKey);
         }
 
         if (GamePad.getInstance().isPPressed() && potion > 0) {
@@ -58,12 +69,15 @@ public class Player extends ControllableEntity {
         if (pv <= 0) {
             isAlive = false;
         }
+        projectiles.update();
         updateAnimationState();
+//        System.out.println(state +":"+ animationHandler.currentAnimationFrame);
     }
 
     @Override
     public void draw(Canvas canvas, Camera camera) {
         canvas.drawImage(getAnimationFrame(), x - camera.getX(), y - camera.getY());
+        projectiles.draw(canvas, camera);
 
         if (GameConfig.isDebugEnabled()) {
             drawHitBox(canvas, camera);
@@ -78,18 +92,16 @@ public class Player extends ControllableEntity {
         State currentState = state;
         if (hasMoved()) {
             state = State.MOVE;
-            animationHandler.update();
         } else if (hasAttacked) {
             state = State.ATTACK;
-            animationHandler.update();
         } else {
             state = State.IDLE;
-            animationHandler.update();
         }
 
         if (currentState != state) {
             animationHandler.reset();
         }
+        animationHandler.update();
     }
 
     private void updateAttackCooldown() {
@@ -157,6 +169,10 @@ public class Player extends ControllableEntity {
 
     public void setHurt(boolean hurt) {
         isHurt = hurt;
+    }
+
+    public List<Missile> getProjectiles() {
+        return projectiles.getMissiles();
     }
 
     public void dropPv() {

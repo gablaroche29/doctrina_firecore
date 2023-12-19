@@ -16,6 +16,7 @@ public class PlayerAnimationHandler extends AnimationHandler {
 
     public PlayerAnimationHandler(Player player) {
         super(player);
+        setAnimationSpeed(2);
         setDownMovementAnimation(new Animation(0, 32,
                 player.getWidth(), player.getHeight(), 6, SPRITE_PATH_DOWN_MOVEMENT));
         setLeftMovementAnimation(new Animation(0, 32,

@@ -2,6 +2,7 @@ package utopia.entities.enemy;
 
 import doctrina.*;
 import doctrina.Canvas;
+import utopia.missile.Missile;
 import utopia.player.Player;
 import utopia.audio.SoundEffect;
 
@@ -66,6 +67,17 @@ public abstract class Ai extends MovableEntity {
             }
         }
 
+        for (Missile missile : player.getProjectiles()) {
+            if (intersectWith(missile)) {
+                SoundEffect.MONSTER_HIT.play();
+                SoundEffect.MONSTER_DEAD.play();
+                player.addCrystal(crystal);
+                Ui.enemyKilled(crystal);
+                isAlive = false;
+                break;
+            }
+        }
+
         if (isKnockback) {
             setSpeed(getSpeed() + 1.5f);
             move(getOpposateDirection());
@@ -81,6 +93,7 @@ public abstract class Ai extends MovableEntity {
             player.dropPv();
             player.setHurt(true);
         }
+
         animationHandler.update();
 
     }

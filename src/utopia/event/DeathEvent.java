@@ -10,6 +10,9 @@ public class DeathEvent extends GameEvent {
     private Image enterKey;
     private int enterKeyCooldownEnable;
     private int enterKeyCooldownDisable;
+    private boolean canDisplay;
+
+    private int valueCooldown = 0;
 
     public DeathEvent(int cooldown) {
         super(cooldown);
@@ -22,23 +25,21 @@ public class DeathEvent extends GameEvent {
     public void draw(Canvas canvas) {
         canvas.drawRectangle(0, 0, 800, 600, new Color(0, 0, 0, 150));
         canvas.drawString("Vous êtes mort...", 250, 250, Color.RED, fontLoader.getFont());
-        canvas.drawString("[Continuer]", 250, 300, Color.WHITE, fontLoader.getFont());
-        canvas.drawImage(enterKey, 380, 280);
 
+        if (canDisplay) {
+            canvas.drawString("[Continuer]", 250, 300, Color.WHITE, fontLoader.getFont());
+            canvas.drawImage(enterKey, 380, 280);
+        }
+
+        updateEnterKey();
         update();
     }
 
     private void updateEnterKey() {
-        if (enterKeyCooldownEnable > 0) {
-            enterKeyCooldownEnable--;
-        } else {
-            enterKeyCooldownDisable--;
-        }
-
-        if (enterKeyCooldownDisable <= 0) {
-            enterKeyCooldownDisable = 20;
-        } else {
-            enterKeyCooldownEnable = 20;
+        valueCooldown--;
+        if (valueCooldown <= 0) {
+            valueCooldown = 30;
+            canDisplay = !canDisplay;
         }
 
     }
