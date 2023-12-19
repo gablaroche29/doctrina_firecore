@@ -1,5 +1,7 @@
-package utopia.player;
+package utopia.player.spell;
 
+import utopia.player.Player;
+import utopia.player.spell.IceSpell;
 import utopia.spell.SpellLoader;
 
 public class IceSpellLoader extends SpellLoader {

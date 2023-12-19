@@ -51,7 +51,9 @@ public class UtopiaGame extends Game {
     private void initializeGame() {
         menu.quit();
         gamePad = new GamePad();
-        player = new Player(gamePad, 864, 2368);
+//        player = new Player(gamePad, 864, 2368);
+        player = new Player(gamePad, 344, 1430);
+
         world = new World(player, gamePad);
         camera = new Camera(world, player, 800, 600);
         ui = new Ui(player);

@@ -67,7 +67,7 @@ public abstract class Ai extends MovableEntity {
             }
         }
 
-        for (Spell spell : player.getProjectiles()) {
+        for (Spell spell : player.getSpells()) {
             if (intersectWith(spell)) {
                 SoundEffect.MONSTER_HIT.play();
                 SoundEffect.MONSTER_DEAD.play();

@@ -1,4 +1,4 @@
-package utopia.player;
+package utopia.player.spell;
 
 import doctrina.Animation;
 import doctrina.AnimationHandler;

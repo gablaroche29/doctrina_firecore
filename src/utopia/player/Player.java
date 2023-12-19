@@ -6,7 +6,9 @@ import doctrina.ControllableEntity;
 import utopia.GameMouse;
 import utopia.GamePad;
 import utopia.audio.SoundEffect;
+import utopia.entities.enemy.type.necromancer.Necromancer;
 import utopia.entities.spawnpoint.SpawnPoint;
+import utopia.player.spell.IceSpellLoader;
 import utopia.spell.Spell;
 import utopia.spell.SpellLoader;
 
@@ -25,6 +27,7 @@ public class Player extends ControllableEntity {
     private boolean isHurt;
     private boolean isAlive = true;
     private SpawnPoint spawnPoint;
+    private Necromancer necromancer;
 
     public Player(MovementController controller, int x, int y) {
         super(controller, 5);
@@ -36,6 +39,8 @@ public class Player extends ControllableEntity {
         setDirection(Direction.DOWN);
         spellLoader = new IceSpellLoader(this);
         state = State.IDLE;
+        necromancer = new Necromancer(x, y);
+        necromancer.setPlayer(this);
     }
 
     @Override
@@ -72,6 +77,7 @@ public class Player extends ControllableEntity {
         }
         spellLoader.update();
         updateAnimationState();
+        necromancer.update();
 //        System.out.println(state +":"+ animationHandler.currentAnimationFrame);
     }
 
@@ -79,6 +85,7 @@ public class Player extends ControllableEntity {
     public void draw(Canvas canvas, Camera camera) {
         canvas.drawImage(getAnimationFrame(), x - camera.getX(), y - camera.getY());
         spellLoader.draw(canvas, camera);
+        necromancer.draw(canvas, camera);
 
         if (GameConfig.isDebugEnabled()) {
             drawHitBox(canvas, camera);
@@ -172,7 +179,7 @@ public class Player extends ControllableEntity {
         isHurt = hurt;
     }
 
-    public List<Spell> getProjectiles() {
+    public List<Spell> getSpells() {
         return spellLoader.getSpells();
     }
 
