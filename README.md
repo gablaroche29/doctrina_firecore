@@ -136,3 +136,12 @@ et ainsi recueillir les bonnes données
 ### World
 
 * Classe qui gère le cycle de tout ec que le monde contient
+
+# Contrôles
+
+* Left Click: Attaquer
+* Right Click: Interagir
+* Space: Interagir
+* Q: Lancer une boule de glace
+* P: Se soigner
+* Esc: Quitter
