@@ -65,6 +65,7 @@ public class Boss extends MovableEntity {
 
         if (triggerZone.intersectsWith(player) && !activate) {
             activate = true;
+            SoundEffect.NECROMANCER_SCREAM.play();
             Music.BG_GAME.stop();
             Music.RAIN_AMBIANCE.stop();
             Music.BOSS_BATTLE.play(Clip.LOOP_CONTINUOUSLY);
@@ -76,7 +77,7 @@ public class Boss extends MovableEntity {
 
         if (player.hasAttacked() && !isHurt && !isDead) {
             if (intersectWith(player.getAttackZone())) {
-                SoundEffect.MONSTER_HIT.play();
+                //SoundEffect.MONSTER_HIT.play();
                 pv--;
                 isHurt();
                 killed();
@@ -93,7 +94,7 @@ public class Boss extends MovableEntity {
 
         for (Spell spell : player.getSpells()) {
             if (intersectWith(spell.getAttackZone()) && !isHurt && !isDead) {
-                SoundEffect.MONSTER_HIT.play();
+                //SoundEffect.MONSTER_HIT.play();
                 pv -= 5;
                 spell.remove();
                 isHurt();
@@ -118,6 +119,8 @@ public class Boss extends MovableEntity {
         float pvString = prop * 100;
         if (camera.intersectWith(this)) {
             canvas.drawImage(getAnimationFrame(), x - camera.getX(), y - camera.getY());
+        }
+        if (activate) {
             Ui.bossEventDetails(pvString, "Necromancer");
         }
         spellLoader.draw(canvas, camera);
@@ -138,12 +141,12 @@ public class Boss extends MovableEntity {
     private void killed() {
         if (pv <= 0) {
             isHurt = false;
-            SoundEffect.MONSTER_DEAD.play();
             player.addCrystal(crystal);
             Ui.enemyKilled(crystal);
             isDead = true;
             restartMusic();
             deadCoolDown = 48;
+            SoundEffect.NECROMANCER_DEATH.play();
         }
     }
 
@@ -176,6 +179,7 @@ public class Boss extends MovableEntity {
             hurtCooldown = 0;
             isHurt = false;
             teleport(spawns[rnd.nextInt(4)]);
+            SoundEffect.NECROMANCER_TELEPORT.play();
         }
     }
 

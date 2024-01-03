@@ -62,14 +62,14 @@ public class Spell extends MovableEntity {
 
     private void generateRight(MovableEntity entity) {
         setDimension(54, 9);
-        int posX = entity.getX() + entity.getWidth();
+        int posX = entity.getX() + (entity.getWidth() / 2);
         int posY = entity.getY() + (entity.getHeight() / 2);
         teleport(posX, posY);
     }
 
     private void generateLeft(MovableEntity entity) {
         setDimension(54, 9);
-        int posX = entity.getX() - width;
+        int posX = entity.getX() - (width / 2);
         int posY = entity.getY() + (entity.getHeight() / 2);
         teleport(posX, posY);
     }

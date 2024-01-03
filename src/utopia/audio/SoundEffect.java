@@ -1,5 +1,6 @@
 package utopia.audio;
 
+import doctrina.GameConfig;
 import doctrina.Sound;
 
 public enum SoundEffect {
@@ -15,7 +16,10 @@ public enum SoundEffect {
     SPAWN("audio/sound/spawn.wav"),
     ICE_BALL("audio/sound/ice_ball.wav"),
     FIRE_BALL("audio/sound/fire_ball.wav"),
-    MONSTER_ATTACK("audio/sound/monster_attack.wav");
+    MONSTER_ATTACK("audio/sound/monster_attack.wav"),
+    NECROMANCER_SCREAM("audio/sound/necromancer/scream.wav"),
+    NECROMANCER_DEATH("audio/sound/necromancer/death.wav"),
+    NECROMANCER_TELEPORT("audio/sound/necromancer/teleport.wav");
 
     private final Sound sound;
 

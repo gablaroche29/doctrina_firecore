@@ -3,7 +3,8 @@ package doctrina;
 public class GameConfig {
 
     private static boolean debug;
-    private static float musicVolume = 0.5f;
+    private static float musicVolume = 0.3f;
+    private static float soundVolume = 1f;
 
     public static boolean isDebugEnabled() {
         return debug;
@@ -23,5 +24,13 @@ public class GameConfig {
 
     public static float getMusicVolume() {
         return musicVolume;
+    }
+
+    public static void setSoundVolume(float soundVolume) {
+        GameConfig.soundVolume = soundVolume;
+    }
+
+    public static float getSoundVolume() {
+        return soundVolume;
     }
 }
