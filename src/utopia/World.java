@@ -60,7 +60,7 @@ public class World extends StaticEntity {
     }
 
     public void update() {
-        aiManager.update();
+        //aiManager.update();
         obstacleManager.update(collidableEntities);
         chestManager.update();
         spawnPointManager.update();

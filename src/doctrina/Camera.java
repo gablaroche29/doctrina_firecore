@@ -57,6 +57,8 @@ public class Camera extends StaticEntity implements Runnable {
             destinationY = 0;
         } else if (destinationY + height > world.getHeight()) {
             destinationY = world.getHeight() - height;
+        } else if (destinationY < 928) {
+            destinationY = 928;
         }
     }
 

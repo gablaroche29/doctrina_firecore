@@ -16,18 +16,22 @@ import java.util.Random;
 public class Boss extends MovableEntity {
 
     private Player player;
-    private SpellLoader spellLoader;
+    private final SpellLoader spellLoader;
     private Bounds triggerZone;
     protected AnimationHandler animationHandler;
     private boolean activate;
 
     private boolean isAlive = true;
     private int attackCoolDown = 0;
+    private int hurtCooldown = 0;
+    private int deadCoolDown = 0;
     protected int maxPv = 3;
     private int pv = maxPv;
     private final int crystal;
-    private boolean isKnockback;
+    private boolean isHurt;
+    private boolean isDead;
     private boolean hasAttacked;
+    private final Point[] spawns;
 
     public Boss(int x, int y, float speed) {
         super(150);
@@ -41,6 +45,12 @@ public class Boss extends MovableEntity {
         crystal = rnd.nextInt(150) + 1;
         setTriggerZone();
         spellLoader = new FireSpellLoader(this);
+
+        spawns = new Point[4];
+        spawns[0] = new Point(352, 1184);
+        spawns[1] = new Point(864, 1184);
+        spawns[2] = new Point(384, 1504);
+        spawns[3] = new Point(832, 1504);
     }
 
     @Override
@@ -48,7 +58,10 @@ public class Boss extends MovableEntity {
         super.update();
         updateTriggerZone();
         updateAttackCooldown();
-
+        updateHurtCooldown();
+        if (isDead) {
+            updateDeadCoolDown();
+        }
 
         if (triggerZone.intersectsWith(player) && !activate) {
             activate = true;
@@ -57,15 +70,15 @@ public class Boss extends MovableEntity {
             Music.BOSS_BATTLE.play(Clip.LOOP_CONTINUOUSLY);
         }
 
-        if (activate && !hasAttacked) {
+        if (activate && !hasAttacked && !isHurt && !isDead) {
             moving();
         }
 
-        if (player.hasAttacked() && !isKnockback) {
+        if (player.hasAttacked() && !isHurt && !isDead) {
             if (intersectWith(player.getAttackZone())) {
                 SoundEffect.MONSTER_HIT.play();
-                isKnockback = true;
                 pv--;
+                isHurt();
                 killed();
             }
         }
@@ -79,31 +92,20 @@ public class Boss extends MovableEntity {
         }
 
         for (Spell spell : player.getSpells()) {
-            if (intersectWith(spell.getAttackZone())) {
+            if (intersectWith(spell.getAttackZone()) && !isHurt && !isDead) {
                 SoundEffect.MONSTER_HIT.play();
                 pv -= 5;
                 spell.remove();
-                isKnockback = true;
+                isHurt();
                 killed();
             }
         }
 
-        if (isKnockback) {
-            setSpeed(getSpeed() + 1.5f);
-            move(getOpposateDirection());
-            setDirection(getOpposateDirection());
-            if (getSpeed() > 20f) {
-                setSpeed(1.5f);
-                isKnockback = false;
-            }
-        }
-
-        if (getAttackZone().intersectsWith(player) && !hasAttacked) {
+        if (getAttackZone().intersectsWith(player) && !hasAttacked && !isHurt && !isDead) {
             hasAttacked = true;
             spellLoader.shoot();
             attackCoolDown = 102;
             SoundEffect.FIRE_BALL.play();
-            state = State.ATTACK;
         }
 
         spellLoader.update();
@@ -127,13 +129,21 @@ public class Boss extends MovableEntity {
         }
     }
 
+    private void isHurt() {
+        isHurt = true;
+        hasAttacked = false;
+        hurtCooldown = 35;
+    }
+
     private void killed() {
         if (pv <= 0) {
+            isHurt = false;
             SoundEffect.MONSTER_DEAD.play();
             player.addCrystal(crystal);
             Ui.enemyKilled(crystal);
-            isAlive = false;
+            isDead = true;
             restartMusic();
+            deadCoolDown = 48;
         }
     }
 
@@ -150,14 +160,38 @@ public class Boss extends MovableEntity {
         if (hasMoved()) {
             return animationHandler.getDirectionFrame();
         }
+        if (isHurt) {
+            return animationHandler.getHurtFrame();
+        }
+        if (isDead) {
+            return animationHandler.getDeadFrame();
+        }
         return animationHandler.getIdleFrame();
+    }
+
+    private void updateHurtCooldown() {
+        Random rnd = new Random();
+        hurtCooldown--;
+        if (hurtCooldown <= 0 && isHurt) {
+            hurtCooldown = 0;
+            isHurt = false;
+            teleport(spawns[rnd.nextInt(4)]);
+        }
     }
 
     private void updateAttackCooldown() {
         attackCoolDown--;
-        if (attackCoolDown <= 0) {
+        if (attackCoolDown <= 0 && hasAttacked) {
             attackCoolDown = 0;
             hasAttacked = false;
+        }
+    }
+
+    private void updateDeadCoolDown() {
+        deadCoolDown--;
+        if (deadCoolDown <= 0) {
+            deadCoolDown = 0;
+            isAlive = false;
         }
     }
 
@@ -167,6 +201,10 @@ public class Boss extends MovableEntity {
             state = State.MOVE;
         } else if (hasAttacked) {
             state = State.ATTACK;
+        } else if (isHurt) {
+            state = State.HURT;
+        } else if (isDead) {
+            state = State.DEAD;
         } else {
             state = State.IDLE;
         }
@@ -195,7 +233,7 @@ public class Boss extends MovableEntity {
             } else {
                 directionToGo = playerDirection;
             }
-            move(directionToGo);
+            moveFreely(directionToGo);
         }
     }
 

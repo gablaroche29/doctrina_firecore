@@ -7,9 +7,9 @@ import utopia.entities.enemy.boss.Boss;
 public class Necromancer extends Boss {
 
     public Necromancer(int x, int y) {
-        super(x, y, 1.f);
+        super(x, y, 1.5f);
         setDimension(80, 80);
-        setPv(50);
+        setPv(40);
         animationHandler = new NecromancerAnimationHandler(this);
     }
 
@@ -46,6 +46,15 @@ public class Necromancer extends Boss {
                     boss.getWidth(), boss.getHeight(), 17, SPRITE_PATH));
             setLeftAttackAnimation(new Animation(0, 560,
                     boss.getWidth(), boss.getHeight(), 17, SPRITE_PATH));
-        }
+
+            setRightHurtAnimation(new Animation(0, 240,
+                    boss.getWidth(), boss.getHeight(), 5, SPRITE_PATH));
+            setLeftHurtAnimation(new Animation(0, 640,
+                    boss.getWidth(), boss.getHeight(), 5, SPRITE_PATH));
+
+            setRightDeadAnimation(new Animation(0, 320,
+                    boss.getWidth(), boss.getHeight(), 9, SPRITE_PATH));
+            setLeftDeadAnimation(new Animation(0, 720,
+                    boss.getWidth(), boss.getHeight(), 9, SPRITE_PATH));        }
     }
 }

@@ -74,7 +74,7 @@ public class Player extends ControllableEntity {
         }
         spellLoader.update();
         updateAnimationState();
-        System.out.println("State: " + state + ":"+animationHandler.currentAnimationFrame);
+//        System.out.println("State: " + state + ":"+animationHandler.currentAnimationFrame);
     }
 
     @Override

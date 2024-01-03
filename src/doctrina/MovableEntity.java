@@ -10,7 +10,7 @@ public abstract class MovableEntity extends StaticEntity {
     private final Collision collision;
     private int lastX = Integer.MIN_VALUE;
     private int lastY = Integer.MIN_VALUE;
-    private boolean moved = false;
+    protected boolean moved = false;
     private final static int collisionDetectorBound = 100;
     private final static int collisionDetectorPos = 50;
 
@@ -32,6 +32,14 @@ public abstract class MovableEntity extends StaticEntity {
         lastY = y;
     }
 
+    public void moveFreely() {
+        x += (int) direction.calculateVelocityX(speed);
+        y += (int) direction.calculateVelocityY(speed);
+        moved = (x != lastX || y != lastY);
+        lastX = x;
+        lastY = y;
+    }
+
     public boolean hasMoved() {
         return moved;
     }
@@ -39,6 +47,11 @@ public abstract class MovableEntity extends StaticEntity {
     public void move(Direction direction) {
         this.direction = direction;
         move();
+    }
+
+    public void moveFreely(Direction direction) {
+        this.direction = direction;
+        moveFreely();
     }
 
     public void moveUp() {

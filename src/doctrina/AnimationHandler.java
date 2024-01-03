@@ -20,6 +20,11 @@ public abstract class AnimationHandler {
     private Animation downIdleAnimation;
     private Animation leftIdleAnimation;
     private Animation rightIdleAnimation;
+    private Animation leftHurtAnimation;
+    private Animation rightHurtAnimation;
+    private Animation leftDeadAnimation;
+    private Animation rightDeadAnimation;
+
     private final MovableEntity entity;
 
     public AnimationHandler(MovableEntity entity) {
@@ -29,13 +34,21 @@ public abstract class AnimationHandler {
     private Animation getAnimationByDirection(State state) {
         Animation directionAnimation = switch (entity.getDirection()) {
             case RIGHT -> (state == State.ATTACK) ? rightAttackAnimation :
-                    (state == State.IDLE) ? rightIdleAnimation : rightMovementAnimation;
+                    (state == State.IDLE) ? rightIdleAnimation :
+                            (state == State.HURT) ? rightHurtAnimation :
+                                    (state == State.DEAD) ? rightDeadAnimation : rightMovementAnimation;
             case LEFT -> (state == State.ATTACK) ? leftAttackAnimation :
-                    (state == State.IDLE) ? leftIdleAnimation : leftMovementAnimation;
+                    (state == State.IDLE) ? leftIdleAnimation :
+                            (state == State.HURT) ? leftHurtAnimation :
+                                    (state == State.DEAD) ? leftDeadAnimation : leftMovementAnimation;
             case UP -> (state == State.ATTACK) ? upAttackAnimation :
-                    (state == State.IDLE) ? upIdleAnimation : upMovementAnimation;
+                    (state == State.IDLE) ? upIdleAnimation :
+                            (state == State.HURT) ? rightHurtAnimation :
+                                    (state == State.DEAD) ? rightDeadAnimation : upMovementAnimation;
             case DOWN -> (state == State.ATTACK) ? downAttackAnimation :
-                    (state == State.IDLE) ? downIdleAnimation : downMovementAnimation;
+                    (state == State.IDLE) ? downIdleAnimation :
+                            (state == State.HURT) ? leftHurtAnimation :
+                                    (state == State.DEAD) ? leftDeadAnimation : downMovementAnimation;
         };
         return (directionAnimation != null) ? directionAnimation : downMovementAnimation;
     }
@@ -54,6 +67,14 @@ public abstract class AnimationHandler {
 
     public Image getAttackFrame() {
         return getAnimationByDirection(State.ATTACK).getSprite(currentAnimationFrame);
+    }
+
+    public Image getHurtFrame() {
+        return getAnimationByDirection(State.HURT).getSprite(currentAnimationFrame);
+    }
+
+    public Image getDeadFrame() {
+        return getAnimationByDirection(State.DEAD).getSprite(currentAnimationFrame);
     }
 
     public Animation getIdleAnimation() {
@@ -86,7 +107,17 @@ public abstract class AnimationHandler {
             case IDLE -> currentAnimation = getIdleAnimation();
             case MOVE -> currentAnimation = getDirectionAnimation();
             case ATTACK -> currentAnimation = getAttackAnimation();
+            case HURT -> currentAnimation = getHurtAnimation();
+            case DEAD -> currentAnimation = getDeadAnimation();
         }
+    }
+
+    public Animation getHurtAnimation() {
+        return getAnimationByDirection(State.HURT);
+    }
+
+    public Animation getDeadAnimation() {
+        return getAnimationByDirection(State.DEAD);
     }
 
     public void reset() {
@@ -139,5 +170,21 @@ public abstract class AnimationHandler {
 
     public void setRightIdleAnimation(Animation rightIdleAnimation) {
         this.rightIdleAnimation = rightIdleAnimation;
+    }
+
+    public void setLeftHurtAnimation(Animation leftHurtAnimation) {
+        this.leftHurtAnimation = leftHurtAnimation;
+    }
+
+    public void setRightHurtAnimation(Animation rightHurtAnimation) {
+        this.rightHurtAnimation = rightHurtAnimation;
+    }
+
+    public void setLeftDeadAnimation(Animation leftDeadAnimation) {
+        this.leftDeadAnimation = leftDeadAnimation;
+    }
+
+    public void setRightDeadAnimation(Animation rightDeadAnimation) {
+        this.rightDeadAnimation = rightDeadAnimation;
     }
 }
