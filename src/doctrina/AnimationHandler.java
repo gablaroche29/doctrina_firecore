@@ -20,6 +20,10 @@ public abstract class AnimationHandler {
     private Animation downIdleAnimation;
     private Animation leftIdleAnimation;
     private Animation rightIdleAnimation;
+    private Animation upDashAnimation;
+    private Animation downDashAnimation;
+    private Animation leftDashAnimation;
+    private Animation rightDashAnimation;
     private Animation leftHurtAnimation;
     private Animation rightHurtAnimation;
     private Animation leftDeadAnimation;
@@ -36,19 +40,23 @@ public abstract class AnimationHandler {
             case RIGHT -> (state == State.ATTACK) ? rightAttackAnimation :
                     (state == State.IDLE) ? rightIdleAnimation :
                             (state == State.HURT) ? rightHurtAnimation :
-                                    (state == State.DEAD) ? rightDeadAnimation : rightMovementAnimation;
+                                    (state == State.DEAD) ? rightDeadAnimation :
+                                            (state == State.DASHING) ? rightDashAnimation : rightMovementAnimation;
             case LEFT -> (state == State.ATTACK) ? leftAttackAnimation :
                     (state == State.IDLE) ? leftIdleAnimation :
                             (state == State.HURT) ? leftHurtAnimation :
-                                    (state == State.DEAD) ? leftDeadAnimation : leftMovementAnimation;
+                                    (state == State.DEAD) ? leftDeadAnimation :
+                                            (state == State.DASHING) ? leftDashAnimation : leftMovementAnimation;
             case UP -> (state == State.ATTACK) ? upAttackAnimation :
                     (state == State.IDLE) ? upIdleAnimation :
                             (state == State.HURT) ? rightHurtAnimation :
-                                    (state == State.DEAD) ? rightDeadAnimation : upMovementAnimation;
+                                    (state == State.DEAD) ? rightDeadAnimation :
+                                            (state == State.DASHING) ? upDashAnimation : upMovementAnimation;
             case DOWN -> (state == State.ATTACK) ? downAttackAnimation :
                     (state == State.IDLE) ? downIdleAnimation :
                             (state == State.HURT) ? leftHurtAnimation :
-                                    (state == State.DEAD) ? leftDeadAnimation : downMovementAnimation;
+                                    (state == State.DEAD) ? leftDeadAnimation :
+                                            (state == State.DASHING) ? downDashAnimation : downMovementAnimation;
         };
         return (directionAnimation != null) ? directionAnimation : downMovementAnimation;
     }
@@ -75,6 +83,10 @@ public abstract class AnimationHandler {
 
     public Image getDeadFrame() {
         return getAnimationByDirection(State.DEAD).getSprite(currentAnimationFrame);
+    }
+
+    public Image getDashFrame() {
+        return getAnimationByDirection(State.DASHING).getSprite(currentAnimationFrame);
     }
 
     public Animation getIdleAnimation() {
@@ -109,6 +121,7 @@ public abstract class AnimationHandler {
             case ATTACK -> currentAnimation = getAttackAnimation();
             case HURT -> currentAnimation = getHurtAnimation();
             case DEAD -> currentAnimation = getDeadAnimation();
+            case DASHING -> currentAnimation = getDashAnimation();
         }
     }
 
@@ -118,6 +131,10 @@ public abstract class AnimationHandler {
 
     public Animation getDeadAnimation() {
         return getAnimationByDirection(State.DEAD);
+    }
+
+    public Animation getDashAnimation() {
+        return getAnimationByDirection(State.DASHING);
     }
 
     public void reset() {
@@ -186,5 +203,21 @@ public abstract class AnimationHandler {
 
     public void setRightDeadAnimation(Animation rightDeadAnimation) {
         this.rightDeadAnimation = rightDeadAnimation;
+    }
+
+    public void setUpDashAnimation(Animation upDashAnimation) {
+        this.upDashAnimation = upDashAnimation;
+    }
+
+    public void setDownDashAnimation(Animation downDashAnimation) {
+        this.downDashAnimation = downDashAnimation;
+    }
+
+    public void setRightDashAnimation(Animation rightDashAnimation) {
+        this.rightDashAnimation = rightDashAnimation;
+    }
+
+    public void setLeftDashAnimation(Animation leftDashAnimation) {
+        this.leftDashAnimation = leftDashAnimation;
     }
 }

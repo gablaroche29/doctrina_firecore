@@ -5,5 +5,6 @@ public enum State {
     MOVE,
     IDLE,
     HURT,
-    DEAD
+    DEAD,
+    DASHING
 }

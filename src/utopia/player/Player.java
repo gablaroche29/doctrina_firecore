@@ -26,6 +26,9 @@ public class Player extends ControllableEntity {
     private int potion = 1;
     private boolean isHurt;
     private boolean isAlive = true;
+    private boolean isDashing;
+    private int dashCooldown = 0;
+    private float distance = 0;
     private SpawnPoint spawnPoint;
 
     public Player(MovementController controller, int x, int y) {
@@ -33,7 +36,7 @@ public class Player extends ControllableEntity {
         teleport(x, y);
         controller.useWasdKeys();
         setDimension(32, 32);
-        setSpeed(2);
+        setSpeed(2f);
         animationHandler = new PlayerAnimationHandler(this);
         setDirection(Direction.DOWN);
         spellLoader = new IceSpellLoader(this);
@@ -48,12 +51,12 @@ public class Player extends ControllableEntity {
         }
 
         updateAttackCooldown();
-        if (GameMouse.getInstance().isKeyPressed(GameMouse.leftClick) && !hasAttacked) {
+        if (GameMouse.getInstance().isKeyPressed(GameMouse.leftClick) && !hasAttacked && !isDashing) {
             hasAttacked = true;
             attackCoolDown = 65;
             SoundEffect.MELEE_SWORD.play();
             GameMouse.getInstance().setKeyStateFalse(GameMouse.leftClick);
-        } else if (GamePad.getInstance().isQPressed() && !hasAttacked && crystal > 0) {
+        } else if (GamePad.getInstance().isQPressed() && !hasAttacked && crystal > 0 && !isDashing) {
             hasAttacked = true;
             attackCoolDown = 65;
             spellLoader.shoot();
@@ -72,6 +75,31 @@ public class Player extends ControllableEntity {
         if (pv <= 0) {
             isAlive = false;
         }
+
+        if (GamePad.getInstance().isSpacePressed() && !isDashing && dashCooldown == 0) {
+            isDashing = true;
+            dashCooldown = 50;
+            setSpeed(getSpeed() * 2);
+            GamePad.getInstance().setKeyStateFalse(GamePad.spaceKey);
+        }
+
+        if (isDashing) {
+            move();
+            moved = false;
+            distance += getSpeed();
+            if (distance == 40f) {
+                distance = 0;
+                isDashing = false;
+                setSpeed(2f);
+                state = State.IDLE;
+            }
+        }
+
+        dashCooldown--;
+        if (dashCooldown <= 0) {
+            dashCooldown = 0;
+        }
+
         spellLoader.update();
         updateAnimationState();
 //        System.out.println("State: " + state + ":"+animationHandler.currentAnimationFrame);
@@ -80,6 +108,8 @@ public class Player extends ControllableEntity {
     @Override
     public void draw(Canvas canvas, Camera camera) {
         canvas.drawImage(getAnimationFrame(), x - camera.getX(), y - camera.getY());
+        int cooldownWidth = dashCooldown * width / 50;
+        canvas.drawRectangle(x - camera.getX(), y - 5 - camera.getY(), cooldownWidth, 3, Color.RED);
         spellLoader.draw(canvas, camera);
 
         if (GameConfig.isDebugEnabled()) {
@@ -97,6 +127,8 @@ public class Player extends ControllableEntity {
             state = State.MOVE;
         } else if (hasAttacked) {
             state = State.ATTACK;
+        } else if (isDashing) {
+            state = State.DASHING;
         } else {
             state = State.IDLE;
         }
@@ -121,6 +153,9 @@ public class Player extends ControllableEntity {
         }
         if (hasMoved()) {
             return animationHandler.getDirectionFrame();
+        }
+        if (isDashing) {
+            return animationHandler.getDashFrame();
         }
         return animationHandler.getIdleFrame();
     }
