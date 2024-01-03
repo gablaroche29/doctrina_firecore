@@ -1,6 +1,6 @@
 package doctrina;
 
-import utopia.GamePad;
+import utopia.event.BossEvent;
 import utopia.event.ChestEvent;
 import utopia.event.DeathEvent;
 import utopia.event.EnemyKilledEvent;
@@ -22,6 +22,7 @@ public class Ui {
     private int hurtEventCoooldown = 30;
 
     private static ChestEvent chestEvent;
+    private static BossEvent bossEvent;
     private static EnemyKilledEvent enemyKilledEvent;
     private static DeathEvent deathEvent;
 
@@ -37,6 +38,7 @@ public class Ui {
         chestEvent = new ChestEvent(100);
         enemyKilledEvent = new EnemyKilledEvent(100);
         deathEvent = new DeathEvent(Clip.LOOP_CONTINUOUSLY);
+        bossEvent = new BossEvent(0);
     }
 
     public void draw(Canvas canvas, GameState gameState) {
@@ -99,6 +101,12 @@ public class Ui {
         chestEvent.setActive(true);
     }
 
+    public static void bossEventDetails(float hp, String name) {
+        bossEvent.setText(name);
+        bossEvent.setPvProp(hp);
+        bossEvent.setActive(true);
+    }
+
     public static void enemyKilled(int crystal) {
         enemyKilledEvent.setText("Tu as obtenus:\n" + crystal + " crystal(s)!");
         enemyKilledEvent.setActive(true);
@@ -121,6 +129,9 @@ public class Ui {
         }
         if (deathEvent.isActive()) {
             deathEvent.draw(canvas);
+        }
+        if (bossEvent.isActive()) {
+            bossEvent.draw(canvas);
         }
     }
 }

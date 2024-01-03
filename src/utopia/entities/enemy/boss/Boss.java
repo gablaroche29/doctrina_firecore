@@ -115,10 +115,10 @@ public class Boss extends MovableEntity {
     @Override
     public void draw(Canvas canvas, Camera camera) {
         float prop = (float) pv / maxPv;
-        float pvString = prop * width;
+        float pvString = prop * 100;
         if (camera.intersectWith(this)) {
             canvas.drawImage(getAnimationFrame(), x - camera.getX(), y - camera.getY());
-            canvas.drawRectangle(x - camera.getX(), y - 5 - camera.getY(), (int) pvString, 2, Color.RED);
+            Ui.bossEventDetails(pvString, "Necromancer");
         }
         spellLoader.draw(canvas, camera);
 
@@ -233,7 +233,7 @@ public class Boss extends MovableEntity {
             } else {
                 directionToGo = playerDirection;
             }
-            moveFreely(directionToGo);
+            move(directionToGo);
         }
     }
 

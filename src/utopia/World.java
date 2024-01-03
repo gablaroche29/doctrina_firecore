@@ -104,7 +104,6 @@ public class World extends StaticEntity {
         collidableEntities = new ArrayList<>();
         collidableEntities.add(player);
         collidableEntities.addAll(aiManager.getEnemies());
-        collidableEntities.addAll(bossManager.getEnemies());
     }
 
     private void updateCollisionWorld() {
