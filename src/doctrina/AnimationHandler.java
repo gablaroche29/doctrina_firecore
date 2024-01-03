@@ -4,8 +4,8 @@ import java.awt.*;
 
 public abstract class AnimationHandler {
 
-    private static int ANIMATION_SPEED = 6;
-    public int currentAnimationFrame = 1;
+    private int ANIMATION_SPEED;
+    public int currentAnimationFrame = 0;
     private int nextFrame = ANIMATION_SPEED;
     private Animation currentAnimation;
     private Animation upMovementAnimation;
@@ -66,6 +66,7 @@ public abstract class AnimationHandler {
 
     public void setAnimationSpeed(int speed) {
         ANIMATION_SPEED = speed;
+        nextFrame = ANIMATION_SPEED;
     }
 
     public void update() {
@@ -73,7 +74,7 @@ public abstract class AnimationHandler {
         nextFrame--;
         if (nextFrame == 0) {
             currentAnimationFrame++;
-            if (currentAnimationFrame >= (currentAnimation.getLengthSprites())) {
+            if (currentAnimationFrame > (currentAnimation.length() - 1)) {
                 currentAnimationFrame = 0;
             }
             nextFrame = ANIMATION_SPEED;

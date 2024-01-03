@@ -1,7 +1,5 @@
 package doctrina;
 
-import doctrina.SpriteSheetSlicer;
-
 import java.awt.*;
 
 public class Animation {
@@ -14,13 +12,13 @@ public class Animation {
     }
 
     public Image getSprite(int i) {
-        if (i >= getLengthSprites()) {
-            return sprites[0];
+        if (i >= length()) {
+            return sprites[length() - 1];
         }
         return sprites[i];
     }
 
-    public int getLengthSprites() {
+    public int length() {
         return sprites.length;
     }
 }

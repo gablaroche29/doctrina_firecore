@@ -10,6 +10,7 @@ public class BlackSmithAnimationHandler extends AnimationHandler {
 
     public BlackSmithAnimationHandler(MovableEntity movableEntity) {
         super(movableEntity);
+        setAnimationSpeed(10);
         setDownIdleAnimation(new Animation(0, 0, 32, 32, 8, PATH));
     }
 }

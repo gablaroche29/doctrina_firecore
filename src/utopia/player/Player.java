@@ -50,12 +50,12 @@ public class Player extends ControllableEntity {
         updateAttackCooldown();
         if (GameMouse.getInstance().isKeyPressed(GameMouse.leftClick) && !hasAttacked) {
             hasAttacked = true;
-            attackCoolDown = 60;
+            attackCoolDown = 65;
             SoundEffect.MELEE_SWORD.play();
             GameMouse.getInstance().setKeyStateFalse(GameMouse.leftClick);
         } else if (GamePad.getInstance().isQPressed() && !hasAttacked && crystal > 0) {
             hasAttacked = true;
-            attackCoolDown = 60;
+            attackCoolDown = 65;
             spellLoader.shoot();
             SoundEffect.ICE_BALL.play();
             crystal--;
@@ -74,6 +74,7 @@ public class Player extends ControllableEntity {
         }
         spellLoader.update();
         updateAnimationState();
+        System.out.println("State: " + state + ":"+animationHandler.currentAnimationFrame);
     }
 
     @Override
