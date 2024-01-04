@@ -26,10 +26,10 @@ public class Sign extends StaticEntity {
     }
 
     public void update(Player player) {
-        if (player.intersectWith(this) && GameMouse.getInstance().isKeyPressed(GameMouse.rightClick)) {
+        if (player.intersectWith(this) && GameMouse.getInstance().isKeyPressed(GameMouse.RIGHT_CLICK)) {
             SoundEffect.INTERACTION.play();
             valueCooldown = 60;
-            GameMouse.getInstance().setKeyStateFalse(GameMouse.rightClick);
+            GameMouse.getInstance().setKeyStateFalse(GameMouse.RIGHT_CLICK);
         }
         valueCooldown--;
         if (valueCooldown <= 0) {

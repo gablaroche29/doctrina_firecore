@@ -6,7 +6,6 @@ import doctrina.ControllableEntity;
 import utopia.GameMouse;
 import utopia.GamePad;
 import utopia.audio.SoundEffect;
-import utopia.entities.enemy.type.necromancer.Necromancer;
 import utopia.entities.spawnpoint.SpawnPoint;
 import utopia.player.spell.IceSpellLoader;
 import utopia.spell.Spell;
@@ -51,11 +50,11 @@ public class Player extends ControllableEntity {
         }
 
         updateAttackCooldown();
-        if (GameMouse.getInstance().isKeyPressed(GameMouse.leftClick) && !hasAttacked && !isDashing) {
+        if (GameMouse.getInstance().isKeyPressed(GameMouse.LEFT_CLICK) && !hasAttacked && !isDashing) {
             hasAttacked = true;
             attackCoolDown = 65;
             SoundEffect.MELEE_SWORD.play();
-            GameMouse.getInstance().setKeyStateFalse(GameMouse.leftClick);
+            GameMouse.getInstance().setKeyStateFalse(GameMouse.LEFT_CLICK);
         } else if (GamePad.getInstance().isQPressed() && !hasAttacked && crystal > 0 && !isDashing) {
             hasAttacked = true;
             attackCoolDown = 65;

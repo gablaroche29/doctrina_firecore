@@ -7,7 +7,6 @@ import utopia.audio.SoundEffect;
 import utopia.player.Player;
 
 import java.awt.*;
-import java.nio.FloatBuffer;
 
 public class BlackSmith extends MovableEntity {
 
@@ -35,13 +34,13 @@ public class BlackSmith extends MovableEntity {
 
     @Override
     public void update() {
-        if (GameMouse.getInstance().isKeyPressed(GameMouse.rightClick)) {
+        if (GameMouse.getInstance().isKeyPressed(GameMouse.RIGHT_CLICK)) {
             if (player.intersectWith(this)) {
                 SoundEffect.INTERACTION.play();
                 GameContext.INSTANCE.setCurrentState(GameState.INTERACTION);
                 Ui.setDialogueText(speak());
             }
-            GameMouse.getInstance().setKeyStateFalse(GameMouse.rightClick);
+            GameMouse.getInstance().setKeyStateFalse(GameMouse.RIGHT_CLICK);
             if (isFinishTalking()) {
                 GameContext.INSTANCE.setCurrentState(GameState.GAME);
             }

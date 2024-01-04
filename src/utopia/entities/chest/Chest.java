@@ -3,7 +3,6 @@ package utopia.entities.chest;
 import doctrina.*;
 import doctrina.Canvas;
 import utopia.GameMouse;
-import utopia.GamePad;
 import utopia.audio.SoundEffect;
 import utopia.player.Player;
 
@@ -28,13 +27,13 @@ public class Chest extends StaticEntity {
     }
 
     public void update() {
-        if (GameMouse.getInstance().isKeyPressed(GameMouse.rightClick)) {
+        if (GameMouse.getInstance().isKeyPressed(GameMouse.RIGHT_CLICK)) {
             if (player.intersectWith(this) && !isOpen) {
                 SoundEffect.INTERACTION.play();
                 SoundEffect.BROKEN_CRATE.play();
                 isOpen = true;
                 player.addPotion(potion);
-                GameMouse.getInstance().setKeyStateFalse(GameMouse.rightClick);
+                GameMouse.getInstance().setKeyStateFalse(GameMouse.RIGHT_CLICK);
                 Ui.openChest(potion);
             }
         }

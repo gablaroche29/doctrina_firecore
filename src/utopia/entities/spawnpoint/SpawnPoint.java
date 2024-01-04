@@ -2,6 +2,7 @@ package utopia.entities.spawnpoint;
 
 import doctrina.*;
 import doctrina.Canvas;
+import utopia.GameMouse;
 import utopia.GamePad;
 import utopia.audio.SoundEffect;
 import utopia.player.Player;
@@ -11,7 +12,7 @@ import java.awt.*;
 public class SpawnPoint extends StaticEntity {
 
     private Image sprite;
-    private Image spaceKey;
+    private Image rightClick;
     private final FontLoader font;
     private boolean isActive;
 
@@ -23,7 +24,7 @@ public class SpawnPoint extends StaticEntity {
     }
 
     public void update(Player player) {
-        if (player.intersectWith(this) && GamePad.getInstance().isSpacePressed()) {
+        if (player.intersectWith(this) && GameMouse.getInstance().isKeyPressed(GameMouse.RIGHT_CLICK)) {
             SoundEffect.SPAWN.play();
             isActive = true;
             GamePad.getInstance().setKeyStateFalse(GamePad.spaceKey);
@@ -41,7 +42,7 @@ public class SpawnPoint extends StaticEntity {
                 canvas.drawImage(sprite, x - camera.getX(), y - camera.getY());
             } else {
                 canvas.drawString("Activer", x - 20 - camera.getX(), y - camera.getY(), new Color(255, 255, 255), font.getFont());
-                canvas.drawImage(spaceKey, x + 30 - camera.getX(), y - 15 - camera.getY(), 20, 20);
+                canvas.drawImage(rightClick, x + 30 - camera.getX(), y - 15 - camera.getY(), 20, 20);
             }
         }
     }
@@ -56,6 +57,6 @@ public class SpawnPoint extends StaticEntity {
 
     private void load() {
         sprite = SpriteSheetSlicer.getSprite(0, 0, 32, 32, "image/props/spawn_point.png");
-        spaceKey = SpriteSheetSlicer.getSprite(64, 0, 32, 32, "image/ui/keys.png");
+        rightClick = SpriteSheetSlicer.getSprite(32, 0, 32, 32, "image/ui/keys.png");
     }
 }
