@@ -22,9 +22,11 @@ import java.util.List;
 public class World extends StaticEntity {
 
     private static final String MAP_PATH = "image/background/heavenly/Map.png";
-    private static final String FRONTVIEW_PATH = "image/background/heavenly/FrontView.png";
+    private static final String FRONT_VIEW_PATH = "image/background/heavenly/FrontView.png";
     private Image background;
-    private Image frontview;
+    private Image frontView;
+
+    private Camera camera;
 
     private final CollisionManager collisionManager;
     private final ChestManager chestManager;
@@ -82,7 +84,6 @@ public class World extends StaticEntity {
         pngManager.draw(canvas, camera);
         aiManager.draw(canvas, camera);
         bossManager.draw(canvas, camera);
-
         if (GameConfig.isDebugEnabled()) {
             collisionManager.draw(canvas, camera);
         }
@@ -93,7 +94,7 @@ public class World extends StaticEntity {
     }
 
     public void drawFrontview(Canvas canvas, Camera camera) {
-        canvas.drawImage(frontview, x - camera.getX(), y - camera.getY());
+        canvas.drawImage(frontView, x - camera.getX(), y - camera.getY());
     }
 
     public void updateInteraction() {
@@ -119,7 +120,7 @@ public class World extends StaticEntity {
 
     private void load() {
         background = SpriteSheetSlicer.getSprite(0, 0, 3200, 3200, MAP_PATH);
-        frontview = SpriteSheetSlicer.getSprite(0, 0, 3200, 3200, FRONTVIEW_PATH);
+        frontView = SpriteSheetSlicer.getSprite(0, 0, 3200, 3200, FRONT_VIEW_PATH);
     }
 
     private void playBackgroundMusic() {
@@ -127,5 +128,10 @@ public class World extends StaticEntity {
             Music.BG_GAME.play(Clip.LOOP_CONTINUOUSLY);
             Music.RAIN_AMBIANCE.play(Clip.LOOP_CONTINUOUSLY);
         }
+    }
+
+    public void setCamera(Camera camera) {
+        this.camera = camera;
+        bossManager.setCamera(camera);
     }
 }

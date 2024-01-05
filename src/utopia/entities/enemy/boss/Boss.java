@@ -20,6 +20,7 @@ public class Boss extends MovableEntity {
     private Bounds triggerZone;
     protected AnimationHandler animationHandler;
     private boolean activate;
+    private Camera camera;
 
     private boolean isAlive = true;
     private int attackCoolDown = 0;
@@ -69,6 +70,7 @@ public class Boss extends MovableEntity {
             Music.BG_GAME.stop();
             Music.RAIN_AMBIANCE.stop();
             Music.BOSS_BATTLE.play(Clip.LOOP_CONTINUOUSLY);
+            camera.follow(this);
         }
 
         if (activate && !hasAttacked && !isHurt && !isDead) {
@@ -304,7 +306,11 @@ public class Boss extends MovableEntity {
         this.pv = maxPv;
     }
 
-    public void setPlayer(Player player) {
+    public void setValues(Player player) {
         this.player = player;
+    }
+
+    public void setCamera(Camera camera) {
+        this.camera = camera;
     }
 }

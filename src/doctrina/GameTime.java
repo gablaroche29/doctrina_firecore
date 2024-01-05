@@ -10,7 +10,7 @@ public class GameTime {
     private static int fpsCount;
     private static long fpsTimeDelta;
     private static long gameStartTime;
-    private long lastFrameTime = 0;
+    private static long lastFrameTime = 0;
     private final long startTime = System.nanoTime();
 
     public static long getCurrentTime() {
@@ -73,7 +73,7 @@ public class GameTime {
 
     public void sleep() {
         // selon le modèle de Samuel
-        double targetFrameTime = 1_000_000_000.0 / 60;
+        double targetFrameTime = 1_000_000_000.0 / FPS_TARGET;
         long waitTime = (long) (targetFrameTime - ((System.nanoTime() - startTime) - lastFrameTime));
         if (waitTime > 0 && waitTime <= targetFrameTime) {
             try {
@@ -83,6 +83,10 @@ public class GameTime {
             }
         }
         lastFrameTime = System.nanoTime() - startTime;
+    }
+
+    public static long getDeltaFrameSecond() {
+        return lastFrameTime;
     }
 
 }

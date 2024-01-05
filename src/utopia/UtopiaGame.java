@@ -52,10 +52,11 @@ public class UtopiaGame extends Game {
     private void initializeGame() {
         menu.quit();
         gamePad = new GamePad();
-        player = new Player(gamePad, 864, 2368);
-        //player = new Player(gamePad, 544, 1472);
+//        player = new Player(gamePad, 864, 2368);
+        player = new Player(gamePad, 544, 1600);
         world = new World(player);
         camera = new Camera(world, player, 800, 600);
+        world.setCamera(camera);
         ui = new Ui(player);
         gameContext.setCurrentState(GameState.GAME);
         RenderingEngine.getInstance().getScreen().hideCursor();
@@ -64,7 +65,7 @@ public class UtopiaGame extends Game {
     private void updateGame() {
         if (gameContext.getCurrentState() == GameState.GAME) {
             if (gamePad.isQuitPressed()) {
-                camera.stopCameraThread();
+                //camera.stopCameraThread();
                 gameContext.setCurrentState(GameState.QUIT);
                 return;
             }
@@ -73,6 +74,7 @@ public class UtopiaGame extends Game {
             if (!player.isAlive()) {
                 gameContext.setCurrentState(GameState.DEAD_PLAYER);
             }
+            camera.update();
         } else {
             world.update();
         }

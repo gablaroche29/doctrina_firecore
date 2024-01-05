@@ -2,23 +2,23 @@ package doctrina;
 
 import utopia.World;
 
+import javax.sound.sampled.Clip;
 import java.awt.*;
 
-public class Camera extends StaticEntity implements Runnable {
+public class Camera extends StaticEntity {
 
     private final World world;
-    private final ControllableEntity entity;
+    private final CameraAnimation animation;
     private int entityX, entityY;
     private int destinationX, destinationY;
-    private Thread cameraThread;
+    private static StaticEntity entityToFollow;
 
     public Camera(World world, ControllableEntity entity, int width, int height) {
         this.world = world;
-        this.entity = entity;
         this.width = width;
         this.height = height;
-
-        startCameraThread();
+        entityToFollow = entity;
+        animation = new CameraAnimation(this);
     }
 
     @Override
@@ -26,19 +26,24 @@ public class Camera extends StaticEntity implements Runnable {
         canvas.drawRectangle(x - camera.getX(), y - camera.getY(), width, height, new Color(0.9f, 0, 0, 0.40f));
     }
 
-    public void stopCameraThread() {
-        cameraThread.interrupt();
-    }
-
     public void update() {
-        updateNewPositionPlayer();
-        updateNewDestination();
-        setPosition();
+        if (animation.isRunning()){
+            animation.update();
+        } else {
+            updateNewPositionEntity();
+            updateNewDestination();
+            setPosition();
+        }
     }
 
-    private void startCameraThread() {
-        cameraThread = new Thread(this);
-        cameraThread.start();
+    public void follow(StaticEntity entity) {
+        animation.slideTo(entity, 100000);
+        entityToFollow = entity;
+    }
+
+    private void updateNewPositionEntity() {
+        entityX = entityToFollow.getX() + (entityToFollow.getWidth() / 2);
+        entityY = entityToFollow.getY() + (entityToFollow.getHeight() / 2);
     }
 
     private void updateNewDestination() {
@@ -62,20 +67,13 @@ public class Camera extends StaticEntity implements Runnable {
         }
     }
 
-    private void updateNewPositionPlayer() {
-        entityX = entity.getX() + (entity.getWidth() / 2);
-        entityY = entity.getY() + (entity.getHeight() / 2);
-    }
-
     private void setPosition() {
         this.x = destinationX;
         this.y = destinationY;
     }
 
-    @Override
-    public void run() {
-        while (!Thread.currentThread().isInterrupted()) {
-            update();
-        }
+    public void setPosition(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 }

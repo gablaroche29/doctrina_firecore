@@ -17,10 +17,11 @@ public class BossManager extends Manager {
     private List<Boss> enemies;
     private final Player player;
     private final List<Boss> deadEnemies;
+    private Camera camera;
 
     public BossManager(Player player) {
         this.player = player;
-        setPlayerForEnemies();
+        setValuesForEnnemies();
         deadEnemies = new ArrayList<>();
     }
 
@@ -47,6 +48,12 @@ public class BossManager extends Manager {
 
     public List<Boss> getEnemies() {
         return enemies;
+    }
+
+    public void setCamera(Camera camera) {
+        for (Boss boss : enemies) {
+            boss.setCamera(camera);
+        }
     }
 
     @Override
@@ -77,9 +84,9 @@ public class BossManager extends Manager {
         return null;
     }
 
-    private void setPlayerForEnemies() {
+    private void setValuesForEnnemies() {
         for (Boss boss : enemies) {
-            boss.setPlayer(player);
+            boss.setValues(player);
         }
     }
 }
