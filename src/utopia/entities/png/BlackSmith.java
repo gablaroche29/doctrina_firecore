@@ -25,7 +25,7 @@ public class BlackSmith extends MovableEntity {
 
         animationHandler = new BlackSmithAnimationHandler(this);
         load();
-        font = new FontLoader("/font/perpetua/perpetua_bold.ttf", 15.f);
+        font = new FontLoader("/font/perpetua/perpetua_bold.ttf", 25.f);
         setDialogues();
         setState(State.IDLE);
         setDirection(Direction.DOWN);
@@ -38,11 +38,12 @@ public class BlackSmith extends MovableEntity {
             if (player.intersectWith(this)) {
                 SoundEffect.INTERACTION.play();
                 GameContext.INSTANCE.setCurrentState(GameState.INTERACTION);
-                Ui.setDialogueText(speak());
+                Ui.setDialogueText(speak(), font);
+                GameMouse.getInstance().setKeyStateFalse(GameMouse.RIGHT_CLICK);
             }
-            GameMouse.getInstance().setKeyStateFalse(GameMouse.RIGHT_CLICK);
             if (isFinishTalking()) {
                 GameContext.INSTANCE.setCurrentState(GameState.GAME);
+                GameMouse.getInstance().setKeyStateFalse(GameMouse.RIGHT_CLICK);
             }
         }
         animationHandler.update();

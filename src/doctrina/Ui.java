@@ -16,7 +16,7 @@ public class Ui {
     private final FontLoader fontLoader;
 
     private static String[] dialogueText;
-
+    private static FontLoader dialogueFont;
     private final Player player;
 
     private int hurtEventCoooldown = 30;
@@ -50,13 +50,15 @@ public class Ui {
     }
 
     private void drawDialogue(Canvas canvas) {
-        canvas.drawRoundRectangle(147, 27, 506, 206, 35, 35, Color.BLACK);
-        canvas.drawRoundRectangle(150, 30, 500, 200, 35, 35, Color.WHITE);
-        canvas.drawRoundRectangle(153, 33, 494, 194, 35, 35, Color.BLACK);
-        int startY = 70;
-        for (String string : dialogueText) {
-            canvas.drawString(string, 180, startY, Color.WHITE, fontLoader.getFont());
-            startY += 40;
+        if (dialogueText != null) {
+            canvas.drawRoundRectangle(147, 27, 506, 206, 35, 35, Color.BLACK);
+            canvas.drawRoundRectangle(150, 30, 500, 200, 35, 35, Color.WHITE);
+            canvas.drawRoundRectangle(153, 33, 494, 194, 35, 35, Color.BLACK);
+            int startY = 70;
+            for (String string : dialogueText) {
+                canvas.drawString(string, 180, startY, Color.WHITE, dialogueFont.getFont());
+                startY += 40;
+            }
         }
     }
 
@@ -116,8 +118,9 @@ public class Ui {
         deathEvent.setActive(value);
     }
 
-    public static void setDialogueText(String dialogueText) {
+    public static void setDialogueText(String dialogueText, FontLoader fontLoader) {
         Ui.dialogueText = dialogueText.split("\n");
+        Ui.dialogueFont = fontLoader;
     }
 
     private void drawEvent(Canvas canvas) {

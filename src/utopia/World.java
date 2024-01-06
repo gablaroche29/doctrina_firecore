@@ -99,6 +99,8 @@ public class World extends StaticEntity {
 
     public void updateInteraction() {
         pngManager.update();
+        bossManager.update();
+        rainEffect.update();
     }
     
     private void initializeCollidableEntities() {

@@ -65,7 +65,6 @@ public class UtopiaGame extends Game {
     private void updateGame() {
         if (gameContext.getCurrentState() == GameState.GAME) {
             if (gamePad.isQuitPressed()) {
-                //camera.stopCameraThread();
                 gameContext.setCurrentState(GameState.QUIT);
                 return;
             }
@@ -81,6 +80,7 @@ public class UtopiaGame extends Game {
     }
 
     private void updateDialogue() {
+        camera.update();
         world.updateInteraction();
     }
 

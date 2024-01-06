@@ -37,7 +37,7 @@ public class RainEffect {
         for (Raindrop raindrop : raindrops) {
             raindrop.draw(canvas, camera);
         }
-        canvas.drawRectangle(0, 0, 800, 600, new Color(0, 0, 0, 0.50f));
+        canvas.drawRectangle(0, 0, 800, 600, new Color(0, 0, 0, 0.55f));
     }
 
 }

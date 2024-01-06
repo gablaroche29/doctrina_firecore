@@ -72,6 +72,10 @@ public class Camera extends StaticEntity {
         this.y = destinationY;
     }
 
+    public boolean isAnimationFinish() {
+        return animation.isRunning();
+    }
+
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;

@@ -2,6 +2,7 @@ package utopia.entities.enemy.boss;
 
 import doctrina.*;
 import doctrina.Canvas;
+import utopia.GameMouse;
 import utopia.audio.Music;
 import utopia.audio.SoundEffect;
 import utopia.entities.enemy.type.necromancer.FireSpellLoader;
@@ -20,7 +21,14 @@ public class Boss extends MovableEntity {
     private Bounds triggerZone;
     protected AnimationHandler animationHandler;
     private boolean activate;
+    private boolean spoke;
+    private boolean ready;
     private Camera camera;
+
+    private String[] dialogues;
+    private int dialogueIndex = 0;
+    private boolean finishTalking;
+    private final FontLoader font;
 
     private boolean isAlive = true;
     private int attackCoolDown = 0;
@@ -46,6 +54,8 @@ public class Boss extends MovableEntity {
         crystal = rnd.nextInt(150) + 1;
         setTriggerZone();
         spellLoader = new FireSpellLoader(this);
+        setDialogues();
+        font = new FontLoader("/font/perpetua/perpetua.ttf", 25.f);
 
         spawns = new Point[4];
         spawns[0] = new Point(352, 1184);
@@ -64,13 +74,37 @@ public class Boss extends MovableEntity {
             updateDeadCoolDown();
         }
 
-        if (triggerZone.intersectsWith(player) && !activate) {
-            activate = true;
+        if (triggerZone.intersectsWith(player) && !ready) {
+            ready = true;
             SoundEffect.NECROMANCER_SCREAM.play();
             Music.BG_GAME.stop();
             Music.RAIN_AMBIANCE.stop();
-            Music.BOSS_BATTLE.play(Clip.LOOP_CONTINUOUSLY);
+            Music.WIND.play(Clip.LOOP_CONTINUOUSLY);
             camera.follow(this);
+        }
+
+        if (ready && !activate) {
+            if (!spoke) {
+                GameContext.INSTANCE.setCurrentState(GameState.INTERACTION);
+                Ui.setDialogueText(speak(), font);
+                spoke = true;
+            }
+            if (GameMouse.getInstance().isKeyPressed(GameMouse.RIGHT_CLICK)) {
+                SoundEffect.INTERACTION.play();
+                GameContext.INSTANCE.setCurrentState(GameState.INTERACTION);
+                Ui.setDialogueText(speak(), font);
+                GameMouse.getInstance().setKeyStateFalse(GameMouse.RIGHT_CLICK);
+                if (isFinishTalking()) {
+                    GameContext.INSTANCE.setCurrentState(GameState.GAME);
+                    activate = true;
+                    camera.follow(player);
+                }
+            }
+        }
+
+
+        if (activate && !isDead) {
+            Music.BOSS_BATTLE.play(Clip.LOOP_CONTINUOUSLY);
         }
 
         if (activate && !hasAttacked && !isHurt && !isDead) {
@@ -104,7 +138,7 @@ public class Boss extends MovableEntity {
             }
         }
 
-        if (getAttackZone().intersectsWith(player) && !hasAttacked && !isHurt && !isDead) {
+        if (getAttackZone().intersectsWith(player) && !hasAttacked && !isHurt && !isDead && activate) {
             hasAttacked = true;
             spellLoader.shoot();
             attackCoolDown = 102;
@@ -312,5 +346,28 @@ public class Boss extends MovableEntity {
 
     public void setCamera(Camera camera) {
         this.camera = camera;
+    }
+
+    private void setDialogues() {
+        dialogues = new String[4];
+        dialogues[0] = "Sous le ciel écarlate, je deviens l'incarnation de\nla fureur ancestrale.";
+        dialogues[1] = "Mes pas sont des séismes, et ma volonté est le feu\nqui forge les légendes.";
+        dialogues[2] = "Battons-nous, étranger...";
+        dialogues[3] = "";
+    }
+
+    public String speak() {
+        finishTalking = false;
+        String text = dialogues[dialogueIndex];
+        dialogueIndex++;
+        if (dialogueIndex >= dialogues.length) {
+            finishTalking = true;
+            dialogueIndex = 0;
+        }
+        return text;
+    }
+
+    public boolean isFinishTalking() {
+        return finishTalking;
     }
 }
