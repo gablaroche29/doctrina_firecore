@@ -3,6 +3,7 @@ package doctrina;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.awt.DisplayMode;
 
 public class Screen {
 

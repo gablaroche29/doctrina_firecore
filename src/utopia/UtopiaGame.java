@@ -3,6 +3,7 @@ package utopia;
 import doctrina.*;
 import utopia.audio.Music;
 import utopia.menu.Menu;
+import utopia.menu.option.Option;
 import utopia.player.Player;
 
 import javax.sound.sampled.Clip;
@@ -12,6 +13,7 @@ public class UtopiaGame extends Game {
 
     private GameContext gameContext;
     private Menu menu;
+    private Option option;
     private GamePad gamePad;
     private Player player;
     private World world;
@@ -20,11 +22,12 @@ public class UtopiaGame extends Game {
     @Override
     protected void initialize() {
         GameConfig.disableDebug();
-        RenderingEngine.getInstance().getScreen().fullscreen();
+        //RenderingEngine.getInstance().getScreen().fullscreen();
 
         gameContext = GameContext.INSTANCE;
         gameContext.setCurrentState(GameState.MENU);
         menu = new Menu();
+        option = new Option();
     }
 
     @Override
@@ -35,6 +38,8 @@ public class UtopiaGame extends Game {
             case GAME -> updateGame();
             case DEAD_PLAYER -> updateDeadPlayer();
             case INTERACTION -> updateDialogue();
+            case OPTIONS -> updateOptions();
+            case MENU -> updateMenu();
         }
     }
 
@@ -42,6 +47,7 @@ public class UtopiaGame extends Game {
     protected void draw(Canvas canvas) {
         switch (gameContext.getCurrentState()) {
             case MENU -> drawMenu(canvas);
+            case OPTIONS -> drawOptions(canvas);
             case GAME, DEAD_PLAYER, INTERACTION -> drawGame(canvas);
         }
         if (ui != null) {
@@ -50,7 +56,7 @@ public class UtopiaGame extends Game {
     }
 
     private void initializeGame() {
-        menu.quit();
+        menu.disable();
         gamePad = new GamePad();
 //        player = new Player(gamePad, 864, 2368);
         player = new Player(gamePad, 544, 1600);
@@ -84,6 +90,27 @@ public class UtopiaGame extends Game {
         world.updateInteraction();
     }
 
+    private void updateOptions() {
+        if (!option.isActive()) {
+            System.out.println("Disable menu");
+            menu.disable();
+            option.enable();
+            option.setActive(true);
+            menu.setActive(false);
+        }
+    }
+
+    private void updateMenu() {
+        if (!menu.isActive()) {
+            System.out.println("Disable options");
+            option.disable();
+            menu.enable();
+            menu.setActive(true);
+            option.setActive(false);
+        }
+
+    }
+
     private void updateDeadPlayer() {
         Ui.death(true);
         if (GamePad.getInstance().isEnterPressed()) {
@@ -99,6 +126,10 @@ public class UtopiaGame extends Game {
 
     private void drawMenu(Canvas canvas) {
         menu.draw(canvas);
+    }
+
+    private void drawOptions(Canvas canvas) {
+        option.draw(canvas);
     }
 
     private void drawGame(Canvas canvas) {

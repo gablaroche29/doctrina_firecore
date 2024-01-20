@@ -18,36 +18,42 @@ public class Menu {
     private final Button[] buttons = new Button[3];
     private final MenuPad menuPad;
 
+    private boolean isActive;
+
     public Menu() {
         buttons[0] = initializePlayButton();
         buttons[1] = initializeOptionsButton();
         buttons[2] = initializeQuitButton();
 
-        menuPad = new MenuPad(buttons);
+        menuPad = new MenuPad(this, buttons);
         load();
         Music.BG_MENU.play(Clip.LOOP_CONTINUOUSLY);
     }
 
     public void draw(Canvas canvas) {
         canvas.drawImage(background, 0, 0);
-        canvas.drawImage(title, 250, 100);
+        canvas.drawImage(title, 220, 100);
         for (Button button : buttons) {
             button.draw(canvas);
         }
     }
 
-    public void quit() {
+    public void disable() {
         menuPad.dispose();
         Music.BG_MENU.stop();
+    }
+
+    public void enable() {
+        menuPad.activate();
     }
 
     private void load() {
         try {
             String bg_path = "image/menu/bg.png";
-            String title_path = "image/menu/title.png";
+            String title_path = "image/menu/title_white_neo.png";
             background = ImageIO.read(
                     Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(bg_path)));
-            title = SpriteSheetSlicer.getSprite(257, 41, 301, 91, title_path);
+            title = SpriteSheetSlicer.getSprite(0, 0, 380, 109, title_path);
         } catch (IOException exception) {
             System.out.println(exception.getMessage());
         }
@@ -63,5 +69,13 @@ public class Menu {
 
     private Button initializeQuitButton() {
         return new Button(297, 430, 297, 352, 203, 83, GameState.QUIT);
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 }

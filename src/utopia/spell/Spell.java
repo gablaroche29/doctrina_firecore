@@ -41,7 +41,7 @@ public class Spell extends MovableEntity {
     }
 
     public boolean isStillValid() {
-        return !collideWithEntity() && !isOutOfRange();
+        return !isOutOfRange();
     }
 
     private void generateByDirection(MovableEntity entity) {
@@ -79,15 +79,6 @@ public class Spell extends MovableEntity {
         int posX = entity.getX() + (entity.getWidth() / 2) - (width / 2);
         int posY = entity.getY() + (height / 2);
         teleport(posX, posY);
-    }
-
-    private boolean collideWithEntity() {
-        for (StaticEntity entity : CollidableRepository.getInstance()) {
-            if (entity instanceof Blockade && intersectWith(entity)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private boolean isOutOfRange() {
