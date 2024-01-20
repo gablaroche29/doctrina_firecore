@@ -39,6 +39,7 @@ public class Menu {
     }
 
     public void disable() {
+        isActive = false;
         menuPad.dispose();
     }
 

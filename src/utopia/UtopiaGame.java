@@ -57,6 +57,7 @@ public class UtopiaGame extends Game {
 
     private void initializeGame() {
         menu.disable();
+        option.disable();
         Music.BG_MENU.stop();
         gamePad = new GamePad();
 //        player = new Player(gamePad, 864, 2368);

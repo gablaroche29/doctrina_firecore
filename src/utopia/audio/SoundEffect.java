@@ -28,6 +28,7 @@ public enum SoundEffect {
     }
 
     public void play() {
+        sound.setVolume(GameConfig.getSoundVolume());
         sound.start();
     }
 
