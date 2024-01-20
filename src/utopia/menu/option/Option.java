@@ -2,6 +2,7 @@ package utopia.menu.option;
 
 import doctrina.Canvas;
 import doctrina.FontLoader;
+import doctrina.RenderingEngine;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -25,7 +26,7 @@ public class Option {
         fontLoader = new FontLoader("/font/perpetua/perpetua_bold.ttf", 30.f);
         load();
         fullScreen = new Toggle(500, 135, 80, 35,
-                () -> System.out.println("Fonction exécutée"));
+                () -> RenderingEngine.getInstance().getScreen().toggleScreen());
         toggles[0] = fullScreen;
 
         optionPad = new OptionPad(this, toggles);

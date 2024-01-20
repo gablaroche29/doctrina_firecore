@@ -64,23 +64,21 @@ public class Screen {
     }
 
     public void fullscreen() {
-        // .contains("win")
-        // System.out.println(System.getProperty("os.name").toLowerCase());
-        if (device.isFullScreenSupported()) {
-            device.setFullScreenWindow(frame);
-        }
-        // device.setDisplayMode(fullscreenDisplayMode);
-        frame.setLocationRelativeTo(null);
+        doctrina.DisplayMode.FULLSCREEN.enable(frame);
         isFullscreenMode = true;
     }
 
-    public void windowed() {
-        if (device.isFullScreenSupported()) {
-            device.setFullScreenWindow(null);
-        }
-        // device.setDisplayMode(windowedDisplayMode);
-        frame.setLocationRelativeTo(null);
+    public void window() {
+        doctrina.DisplayMode.WINDOW.enable(frame);
         isFullscreenMode = false;
+    }
+
+    public void toggleScreen() {
+        if (isFullscreenMode) {
+            window();
+        } else {
+            fullscreen();
+        }
     }
 
     private DisplayMode findClosestDisplayMode(int width, int height) {

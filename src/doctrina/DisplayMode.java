@@ -46,5 +46,6 @@ public enum DisplayMode {
             frame.setVisible(true);
         }
     };
+
     public abstract void enable(JFrame frame);
 }
