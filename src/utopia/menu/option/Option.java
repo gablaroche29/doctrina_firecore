@@ -15,7 +15,6 @@ public class Option {
     private final OptionPad optionPad;
     private final Toggle[] toggles = new Toggle[1];
     private final FontLoader fontLoader;
-    private final Toggle fullScreen;
 
     private boolean isActive;
 
@@ -25,7 +24,7 @@ public class Option {
     public Option() {
         fontLoader = new FontLoader("/font/perpetua/perpetua_bold.ttf", 30.f);
         load();
-        fullScreen = new Toggle(500, 135, 80, 35,
+        Toggle fullScreen = new Toggle(500, 135, 80, 35,
                 () -> RenderingEngine.getInstance().getScreen().toggleScreen());
         toggles[0] = fullScreen;
 

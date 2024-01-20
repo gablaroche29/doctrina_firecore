@@ -17,7 +17,8 @@ public class MenuPad extends MouseController {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
+        super.mousePressed(e);
         if (menu.isActive()) {
             SoundEffect.CLICK.play();
             super.mouseClicked(e);

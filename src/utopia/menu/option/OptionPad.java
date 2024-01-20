@@ -16,10 +16,10 @@ public class OptionPad extends MouseController {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
+        super.mousePressed(e);
         if (option.isActive()) {
             SoundEffect.CLICK.play();
-            super.mouseClicked(e);
             for (Toggle toggle : toggles) {
                 if (toggle.getBounds().contains(mouseCoords)) {
                     toggle.setActive(!toggle.isActive());
@@ -31,8 +31,8 @@ public class OptionPad extends MouseController {
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        super.mouseMoved(e);
         if (option.isActive()) {
-            super.mouseMoved(e);
         }
     }
 }

@@ -40,7 +40,6 @@ public class Menu {
 
     public void disable() {
         menuPad.dispose();
-        Music.BG_MENU.stop();
     }
 
     public void enable() {

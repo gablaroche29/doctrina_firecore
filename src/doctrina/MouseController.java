@@ -70,6 +70,8 @@ public class MouseController implements MouseListener, MouseMotionListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        updateProportionScreen();
+        setMouseCoords(e);
         int keyCode = e.getButton();
         if (pressedKeys.containsKey(keyCode)) {
             pressedKeys.put(keyCode, true);
@@ -78,6 +80,8 @@ public class MouseController implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        updateProportionScreen();
+        setMouseCoords(e);
         int keyCode = e.getButton();
         if (pressedKeys.containsKey(keyCode)) {
             pressedKeys.put(keyCode, false);
