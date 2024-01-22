@@ -3,14 +3,12 @@ package utopia.menu.option;
 import doctrina.*;
 import doctrina.Canvas;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.IOException;
-import java.util.Objects;
 
 public class Option {
 
     private Image background;
+    private Image background2;
     private final OptionPad optionPad;
     private final Toggle[] toggles = new Toggle[1];
     private final OptionButton[] buttons = new OptionButton[1];
@@ -21,12 +19,10 @@ public class Option {
 
     private boolean isActive;
 
-    private final Color bgColor = new Color(33, 95, 109);
-
     public Option() {
         fontLoader = new FontLoader("/font/perpetua/perpetua_bold.ttf", 30.f);
         load();
-        Toggle fullScreen = new Toggle(500, 135, 80, 35,
+        Toggle fullScreen = new Toggle(500, 135, 80, 40,
                 () -> RenderingEngine.getInstance().getScreen().toggleScreen());
         OptionButton menuButton = new OptionButton(430, 430, 150, 45,
                 () -> GameContext.INSTANCE.setCurrentState(GameState.MENU));
@@ -44,8 +40,8 @@ public class Option {
 
     public void draw(Canvas canvas) {
         canvas.drawImage(background, 0, 0);
-        canvas.drawRoundRectangle(197, 97, 406, 406, 35, 35, Color.BLACK);
-        canvas.drawRoundRectangle(200, 100, 400, 400, 35, 35, bgColor);
+        canvas.drawRoundRectangle(190, 90, 420, 420, 35, 35, Color.BLACK);
+        canvas.drawImage(background2, 200, 100);
         canvas.drawString("Plein écran", 220, 165, Color.WHITE, fontLoader.getFont());
         for (Toggle toggle : toggles) {
             toggle.draw(canvas);
@@ -57,10 +53,10 @@ public class Option {
         }
 
         musicControl.draw(canvas);
-        canvas.drawString("Music", 220, 250, Color.WHITE, fontLoader.getFont());
+        canvas.drawString("Musique", 220, 250, Color.WHITE, fontLoader.getFont());
 
         soundControl.draw(canvas);
-        canvas.drawString("Sound", 220, 320, Color.WHITE, fontLoader.getFont());
+        canvas.drawString("Effet sonore", 220, 320, Color.WHITE, fontLoader.getFont());
 
     }
 
@@ -74,13 +70,8 @@ public class Option {
     }
 
     private void load() {
-        try {
-            String bg_path = "image/menu/bg.png";
-            background = ImageIO.read(
-                    Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream(bg_path)));
-        } catch (IOException exception) {
-            System.out.println(exception.getMessage());
-        }
+        background2 = SpriteSheetSlicer.getSprite(0, 0, 400, 400, "image/option/bg_2.png");
+        background = SpriteSheetSlicer.getSprite(0, 0, 956, 716, "image/menu/bg.png");
     }
 
     public boolean isActive() {

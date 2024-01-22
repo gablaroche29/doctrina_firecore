@@ -3,12 +3,14 @@ package utopia.menu.option;
 import doctrina.Bounds;
 import doctrina.Canvas;
 import doctrina.GameConfig;
+import doctrina.SpriteSheetSlicer;
 
 import java.awt.*;
 
 public class AudioControl {
 
-    private float audioLevel = 0.5f;
+    private Image audioControl;
+    private float audioLevel;
     private final Bounds dimension;
     private final AudioLevelIcon plus;
     private final AudioLevelIcon minus;
@@ -17,7 +19,6 @@ public class AudioControl {
 
     private final AudioLevelIcon[] audioLevelIcons = new AudioLevelIcon[2];
 
-    private final Color bgColor = new Color(33, 95, 109);
     private final Color activeColor = new Color(98, 152, 164);
 
     public AudioControl(int x, int y, int width, int height, boolean music) {
@@ -33,10 +34,12 @@ public class AudioControl {
         } else {
             audioLevel = GameConfig.getSoundVolume();
         }
+
+        load();
     }
 
     public void draw(Canvas canvas) {
-        canvas.drawRoundRectangle(dimension.getX(), dimension.getY(), dimension.getWidth(), dimension.getHeight(), 10, 10, activeColor);
+        canvas.drawImage(audioControl, dimension.getX(), dimension.getY());
         canvas.drawString(formatInPourcentage(audioLevel), dimension.getX() + 6, dimension.getY() + 35, Color.WHITE);
         minus.draw(canvas);
         plus.draw(canvas);
@@ -63,5 +66,9 @@ public class AudioControl {
     public String formatInPourcentage(float valeur) {
         int pourcentage = (int) (valeur * 100);
         return Integer.toString(pourcentage);
+    }
+
+    private void load() {
+        audioControl = SpriteSheetSlicer.getSprite(0, 0, 50, 50, "image/option/audio_control.png");
     }
 }
