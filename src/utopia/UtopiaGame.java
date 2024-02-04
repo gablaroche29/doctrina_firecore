@@ -18,6 +18,7 @@ public class UtopiaGame extends Game {
     private Player player;
     private World world;
     private Ui ui;
+    public static boolean isPlaying;
 
     @Override
     protected void initialize() {
@@ -56,6 +57,7 @@ public class UtopiaGame extends Game {
     }
 
     private void initializeGame() {
+        RenderingEngine.getInstance().getScreen().hideCursor();
         menu.disable();
         option.disable();
         Music.BG_MENU.stop();
@@ -67,13 +69,14 @@ public class UtopiaGame extends Game {
         world.setCamera(camera);
         ui = new Ui(player);
         gameContext.setCurrentState(GameState.GAME);
-        RenderingEngine.getInstance().getScreen().hideCursor();
+        isPlaying = true;
     }
 
     private void updateGame() {
+        RenderingEngine.getInstance().getScreen().hideCursor();
         if (gameContext.getCurrentState() == GameState.GAME) {
             if (gamePad.isQuitPressed()) {
-                gameContext.setCurrentState(GameState.QUIT);
+                gameContext.setCurrentState(GameState.OPTIONS);
                 return;
             }
             player.update();
@@ -88,13 +91,14 @@ public class UtopiaGame extends Game {
     }
 
     private void updateDialogue() {
+        RenderingEngine.getInstance().getScreen().hideCursor();
         camera.update();
         world.updateInteraction();
     }
 
     private void updateOptions() {
+        RenderingEngine.getInstance().getScreen().showCursor();
         if (!option.isActive()) {
-            System.out.println("Disable menu");
             menu.disable();
             option.enable();
             option.setActive(true);
@@ -103,8 +107,8 @@ public class UtopiaGame extends Game {
     }
 
     private void updateMenu() {
+        RenderingEngine.getInstance().getScreen().showCursor();
         if (!menu.isActive()) {
-            System.out.println("Disable options");
             option.disable();
             menu.enable();
             menu.setActive(true);
@@ -113,6 +117,7 @@ public class UtopiaGame extends Game {
     }
 
     private void updateDeadPlayer() {
+        RenderingEngine.getInstance().getScreen().hideCursor();
         Ui.death(true);
         if (GamePad.getInstance().isEnterPressed()) {
             player.teleport(player.getSpawnPoint());

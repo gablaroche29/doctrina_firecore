@@ -4,7 +4,7 @@ public class GameConfig {
 
     private static boolean debug;
     private static float musicVolume = 0.3f;
-    private static float soundVolume = 1f;
+    private static float soundVolume = 0.9f;
 
     public static boolean isDebugEnabled() {
         return debug;

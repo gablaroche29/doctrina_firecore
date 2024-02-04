@@ -2,6 +2,7 @@ package utopia.menu.option;
 
 import doctrina.GameContext;
 import doctrina.MouseController;
+import utopia.GameMouse;
 import utopia.audio.SoundEffect;
 import utopia.menu.Button;
 
@@ -48,6 +49,7 @@ public class OptionPad extends MouseController {
                 }
             }
         }
+        GameMouse.getInstance().setKeyStateFalse(GameMouse.LEFT_CLICK);
     }
 
     @Override
