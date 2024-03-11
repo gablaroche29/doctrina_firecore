@@ -12,8 +12,6 @@ import java.awt.*;
 
 public class Ui {
     private final Image[] healthBar;
-    private final Image crystal;
-    private final Image potion;
     private final FontLoader fontLoader;
 
     private static String[] dialogueText;
@@ -31,8 +29,6 @@ public class Ui {
         this.player = player;
         fontLoader = new FontLoader("/font/perpetua/perpetua_bold.ttf", 25.f);
         healthBar = SpriteSheetSlicer.getSprites(0, 0, 104, 28, 5, "image/ui/health_bar.png");
-        crystal = SpriteSheetSlicer.getSprite(0, 0, 64, 64, "image/ui/crystal.png");
-        potion = SpriteSheetSlicer.getSprite(0, 0, 48, 48, "image/items/potion.png");
         chestEvent = new ChestEvent(100);
         enemyKilledEvent = new EnemyKilledEvent(100);
         deathEvent = new DeathEvent(Clip.LOOP_CONTINUOUSLY);

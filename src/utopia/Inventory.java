@@ -11,6 +11,7 @@ public class Inventory {
     private final Player player;
     private final Image potionVisual;
     private final Image crystalVisual;
+    private final Image swordVisual;
     private final Color bgBlack = new Color(0, 0, 0);
     private final Color bgWhite = new Color(255, 255, 255);
 
@@ -18,6 +19,7 @@ public class Inventory {
         this.player = player;
         potionVisual = SpriteSheetSlicer.getSprite(0, 0, 48, 48, "image/items/potion.png");
         crystalVisual = SpriteSheetSlicer.getSprite(0, 0, 64, 64, "image/ui/crystal.png");
+        swordVisual = SpriteSheetSlicer.getSprite(0, 0, 24, 96, "image/items/sword.png");
     }
 
     public void update() {
@@ -34,13 +36,16 @@ public class Inventory {
         canvas.drawRoundRectangle(503, 53, 244, 444, 35, 35, bgBlack);
 
         canvas.drawString("--- Items ---", 565, 92, Color.WHITE, fontLoader.getFont());
-
         // Potion
         canvas.drawImage(potionVisual, 510, 100);
         canvas.drawString(potionQuantity, 560, 132, Color.WHITE, fontLoader.getFont());
-
         // Crystal
         canvas.drawImage(crystalVisual, 510, 150, 48, 48);
         canvas.drawString(crystalQuantity, 560, 182, Color.WHITE, fontLoader.getFont());
+
+        canvas.drawString("--- Équipements ---", 525, 235, Color.WHITE, fontLoader.getFont());
+        // Épée
+        canvas.drawImage(swordVisual, 525, 255);
+        canvas.drawString("-Épée", 560, 310, Color.WHITE, fontLoader.getFont());
     }
 }
