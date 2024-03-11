@@ -41,7 +41,7 @@ public class Player extends ControllableEntity {
         animationHandler = new PlayerAnimationHandler(this);
         setDirection(Direction.DOWN);
         spellLoader = new IceSpellLoader(this);
-        inventory = new Inventory(0, this);
+        inventory = new Inventory(this);
         state = State.IDLE;
     }
 
@@ -113,7 +113,6 @@ public class Player extends ControllableEntity {
         int cooldownWidth = dashCooldown * width / 50;
         canvas.drawRectangle(x - camera.getX(), y - 5 - camera.getY(), cooldownWidth, 3, Color.RED);
         spellLoader.draw(canvas, camera);
-        //inventory.draw(canvas, camera);
 
         if (GameConfig.isDebugEnabled()) {
             drawHitBox(canvas, camera);
@@ -201,7 +200,7 @@ public class Player extends ControllableEntity {
     }
 
     public void addPotion(int potion) {
-        inventory.addPotion(potion);
+        this.potion += potion;
     }
 
     public int getPotion() {
@@ -222,5 +221,9 @@ public class Player extends ControllableEntity {
         if (pv <= 0 ) {
             pv = 0;
         }
+    }
+
+    public Inventory getInventory() {
+        return inventory;
     }
 }

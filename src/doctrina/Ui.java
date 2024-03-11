@@ -1,5 +1,6 @@
 package doctrina;
 
+import utopia.GamePad;
 import utopia.event.BossEvent;
 import utopia.event.ChestEvent;
 import utopia.event.DeathEvent;
@@ -29,12 +30,9 @@ public class Ui {
     public Ui(Player player) {
         this.player = player;
         fontLoader = new FontLoader("/font/perpetua/perpetua_bold.ttf", 25.f);
-        String HEALTH_BAR_PATH = "image/ui/health_bar.png";
-        healthBar = SpriteSheetSlicer.getSprites(0, 0, 104, 28, 5, HEALTH_BAR_PATH);
-        String CRYSTAL_PATH = "image/ui/crystal.png";
-        crystal = SpriteSheetSlicer.getSprite(0, 0, 64, 64, CRYSTAL_PATH);
-        String POTION_PATH = "image/items/potion.png";
-        potion = SpriteSheetSlicer.getSprite(0, 0, 48, 48, POTION_PATH);
+        healthBar = SpriteSheetSlicer.getSprites(0, 0, 104, 28, 5, "image/ui/health_bar.png");
+        crystal = SpriteSheetSlicer.getSprite(0, 0, 64, 64, "image/ui/crystal.png");
+        potion = SpriteSheetSlicer.getSprite(0, 0, 48, 48, "image/items/potion.png");
         chestEvent = new ChestEvent(100);
         enemyKilledEvent = new EnemyKilledEvent(100);
         deathEvent = new DeathEvent(Clip.LOOP_CONTINUOUSLY);
@@ -63,20 +61,13 @@ public class Ui {
     }
 
     private void drawGame(Canvas canvas) {
-        int indexPv = (player.getPv() == 0) ? 0 : player.getPv() - 1;
-        String crystalQuantity = "X " + player.getCrystal();
-        String potionQuantity = "X " + player.getPotion();
-
         // Health
+        int indexPv = (player.getPv() == 0) ? 0 : player.getPv() - 1;
         canvas.drawImage(healthBar[indexPv], 10, 10);
 
-        // Crystal
-        canvas.drawImage(crystal, 0, 60, 48, 48);
-        canvas.drawString(crystalQuantity, 50, 92, Color.WHITE, fontLoader.getFont());
-
-        // Potion
-        canvas.drawImage(potion, 0, 120);
-        canvas.drawString(potionQuantity, 50, 152, Color.WHITE, fontLoader.getFont());
+        if (GamePad.getInstance().isEPressed()) {
+            player.getInventory().draw(canvas, fontLoader);
+        }
 
         if (player.isHurt()) {
             hurtEvent(canvas);
