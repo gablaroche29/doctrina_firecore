@@ -23,8 +23,6 @@ public class UtopiaGame extends Game {
     @Override
     protected void initialize() {
         GameConfig.disableDebug();
-        //RenderingEngine.getInstance().getScreen().fullscreen();
-
         gameContext = GameContext.INSTANCE;
         gameContext.setCurrentState(GameState.MENU);
         menu = new Menu();
@@ -74,6 +72,7 @@ public class UtopiaGame extends Game {
 
     private void updateGame() {
         RenderingEngine.getInstance().getScreen().hideCursor();
+        option.disable();
         if (gameContext.getCurrentState() == GameState.GAME) {
             if (gamePad.isQuitPressed()) {
                 gameContext.setCurrentState(GameState.OPTIONS);
