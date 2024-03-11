@@ -66,11 +66,15 @@ public class Ui {
         int indexPv = (player.getPv() == 0) ? 0 : player.getPv() - 1;
         String crystalQuantity = "X " + player.getCrystal();
         String potionQuantity = "X " + player.getPotion();
+
+        // Health
         canvas.drawImage(healthBar[indexPv], 10, 10);
 
+        // Crystal
         canvas.drawImage(crystal, 0, 60, 48, 48);
         canvas.drawString(crystalQuantity, 50, 92, Color.WHITE, fontLoader.getFont());
 
+        // Potion
         canvas.drawImage(potion, 0, 120);
         canvas.drawString(potionQuantity, 50, 152, Color.WHITE, fontLoader.getFont());
 

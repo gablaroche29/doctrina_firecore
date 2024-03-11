@@ -5,6 +5,7 @@ import doctrina.Canvas;
 import doctrina.ControllableEntity;
 import utopia.GameMouse;
 import utopia.GamePad;
+import utopia.Inventory;
 import utopia.audio.SoundEffect;
 import utopia.entities.spawnpoint.SpawnPoint;
 import utopia.player.spell.IceSpellLoader;
@@ -18,6 +19,7 @@ public class Player extends ControllableEntity {
 
     private final PlayerAnimationHandler animationHandler;
     private final SpellLoader spellLoader;
+    private final Inventory inventory;
     private boolean hasAttacked;
     private int attackCoolDown = 0;
     private int pv = 5;
@@ -39,6 +41,7 @@ public class Player extends ControllableEntity {
         animationHandler = new PlayerAnimationHandler(this);
         setDirection(Direction.DOWN);
         spellLoader = new IceSpellLoader(this);
+        inventory = new Inventory(0, this);
         state = State.IDLE;
     }
 
@@ -110,6 +113,7 @@ public class Player extends ControllableEntity {
         int cooldownWidth = dashCooldown * width / 50;
         canvas.drawRectangle(x - camera.getX(), y - 5 - camera.getY(), cooldownWidth, 3, Color.RED);
         spellLoader.draw(canvas, camera);
+        //inventory.draw(canvas, camera);
 
         if (GameConfig.isDebugEnabled()) {
             drawHitBox(canvas, camera);
@@ -197,7 +201,7 @@ public class Player extends ControllableEntity {
     }
 
     public void addPotion(int potion) {
-        this.potion += potion;
+        inventory.addPotion(potion);
     }
 
     public int getPotion() {

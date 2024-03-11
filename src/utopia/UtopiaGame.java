@@ -23,6 +23,7 @@ public class UtopiaGame extends Game {
     @Override
     protected void initialize() {
         GameConfig.disableDebug();
+        RenderingEngine.getInstance().getScreen().fullscreen();
         gameContext = GameContext.INSTANCE;
         gameContext.setCurrentState(GameState.MENU);
         menu = new Menu();
