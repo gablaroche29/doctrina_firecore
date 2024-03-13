@@ -31,6 +31,7 @@ public class Player extends ControllableEntity {
     private int dashCooldown = 0;
     private float distance = 0;
     private SpawnPoint spawnPoint;
+    private boolean iceSpellActive = false;
 
     public Player(MovementController controller, int x, int y) {
         super(controller, 5);
@@ -67,11 +68,11 @@ public class Player extends ControllableEntity {
             GamePad.getInstance().setKeyStateFalse(GamePad.qKey);
         }
 
-        if (GamePad.getInstance().isPPressed() && potion > 0) {
+        if (GamePad.getInstance().isOnePressed() && potion > 0) {
             SoundEffect.HEAL_SPELL.play();
             heal();
             potion--;
-            GamePad.getInstance().setKeyStateFalse(GamePad.pKey);
+            GamePad.getInstance().setKeyStateFalse(GamePad.oneKey);
         }
 
         if (pv <= 0) {
@@ -225,5 +226,13 @@ public class Player extends ControllableEntity {
 
     public Inventory getInventory() {
         return inventory;
+    }
+
+    public boolean isIceSpellActive() {
+        return iceSpellActive;
+    }
+
+    public void setIceSpellActive(boolean iceSpellActive) {
+        this.iceSpellActive = iceSpellActive;
     }
 }

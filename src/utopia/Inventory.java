@@ -12,6 +12,8 @@ public class Inventory {
     private final Image potionVisual;
     private final Image crystalVisual;
     private final Image swordVisual;
+    private final Image leftClickIcon;
+    private final Image iceSpellVisual;
     private final Color bgBlack = new Color(0, 0, 0);
     private final Color bgWhite = new Color(255, 255, 255);
 
@@ -20,6 +22,8 @@ public class Inventory {
         potionVisual = SpriteSheetSlicer.getSprite(0, 0, 48, 48, "image/items/potion.png");
         crystalVisual = SpriteSheetSlicer.getSprite(0, 0, 64, 64, "image/ui/crystal.png");
         swordVisual = SpriteSheetSlicer.getSprite(0, 0, 24, 96, "image/items/sword.png");
+        leftClickIcon = SpriteSheetSlicer.getSprite(0, 0, 32, 32, "image/ui/keys.png");
+        iceSpellVisual = SpriteSheetSlicer.getSprite(0, 0, 40, 80, "image/items/ice_spell.png");
     }
 
     public void update() {
@@ -46,6 +50,15 @@ public class Inventory {
         canvas.drawString("--- Équipements ---", 525, 235, Color.WHITE, fontLoader.getFont());
         // Épée
         canvas.drawImage(swordVisual, 525, 255);
-        canvas.drawString("-Épée", 560, 310, Color.WHITE, fontLoader.getFont());
+        canvas.drawString("-Épée (", 560, 310, Color.WHITE, fontLoader.getFont());
+        canvas.drawImage(leftClickIcon, 636, 290);
+        canvas.drawString(")", 666, 310, Color.WHITE, fontLoader.getFont());
+
+        // Ice Spell
+        if (player.isIceSpellActive()) {
+            canvas.drawImage(iceSpellVisual, 520, 360);
+            canvas.drawString("-Sort de Glace", 560, 410, Color.WHITE, fontLoader.getFont());
+            canvas.drawString("( Q )", 560, 450, Color.WHITE, fontLoader.getFont());
+        }
     }
 }
