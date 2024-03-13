@@ -21,7 +21,7 @@ public class BlackSmith extends MovableEntity {
     public BlackSmith(int x, int y) {
         super(0);
         setDimension(32, 32);
-        teleport(768, 2368);
+        teleport(x, y);
 
         animationHandler = new BlackSmithAnimationHandler(this);
         load();

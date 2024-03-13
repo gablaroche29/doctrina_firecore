@@ -61,8 +61,8 @@ public class UtopiaGame extends Game {
         option.disable();
         Music.BG_MENU.stop();
         gamePad = new GamePad();
-//        player = new Player(gamePad, 864, 2368);
-        player = new Player(gamePad, 544, 1600);
+        player = new Player(gamePad, 864, 2368);
+//        player = new Player(gamePad, 544, 1600);
         world = new World(player);
         camera = new Camera(world, player, 800, 600);
         world.setCamera(camera);

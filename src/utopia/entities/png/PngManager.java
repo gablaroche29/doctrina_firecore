@@ -44,7 +44,7 @@ public class PngManager extends Manager {
 
     @Override
     public String getNameAttribute() {
-        return "Chests";
+        return "Pngs";
     }
 
     @Override
