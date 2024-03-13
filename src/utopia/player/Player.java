@@ -23,7 +23,7 @@ public class Player extends ControllableEntity {
     private boolean hasAttacked;
     private int attackCoolDown = 0;
     private int pv = 5;
-    private int crystal = 2;
+    private int crystal = 30;
     private int potion = 1;
     private boolean isHurt;
     private boolean isAlive = true;

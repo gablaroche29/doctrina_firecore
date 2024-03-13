@@ -28,10 +28,10 @@ public class BlackSmith extends MovableEntity {
         animationHandler = new BlackSmithAnimationHandler(this);
         load();
         font = new FontLoader("/font/perpetua/perpetua_bold.ttf", 25.f);
-        setDialogues();
         setState(State.IDLE);
         setDirection(Direction.DOWN);
         CollidableRepository.getInstance().registerEntity(this);
+        setDialogues();
     }
 
     @Override
@@ -41,7 +41,8 @@ public class BlackSmith extends MovableEntity {
                 SoundEffect.INTERACTION.play();
                 GameContext.INSTANCE.setCurrentState(GameState.INTERACTION);
                 GameMouse.getInstance().setKeyStateFalse(GameMouse.RIGHT_CLICK);
-                if (player.getCrystal() >= 30) {
+                if (player.getCrystal() >= 30 && !player.isIceSpellActive()) {
+                    SoundEffect.POWER_UP.play();
                     player.setIceSpellActive(true);
                     dialogues.clear();
                     dialogues.add("Voici la vraie puissance.");
