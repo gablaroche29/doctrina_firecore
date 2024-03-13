@@ -31,7 +31,7 @@ public class Player extends ControllableEntity {
     private int dashCooldown = 0;
     private float distance = 0;
     private SpawnPoint spawnPoint;
-    private boolean iceSpellActive = false;
+    private boolean iceSpellActive;
 
     public Player(MovementController controller, int x, int y) {
         super(controller, 5);
@@ -59,7 +59,7 @@ public class Player extends ControllableEntity {
             attackCoolDown = 65;
             SoundEffect.MELEE_SWORD.play();
             GameMouse.getInstance().setKeyStateFalse(GameMouse.LEFT_CLICK);
-        } else if (GamePad.getInstance().isQPressed() && !hasAttacked && crystal > 0 && !isDashing) {
+        } else if (GamePad.getInstance().isQPressed() && !hasAttacked && iceSpellActive && !isDashing) {
             hasAttacked = true;
             attackCoolDown = 65;
             spellLoader.shoot();
@@ -233,6 +233,7 @@ public class Player extends ControllableEntity {
     }
 
     public void setIceSpellActive(boolean iceSpellActive) {
+        crystal -= 30;
         this.iceSpellActive = iceSpellActive;
     }
 }
