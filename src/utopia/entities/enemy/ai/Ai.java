@@ -57,6 +57,7 @@ public abstract class Ai extends MovableEntity {
             if (intersectWith(player.getAttackZone())) {
                 SoundEffect.MONSTER_HIT.play();
                 isKnockback = true;
+                player.giveMana(10);
                 pv--;
                 if (pv == 0) {
                     SoundEffect.MONSTER_DEAD.play();
@@ -73,6 +74,7 @@ public abstract class Ai extends MovableEntity {
                 SoundEffect.MONSTER_DEAD.play();
                 player.addCrystal(crystal);
                 Ui.enemyKilled(crystal);
+                player.giveMana(10);
                 isAlive = false;
                 break;
             }

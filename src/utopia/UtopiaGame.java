@@ -32,6 +32,7 @@ public class UtopiaGame extends Game {
 
     @Override
     protected void update() {
+        //System.out.println(gameContext.getCurrentState());
         switch (gameContext.getCurrentState()) {
             case QUIT -> stop();
             case INITIALIZE -> initializeGame();

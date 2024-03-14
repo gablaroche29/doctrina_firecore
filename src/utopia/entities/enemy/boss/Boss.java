@@ -111,10 +111,11 @@ public class Boss extends MovableEntity {
             moving();
         }
 
-        if (player.hasAttacked() && !isHurt && !isDead) {
+        if (player.hasAttacked() && !isHurt && !isDead && activate) {
             if (intersectWith(player.getAttackZone())) {
                 //SoundEffect.MONSTER_HIT.play();
                 pv--;
+                player.giveMana(10);
                 isHurt();
                 killed();
             }
@@ -129,9 +130,10 @@ public class Boss extends MovableEntity {
         }
 
         for (Spell spell : player.getSpells()) {
-            if (intersectWith(spell.getAttackZone()) && !isHurt && !isDead) {
+            if (intersectWith(spell.getAttackZone()) && !isHurt && !isDead && activate) {
                 //SoundEffect.MONSTER_HIT.play();
                 pv -= 5;
+                player.giveMana(10);
                 spell.remove();
                 isHurt();
                 killed();

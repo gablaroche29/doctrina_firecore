@@ -2,6 +2,7 @@ package doctrina;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 
@@ -37,6 +38,16 @@ public class Canvas {
         graphics.fillOval(x, y, radius * 2, radius * 2);
     }
 
+    public void drawCircle(int x, int y, int width, int height, Paint paint) {
+        graphics.setPaint(paint);
+        graphics.fillOval(x, y, width, height);
+    }
+
+    public void fillArea(Area area, Paint paint) {
+        graphics.setPaint(paint);
+        graphics.fill(area);
+    }
+
     public void drawString(String text, int x, int y, Paint paint) {
         graphics.setPaint(paint);
         graphics.drawString(text, x, y);
@@ -68,6 +79,11 @@ public class Canvas {
         AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
         graphics.drawImage(op.filter(image, null), x, y, null);
+    }
+
+    public void drawArc(int x, int y, int width, int height, int startAngle, int arcAngle, Paint paint) {
+        graphics.setPaint(paint);
+        graphics.fillArc(x, y, width, height, startAngle, arcAngle);
     }
 
     public FontMetrics getFontMetrics() {

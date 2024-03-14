@@ -51,10 +51,10 @@ public class BlackSmith extends MovableEntity {
                     dialogues.add("");
                 }
                 Ui.setDialogueText(speak(), font);
-            }
-            if (isFinishTalking()) {
-                GameContext.INSTANCE.setCurrentState(GameState.GAME);
-                GameMouse.getInstance().setKeyStateFalse(GameMouse.RIGHT_CLICK);
+                if (isFinishTalking()) {
+                    GameContext.INSTANCE.setCurrentState(GameState.GAME);
+                    GameMouse.getInstance().setKeyStateFalse(GameMouse.RIGHT_CLICK);
+                }
             }
         }
         animationHandler.update();

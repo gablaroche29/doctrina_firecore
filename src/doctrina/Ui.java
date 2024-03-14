@@ -9,6 +9,9 @@ import utopia.player.Player;
 
 import javax.sound.sampled.Clip;
 import java.awt.*;
+import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
+import java.awt.geom.Rectangle2D;
 
 public class Ui {
     private final Image[] healthBar;
@@ -19,6 +22,8 @@ public class Ui {
     private final Player player;
 
     private int hurtEventCoooldown = 30;
+
+    private final Color manaColor = new Color(91, 110, 225);
 
     private static ChestEvent chestEvent;
     private static BossEvent bossEvent;
@@ -60,6 +65,22 @@ public class Ui {
         // Health
         int indexPv = (player.getPv() == 0) ? 0 : player.getPv() - 1;
         canvas.drawImage(healthBar[indexPv], 10, 10);
+
+        // Mana
+        canvas.drawCircle(10, 50, 58, 58, Color.BLACK);
+        canvas.drawCircle(12, 52, 54, 54, Color.WHITE);
+        int MAX_MANA = 100;
+        double currentManaLevel = MAX_MANA - player.getMana();
+        double manaLevelHeight = currentManaLevel / 2;
+        Shape mana = new Ellipse2D.Double(14, 54, 50, 50);
+        Area areaMana = new Area(mana);
+        Shape difference = new Rectangle2D.Double(14, 54, 50, manaLevelHeight);
+        Area substractArea = new Area(difference);
+        areaMana.subtract(substractArea);
+        canvas.fillArea(areaMana, manaColor);
+
+
+
 
         if (GamePad.getInstance().isEPressed()) {
             player.getInventory().draw(canvas, fontLoader);

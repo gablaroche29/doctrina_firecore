@@ -23,7 +23,8 @@ public class Player extends ControllableEntity {
     private boolean hasAttacked;
     private int attackCoolDown = 0;
     private int pv = 5;
-    private int crystal = 30;
+    private int mana = 100;
+    private int crystal = 2;
     private int potion = 1;
     private boolean isHurt;
     private boolean isAlive = true;
@@ -59,12 +60,12 @@ public class Player extends ControllableEntity {
             attackCoolDown = 65;
             SoundEffect.MELEE_SWORD.play();
             GameMouse.getInstance().setKeyStateFalse(GameMouse.LEFT_CLICK);
-        } else if (GamePad.getInstance().isQPressed() && !hasAttacked && iceSpellActive && !isDashing) {
+        } else if (GamePad.getInstance().isQPressed() && !hasAttacked && iceSpellActive && !isDashing && mana >= 30) {
             hasAttacked = true;
             attackCoolDown = 65;
             spellLoader.shoot();
             SoundEffect.ICE_BALL.play();
-            crystal--;
+            mana -= 30;
             GamePad.getInstance().setKeyStateFalse(GamePad.qKey);
         }
 
@@ -105,7 +106,6 @@ public class Player extends ControllableEntity {
 
         spellLoader.update();
         updateAnimationState();
-//        System.out.println("State: " + state + ":"+animationHandler.currentAnimationFrame);
     }
 
     @Override
@@ -221,6 +221,17 @@ public class Player extends ControllableEntity {
         pv--;
         if (pv <= 0 ) {
             pv = 0;
+        }
+    }
+
+    public int getMana() {
+        return mana;
+    }
+
+    public void giveMana(int mana) {
+        this.mana += mana;
+        if (this.mana >= 100) {
+            this.mana = 100;
         }
     }
 
