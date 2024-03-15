@@ -32,7 +32,7 @@ public class Inventory {
 
     public void draw(Canvas canvas, FontLoader fontLoader) {
         String crystalQuantity = "X " + player.getCrystal();
-        String potionQuantity = "X " + player.getPotion();
+        String potionQuantity = "X " + player.getPotion() + " (1)";
 
         // Base
         canvas.drawRoundRectangle(497, 47, 256, 456, 35, 35, bgBlack);

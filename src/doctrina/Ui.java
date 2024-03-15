@@ -86,7 +86,6 @@ public class Ui {
         }
 
         drawEvent(canvas);
-        canvas.drawString("FPS " + GameTime.getCurrentFps(), 700, 20, Color.WHITE);
         if (GameConfig.isDebugEnabled()) {
             canvas.drawString("FPS " + GameTime.getCurrentFps(), 700, 20, Color.WHITE);
         }
