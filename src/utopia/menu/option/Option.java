@@ -8,10 +8,9 @@ import java.awt.*;
 
 public class Option {
 
-    private Image background2;
+    private Image background;
     private final OptionPad optionPad;
     private final Toggle[] toggles = new Toggle[1];
-    private final OptionButton[] buttons = new OptionButton[2];
     private final OptionButton menuButton;
     private final OptionButton gameButton;
     private final AudioControl musicControl = new AudioControl(470, 220, 50, 50, true);
@@ -24,7 +23,7 @@ public class Option {
     public Option() {
         fontLoader = new FontLoader("/font/perpetua/perpetua_bold.ttf", 30.f);
         load();
-        Toggle fullScreen = new Toggle(500, 135, 80, 40,
+        Toggle fullScreen = new Toggle(500, 135, 80, 40, true,
                 () -> RenderingEngine.getInstance().getScreen().toggleScreen());
         menuButton = new OptionButton(430, 430, 150, 45,
                 () -> GameContext.INSTANCE.setCurrentState(GameState.MENU));
@@ -32,6 +31,7 @@ public class Option {
                 () -> GameContext.INSTANCE.setCurrentState(GameState.GAME));
         toggles[0] = fullScreen;
 
+        OptionButton[] buttons = new OptionButton[2];
         buttons[0] = menuButton;
         buttons[1] = gameButton;
 
@@ -46,7 +46,7 @@ public class Option {
 
     public void draw(Canvas canvas) {
         canvas.drawRoundRectangle(190, 90, 420, 420, 35, 35, Color.BLACK);
-        canvas.drawImage(background2, 200, 100);
+        canvas.drawImage(background, 200, 100);
         canvas.drawString("Plein écran", 220, 165, Color.WHITE, fontLoader.getFont());
         for (Toggle toggle : toggles) {
             toggle.draw(canvas);
@@ -78,7 +78,7 @@ public class Option {
     }
 
     private void load() {
-        background2 = SpriteSheetSlicer.getSprite(0, 0, 400, 400, "image/option/bg_2.png");
+        background = SpriteSheetSlicer.getSprite(0, 0, 400, 400, "image/option/bg_2.png");
     }
 
     public boolean isActive() {

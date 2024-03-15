@@ -46,7 +46,9 @@ public class BlackSmith extends MovableEntity {
                     player.setIceSpellActive(true);
                     dialogues.clear();
                     dialogues.add("Voici la vraie puissance.");
-                    dialogues.add("Concentre ton mana pour projeter\nune puissance glaciale sur\nles monstres.");
+                    dialogues.add("Concentre ton mana pour projeter une\npuissance glaciale sur les monstres.");
+                    dialogues.add("Mais attention! Tu ne peux pas toujours\nl'utiliser.");
+                    dialogues.add("Tu peux recharger ce pouvoir en frappant \nles monstres qui t'entoure.");
                     dialogues.add("Bonne chance pour la suite...");
                     dialogues.add("");
                 }
@@ -92,7 +94,7 @@ public class BlackSmith extends MovableEntity {
         dialogues = new ArrayList<>();
         dialogues.add("Salut, voyageuse...");
         dialogues.add("Cela faisait longtemps que j'en avais pas\nvu comme toi...");
-        dialogues.add("À ta place, j'arrêterai tout ce que je fais\n, mais fais ce que tu veux...");
+        dialogues.add("À ta place, j'arrêterai tout ce que tu fais\n, il y a trop de danger...");
         dialogues.add("Cependant, ramène moi 30 crystaux et je\nte forgerais une arme puissante...");
         dialogues.add("");
     }

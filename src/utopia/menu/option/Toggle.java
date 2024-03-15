@@ -14,8 +14,9 @@ public class Toggle {
     private boolean active;
     private final Bounds bounds;
 
-    public Toggle(int posX, int posY, int width, int height, ToggleBehavior behavior) {
+    public Toggle(int posX, int posY, int width, int height, boolean active, ToggleBehavior behavior) {
         bounds = new Bounds(posX, posY, width, height);
+        this.active = active;
         this.behavior = behavior;
         load();
     }

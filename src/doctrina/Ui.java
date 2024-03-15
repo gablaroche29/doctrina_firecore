@@ -67,20 +67,15 @@ public class Ui {
         canvas.drawImage(healthBar[indexPv], 10, 10);
 
         // Mana
-        canvas.drawCircle(10, 50, 58, 58, Color.BLACK);
-        canvas.drawCircle(12, 52, 54, 54, Color.WHITE);
-        int MAX_MANA = 100;
-        double currentManaLevel = MAX_MANA - player.getMana();
-        double manaLevelHeight = currentManaLevel / 2;
-        Shape mana = new Ellipse2D.Double(14, 54, 50, 50);
-        Area areaMana = new Area(mana);
-        Shape difference = new Rectangle2D.Double(14, 54, 50, manaLevelHeight);
-        Area substractArea = new Area(difference);
-        areaMana.subtract(substractArea);
-        canvas.fillArea(areaMana, manaColor);
-
-
-
+        if (player.isIceSpellActive()) {
+            double manaLevel = 0.77 * player.getMana();
+            canvas.drawRectangle(33, 40, 81, 10, Color.BLACK);
+            if (player.getMana() <= 30) {
+                canvas.drawRectangle(35, 42, (int) manaLevel, 6, Color.GRAY);
+            } else {
+                canvas.drawRectangle(35, 42, (int) manaLevel, 6, Color.WHITE);
+            }
+        }
 
         if (GamePad.getInstance().isEPressed()) {
             player.getInventory().draw(canvas, fontLoader);
